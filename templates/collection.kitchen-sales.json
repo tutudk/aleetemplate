@@ -1,1 +1,57 @@
-{"sections":{"breadcrumb":{"type":"breadcrumb-collections","settings":{"full_with":true,"max_with":"1800px","margin_block":"","bgimage":true,"enable_title":"none","breadcrumb_bg":"#f6f6f4","breadcrumb_color_heading":"#323232","breadcrumb_color":"#201f1f","breadcrumb_color_link":"#c3c3c3","breadcrumb-height":"65px","breadcrumb-mheight":"65px","text-align":"start"}},"product-grid":{"type":"main-collection-product-grid","settings":{"full_with":false,"max_with":"","color_bg":"rgba(0,0,0,0)","padding_block":"30px 0","padding_block_m":"30px 0","show_collection_title":true,"show_collection_image":true,"show_collection_desc":true,"colection_image":"shopify:\/\/shop_images\/Kitchen.jpg","sidebar_template":"sidebarnone","product_style":"grid","products_per_page":12,"products_ditem_per_row":3,"products_titem_per_row":3,"products_mitem_per_row":2,"loadmore":false,"loadmore_text":"Load more items","sticky-top":true}}},"order":["breadcrumb","product-grid"]}
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb-collections",
+      "settings": {
+        "full_with": true,
+        "max_with": "1800px",
+        "margin_block": "",
+        "bgimage": true,
+        "enable_title": "none",
+        "breadcrumb_bg": "#f6f6f4",
+        "breadcrumb_color_heading": "#323232",
+        "breadcrumb_color": "#201f1f",
+        "breadcrumb_color_link": "#c3c3c3",
+        "breadcrumb-height": "65px",
+        "breadcrumb-mheight": "65px",
+        "text-align": "start"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "30px 0",
+        "padding_block_m": "30px 0",
+        "show_collection_title": true,
+        "show_collection_image": true,
+        "show_collection_desc": true,
+        "colection_image": "shopify:\/\/shop_images\/Kitchen.jpg",
+        "sidebar_template": "sidebarnone",
+        "product_style": "grid",
+        "products_per_page": 12,
+        "products_ditem_per_row": 3,
+        "products_titem_per_row": 3,
+        "products_mitem_per_row": 2,
+        "loadmore": false,
+        "loadmore_text": "Load more items",
+        "sticky-top": true
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "product-grid"
+  ]
+}
