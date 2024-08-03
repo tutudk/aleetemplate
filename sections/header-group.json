@@ -233,6 +233,7 @@
         "padding_block_m": "10px 0",
         "color_bg": "#ffffff",
         "color_header_text": "#222222",
+        "logo": "shopify:\/\/shop_images\/LOVMOR.jpg",
         "logo_width": 90,
         "sticky_header_type": "on-scroll-up",
         "menu": "main-menu"
