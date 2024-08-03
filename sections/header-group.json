@@ -1,1 +1,247 @@
-{"name":"t:sections.header.name","type":"header","sections":{"banner-top":{"type":"banner-top","settings":{"bannertop_link":""}},"announcement-bar":{"type":"announcement-bar","disabled":true,"custom_css":[".align-items-center {justify-content: center !important;}"],"settings":{"full_with":true,"max_with":"1800px","color_bg":"#222222","padding_block":"8px 10px","padding_block_m":"5px 0","color_top_text":"#ffffff","color_top_link":"#ffffff","font-size":13,"font-size-m":13,"enable_country_selector":false,"text_left":"","text_center":"Alee Big Outdoor Deals Party - Upto 70% Off - Clearance Sale","social_enable":false,"link_list":""}},"header":{"type":"header","blocks":{"51d5e15c-2d77-4056-a4b8-d5ccb30aa690":{"type":"menu","settings":{"title":"Home 2","menu_width":"1400px","menu_align":"start-0 end-0","menu":true,"menu_order":"1","menu_col":100,"menu_menu_col":20,"products":false,"products_order":"2","products_col":100,"products_title":"","products_collection":"","products_limit":"2","html":false,"html_order":"3","html_col":100,"html_title":"","html_content":"","banner":false,"banner_order":"4","banner_col":100,"banner_link":"","collection_enable":false,"collection_order":"5","collection_title":"","collection_content":"","colllection_col":100,"colllection_col_item":25,"velamenu_list_collection1":"","velamenu_list_collection2":"","velamenu_list_collection3":"","velamenu_list_collection4":"","velamenu_list_collection5":"","velamenu_list_collection6":"","velamenu_list_collection7":"","velamenu_list_collection8":"","velamenu_list_collection9":"","velamenu_list_collection10":""}},"ace588ad-1af0-421a-9444-09b9783a5d8e":{"type":"menu","settings":{"title":"Catalog","menu_width":"1400px","menu_align":"start-0 end-0","menu":true,"menu_order":"1","menu_col":40,"menu_menu_col":40,"products":true,"products_order":"2","products_col":30,"products_title":"Best Seller","products_collection":"best-seller","products_limit":"3","html":false,"html_order":"3","html_col":25,"html_title":"HTML","html_content":"<a class=\"position-relative d-block mt-1\" href=\"https:\/\/velademo-maga.myshopify.com\/products\/outdoor-dining-table\" title=\"Outdoor Dining Table\">\n<span class=\"position-absolute start-0 top-0 ms-2 mt-2 bg-info text-white px-2 rounded-1\">New!<\/span>\n<img class=\"img-fluid lazy\" src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0087\/2929\/6943\/files\/megamenu-image.jpg?v=1687170702\" atlt=\"banner\">\n<span class=\"d-block pt-2 mt-1 fw-medium\">Outdoor Dining Table<\/span>\n<\/a>","banner":true,"banner_order":"4","banner_col":30,"image":"shopify:\/\/shop_images\/120-02890-032_LS01_66a3ac49-116f-435a-9a9a-ebcb96e328f6.jpg","banner_link":"shopify:\/\/products\/billund-chat-set-light-grey","collection_enable":false,"collection_order":"5","collection_title":"","collection_content":"","colllection_col":100,"colllection_col_item":25,"velamenu_list_collection1":"","velamenu_list_collection2":"","velamenu_list_collection3":"","velamenu_list_collection4":"","velamenu_list_collection5":"","velamenu_list_collection6":"","velamenu_list_collection7":"","velamenu_list_collection8":"","velamenu_list_collection9":"","velamenu_list_collection10":""}},"3a57359c-a78b-4a47-bfae-2a4f9eedbd00":{"type":"menu","settings":{"title":"Product","menu_width":"1400px","menu_align":"start-0 end-0","menu":true,"menu_order":"1","menu_col":100,"menu_menu_col":25,"products":false,"products_order":"2","products_col":40,"products_title":"New Chair Designs","products_collection":"","products_limit":"2","html":false,"html_order":"3","html_col":30,"html_title":"","html_content":"<a class=\"position-relative d-block\" href=\"https:\/\/velademo-maga.myshopify.com\/products\/outdoor-dining-table\" title=\"Outdoor Dining Table\">\n<span class=\"position-absolute start-0 top-0 ms-2 mt-2 bg-info text-white px-2 rounded-1\">New!<\/span>\n<img class=\"img-fluid lazy\" src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0087\/2929\/6943\/files\/megamenu-image.jpg?v=1687170702\" atlt=\"banner\">\n<span class=\"d-block pt-2 fw-medium\">Outdoor Dining Table<\/span>\n<\/a>","banner":false,"banner_order":"2","banner_col":25,"banner_link":"","collection_enable":false,"collection_order":"5","collection_title":"","collection_content":"","colllection_col":100,"colllection_col_item":25,"velamenu_list_collection1":"","velamenu_list_collection2":"","velamenu_list_collection3":"","velamenu_list_collection4":"","velamenu_list_collection5":"","velamenu_list_collection6":"","velamenu_list_collection7":"","velamenu_list_collection8":"","velamenu_list_collection9":"","velamenu_list_collection10":""}},"c4b8beb8-ac8b-42e3-881f-0844e6955944":{"type":"menu","settings":{"title":"Collections","menu_width":"1400px","menu_align":"start-0 end-0","menu":false,"menu_order":"1","menu_col":100,"menu_menu_col":20,"products":true,"products_order":"2","products_col":30,"products_title":"Popular products","products_collection":"furniture","products_limit":"3","html":false,"html_order":"3","html_col":70,"html_title":"","html_content":"","banner":false,"banner_order":"4","banner_col":100,"banner_link":"","collection_enable":true,"collection_order":"5","collection_title":"Shop Home Espresso Machines","collection_content":"Browse our comprehensive suite of home espresso machines. You'll quickly see we have something for all budget ranges. Need a little help and not sure which is right for you? Read our home espresso buyer's guide.","colllection_col":70,"colllection_col_item":25,"velamenu_list_collection1":"furniture","velamenu_list_collection2":"illumination","velamenu_list_collection3":"decor-art","velamenu_list_collection4":"kitchen-things","velamenu_list_collection5":"stools","velamenu_list_collection6":"","velamenu_list_collection7":"","velamenu_list_collection8":"","velamenu_list_collection9":"","velamenu_list_collection10":""}}},"block_order":["51d5e15c-2d77-4056-a4b8-d5ccb30aa690","ace588ad-1af0-421a-9444-09b9783a5d8e","3a57359c-a78b-4a47-bfae-2a4f9eedbd00","c4b8beb8-ac8b-42e3-881f-0844e6955944"],"custom_css":[".megamenu-links__item a {font-size: 17px; color: #201f1f;}"],"settings":{"full_with":true,"max_with":"1800px","padding_block":"10px 10px","padding_block_m":"10px 0","color_bg":"#ffffff","color_header_text":"#222222","logo":"shopify:\/\/shop_images\/z4989315255064_5302264da176eb085b8ae9d11553539c_5471b747-1069-4333-ab82-368b4703309e.jpg","logo_width":90,"sticky_header_type":"on-scroll-up","menu":"main-menu"}}},"order":["banner-top","announcement-bar","header"]}
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "name": "t:sections.header.name",
+  "type": "header",
+  "sections": {
+    "banner-top": {
+      "type": "banner-top",
+      "settings": {
+        "bannertop_image": "shopify:\/\/shop_images\/banner_1-op_cbdda515-ce63-4e31-80e9-9dbdedbc512e.jpg",
+        "bannertop_link": ""
+      }
+    },
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "disabled": true,
+      "custom_css": [
+        ".align-items-center {justify-content: center !important;}"
+      ],
+      "settings": {
+        "full_with": true,
+        "max_with": "1800px",
+        "color_bg": "#222222",
+        "padding_block": "8px 10px",
+        "padding_block_m": "5px 0",
+        "color_top_text": "#ffffff",
+        "color_top_link": "#ffffff",
+        "font-size": 13,
+        "font-size-m": 13,
+        "enable_country_selector": false,
+        "text_left": "",
+        "text_center": "Alee Big Outdoor Deals Party - Upto 70% Off - Clearance Sale",
+        "social_enable": false,
+        "link_list": ""
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "51d5e15c-2d77-4056-a4b8-d5ccb30aa690": {
+          "type": "menu",
+          "settings": {
+            "title": "Home 2",
+            "menu_width": "1400px",
+            "menu_align": "start-0 end-0",
+            "menu": true,
+            "menu_order": "1",
+            "menu_col": 100,
+            "menu_menu_col": 20,
+            "products": false,
+            "products_order": "2",
+            "products_col": 100,
+            "products_title": "",
+            "products_collection": "",
+            "products_limit": "2",
+            "html": false,
+            "html_order": "3",
+            "html_col": 100,
+            "html_title": "",
+            "html_content": "",
+            "banner": false,
+            "banner_order": "4",
+            "banner_col": 100,
+            "banner_link": "",
+            "collection_enable": false,
+            "collection_order": "5",
+            "collection_title": "",
+            "collection_content": "",
+            "colllection_col": 100,
+            "colllection_col_item": 25,
+            "velamenu_list_collection1": "",
+            "velamenu_list_collection2": "",
+            "velamenu_list_collection3": "",
+            "velamenu_list_collection4": "",
+            "velamenu_list_collection5": "",
+            "velamenu_list_collection6": "",
+            "velamenu_list_collection7": "",
+            "velamenu_list_collection8": "",
+            "velamenu_list_collection9": "",
+            "velamenu_list_collection10": ""
+          }
+        },
+        "ace588ad-1af0-421a-9444-09b9783a5d8e": {
+          "type": "menu",
+          "settings": {
+            "title": "Catalog",
+            "menu_width": "1400px",
+            "menu_align": "start-0 end-0",
+            "menu": true,
+            "menu_order": "1",
+            "menu_col": 40,
+            "menu_menu_col": 40,
+            "products": true,
+            "products_order": "2",
+            "products_col": 30,
+            "products_title": "Best Seller",
+            "products_collection": "best-seller",
+            "products_limit": "3",
+            "html": false,
+            "html_order": "3",
+            "html_col": 25,
+            "html_title": "HTML",
+            "html_content": "<a class=\"position-relative d-block mt-1\" href=\"https:\/\/velademo-maga.myshopify.com\/products\/outdoor-dining-table\" title=\"Outdoor Dining Table\">\n<span class=\"position-absolute start-0 top-0 ms-2 mt-2 bg-info text-white px-2 rounded-1\">New!<\/span>\n<img class=\"img-fluid lazy\" src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0087\/2929\/6943\/files\/megamenu-image.jpg?v=1687170702\" atlt=\"banner\">\n<span class=\"d-block pt-2 mt-1 fw-medium\">Outdoor Dining Table<\/span>\n<\/a>",
+            "banner": true,
+            "banner_order": "4",
+            "banner_col": 30,
+            "banner_link": "shopify:\/\/products\/billund-chat-set-light-grey",
+            "collection_enable": false,
+            "collection_order": "5",
+            "collection_title": "",
+            "collection_content": "",
+            "colllection_col": 100,
+            "colllection_col_item": 25,
+            "velamenu_list_collection1": "",
+            "velamenu_list_collection2": "",
+            "velamenu_list_collection3": "",
+            "velamenu_list_collection4": "",
+            "velamenu_list_collection5": "",
+            "velamenu_list_collection6": "",
+            "velamenu_list_collection7": "",
+            "velamenu_list_collection8": "",
+            "velamenu_list_collection9": "",
+            "velamenu_list_collection10": ""
+          }
+        },
+        "3a57359c-a78b-4a47-bfae-2a4f9eedbd00": {
+          "type": "menu",
+          "settings": {
+            "title": "Product",
+            "menu_width": "1400px",
+            "menu_align": "start-0 end-0",
+            "menu": true,
+            "menu_order": "1",
+            "menu_col": 100,
+            "menu_menu_col": 25,
+            "products": false,
+            "products_order": "2",
+            "products_col": 40,
+            "products_title": "New Chair Designs",
+            "products_collection": "",
+            "products_limit": "2",
+            "html": false,
+            "html_order": "3",
+            "html_col": 30,
+            "html_title": "",
+            "html_content": "<a class=\"position-relative d-block\" href=\"https:\/\/velademo-maga.myshopify.com\/products\/outdoor-dining-table\" title=\"Outdoor Dining Table\">\n<span class=\"position-absolute start-0 top-0 ms-2 mt-2 bg-info text-white px-2 rounded-1\">New!<\/span>\n<img class=\"img-fluid lazy\" src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0087\/2929\/6943\/files\/megamenu-image.jpg?v=1687170702\" atlt=\"banner\">\n<span class=\"d-block pt-2 fw-medium\">Outdoor Dining Table<\/span>\n<\/a>",
+            "banner": false,
+            "banner_order": "2",
+            "banner_col": 25,
+            "banner_link": "",
+            "collection_enable": false,
+            "collection_order": "5",
+            "collection_title": "",
+            "collection_content": "",
+            "colllection_col": 100,
+            "colllection_col_item": 25,
+            "velamenu_list_collection1": "",
+            "velamenu_list_collection2": "",
+            "velamenu_list_collection3": "",
+            "velamenu_list_collection4": "",
+            "velamenu_list_collection5": "",
+            "velamenu_list_collection6": "",
+            "velamenu_list_collection7": "",
+            "velamenu_list_collection8": "",
+            "velamenu_list_collection9": "",
+            "velamenu_list_collection10": ""
+          }
+        },
+        "c4b8beb8-ac8b-42e3-881f-0844e6955944": {
+          "type": "menu",
+          "settings": {
+            "title": "Collections",
+            "menu_width": "1400px",
+            "menu_align": "start-0 end-0",
+            "menu": false,
+            "menu_order": "1",
+            "menu_col": 100,
+            "menu_menu_col": 20,
+            "products": true,
+            "products_order": "2",
+            "products_col": 30,
+            "products_title": "Popular products",
+            "products_collection": "furniture",
+            "products_limit": "3",
+            "html": false,
+            "html_order": "3",
+            "html_col": 70,
+            "html_title": "",
+            "html_content": "",
+            "banner": false,
+            "banner_order": "4",
+            "banner_col": 100,
+            "banner_link": "",
+            "collection_enable": true,
+            "collection_order": "5",
+            "collection_title": "Shop Home Espresso Machines",
+            "collection_content": "Browse our comprehensive suite of home espresso machines. You'll quickly see we have something for all budget ranges. Need a little help and not sure which is right for you? Read our home espresso buyer's guide.",
+            "colllection_col": 70,
+            "colllection_col_item": 25,
+            "velamenu_list_collection1": "furniture",
+            "velamenu_list_collection2": "illumination",
+            "velamenu_list_collection3": "decor-art",
+            "velamenu_list_collection4": "kitchen-things",
+            "velamenu_list_collection5": "stools",
+            "velamenu_list_collection6": "",
+            "velamenu_list_collection7": "",
+            "velamenu_list_collection8": "",
+            "velamenu_list_collection9": "",
+            "velamenu_list_collection10": ""
+          }
+        }
+      },
+      "block_order": [
+        "51d5e15c-2d77-4056-a4b8-d5ccb30aa690",
+        "ace588ad-1af0-421a-9444-09b9783a5d8e",
+        "3a57359c-a78b-4a47-bfae-2a4f9eedbd00",
+        "c4b8beb8-ac8b-42e3-881f-0844e6955944"
+      ],
+      "custom_css": [
+        ".megamenu-links__item a {font-size: 17px; color: #201f1f;}"
+      ],
+      "settings": {
+        "full_with": true,
+        "max_with": "1800px",
+        "padding_block": "10px 10px",
+        "padding_block_m": "10px 0",
+        "color_bg": "#ffffff",
+        "color_header_text": "#222222",
+        "logo_width": 90,
+        "sticky_header_type": "on-scroll-up",
+        "menu": "main-menu"
+      }
+    }
+  },
+  "order": [
+    "banner-top",
+    "announcement-bar",
+    "header"
+  ]
+}
