@@ -97,63 +97,6 @@
         "scrolldown_color": "#000000"
       }
     },
-    "d7a85e18-846f-41bb-9366-9b32e10855ac": {
-      "type": "collection-list",
-      "blocks": {
-        "template--14953669361729__d7a85e18-846f-41bb-9366-9b32e10855ac-collection-1": {
-          "type": "collection",
-          "settings": {
-            "collection_title": "Outdoor Collection",
-            "collection_handle": "outdoor"
-          }
-        },
-        "template--14953669361729__d7a85e18-846f-41bb-9366-9b32e10855ac-collection-2": {
-          "type": "collection",
-          "settings": {
-            "collection_title": "Indoor Collection",
-            "collection_handle": "indoor"
-          }
-        },
-        "template--14953669361729__d7a85e18-846f-41bb-9366-9b32e10855ac-collection-3": {
-          "type": "collection",
-          "settings": {
-            "collection_title": "Pet Collection",
-            "collection_handle": "pet"
-          }
-        }
-      },
-      "block_order": [
-        "template--14953669361729__d7a85e18-846f-41bb-9366-9b32e10855ac-collection-1",
-        "template--14953669361729__d7a85e18-846f-41bb-9366-9b32e10855ac-collection-2",
-        "template--14953669361729__d7a85e18-846f-41bb-9366-9b32e10855ac-collection-3"
-      ],
-      "disabled": true,
-      "settings": {
-        "full_with": true,
-        "max_with": "",
-        "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "",
-        "padding_block_m": "",
-        "margin_block": "",
-        "heading": "",
-        "sub_heading": "",
-        "image_ratio": "adapt",
-        "crop": false,
-        "collection_count": true,
-        "collection_style": "style3",
-        "space_between": "1",
-        "slide_enable": false,
-        "navigation": true,
-        "pagination": false,
-        "infinite": true,
-        "autoplay": false,
-        "autoplay_speed": "10000",
-        "column1": 3,
-        "column2": 2,
-        "column3": 1,
-        "column4": 1
-      }
-    },
     "e4fe7913-0e63-4ee3-95f8-624e8a6f8724": {
       "type": "product-list",
       "settings": {
@@ -181,11 +124,110 @@
         "column3": 2,
         "column4": 2
       }
+    },
+    "product_list_9786mD": {
+      "type": "product-list",
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "padding_block_m": "",
+        "margin_block": "",
+        "heading": "OUTDOOR",
+        "sub_heading": "",
+        "collection_handle": "newarrivals",
+        "limit": 8,
+        "product_style": "default",
+        "space_between": "3",
+        "button_text": "",
+        "slide_enable": false,
+        "navigation": true,
+        "pagination": false,
+        "infinite": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 4,
+        "column2": 3,
+        "column3": 2,
+        "column4": 2
+      }
+    },
+    "logo_list_CYRJBb": {
+      "type": "logo-list",
+      "blocks": {
+        "image_RKqUYG": {
+          "type": "image",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_7GQr84": {
+          "type": "image",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_EeLdNp": {
+          "type": "image",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_nTVqCc": {
+          "type": "image",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_FqjRB9": {
+          "type": "image",
+          "settings": {
+            "link": ""
+          }
+        },
+        "image_EQLYdq": {
+          "type": "image",
+          "settings": {
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_RKqUYG",
+        "image_7GQr84",
+        "image_EeLdNp",
+        "image_nTVqCc",
+        "image_FqjRB9",
+        "image_EQLYdq"
+      ],
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "padding_block_m": "",
+        "margin_block": "",
+        "logo_size": "150x150",
+        "image_ratio": "square",
+        "crop": false,
+        "brand-effect": true,
+        "slide_enable": false,
+        "navigation": true,
+        "infinite": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 6,
+        "column2": 3,
+        "column3": 2,
+        "column4": 2
+      }
     }
   },
   "order": [
     "slideshow_YJERzW",
-    "d7a85e18-846f-41bb-9366-9b32e10855ac",
-    "e4fe7913-0e63-4ee3-95f8-624e8a6f8724"
+    "e4fe7913-0e63-4ee3-95f8-624e8a6f8724",
+    "product_list_9786mD",
+    "logo_list_CYRJBb"
   ]
 }

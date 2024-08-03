@@ -70,7 +70,7 @@
     "social_instagram_link": "http:\/\/instagram.com",
     "social_tiktok_link": "https:\/\/www.tiktok.com\/",
     "social_youtube_link": "",
-    "product_style": "style3",
+    "product_style": "default",
     "image_ratio": "square",
     "crop": true,
     "show_secondary_image": false,
@@ -152,7 +152,7 @@
       ".product-price {font-size: 22px !important; font-weight: 600 !important; color: red;}",
       ".product-price.product-price--regular {position: relative; padding: 0 3px; font-size: 16px !important; font-weight: 400 !important;}",
       ".label_sku,.js-variant-sku {display: none !important;}",
-      " #opinew-reviews-product-page-code{width: 80% !important; margin: 0 auto !important;}"
+      "#opinew-reviews-product-page-code {width: 80% !important; margin: 0 auto !important;}"
     ]
   }
 }
