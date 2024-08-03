@@ -70,6 +70,13 @@
             "block_margin": "mb-3"
           }
         },
+        "custom_liquid_gzPWAq": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "",
+            "block_margin": "mb-0"
+          }
+        },
         "fb8bae5f-a47f-44ca-a4f4-caea832ea54d": {
           "type": "countdown",
           "settings": {
@@ -186,6 +193,7 @@
         "price",
         "c04d58d1-7e33-4924-875c-87b293144f76",
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4",
+        "custom_liquid_gzPWAq",
         "fb8bae5f-a47f-44ca-a4f4-caea832ea54d",
         "11dfdc72-3642-46dc-9c56-c6ed3777d74d",
         "f7b25d8c-0547-4336-a393-17d7b0a41e9f",
