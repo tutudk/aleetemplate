@@ -104,20 +104,6 @@
             "product_question": true
           }
         },
-        "product_organization": {
-          "type": "product_organization",
-          "settings": {
-            "product_sku_enable": true,
-            "product_available_enable": true,
-            "product_vendor_enable": true,
-            "product_type_enable": false,
-            "product_tag_enable": true,
-            "product_collection_enable": false,
-            "product_collection_title": "Collections:",
-            "product_coll_limit": 1,
-            "block_margin": "mb-2"
-          }
-        },
         "91c084e3-67d1-463e-b5bd-5a47d8837949": {
           "type": "share",
           "settings": {
@@ -146,6 +132,20 @@
           "settings": {
             "custom_liquid": "<div class=\"vela-free-shipping-label\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'box', attr: 'width=\"16\"' %}<\/span>\n    <span class=\"label\">Free Shipping &amp; Returns: <\/span>\n    On all orders over <span class=\"text-primary\">{{ '50000' | money }}<\/span>\n<\/div>",
             "block_margin": "mb-4"
+          }
+        },
+        "product_organization": {
+          "type": "product_organization",
+          "settings": {
+            "product_sku_enable": false,
+            "product_available_enable": false,
+            "product_vendor_enable": false,
+            "product_type_enable": false,
+            "product_tag_enable": false,
+            "product_collection_enable": false,
+            "product_collection_title": "Collections:",
+            "product_coll_limit": 1,
+            "block_margin": "mb-2"
           }
         },
         "68fcf4dc-7ab8-4182-a90e-e7f2a7e324dc": {
@@ -184,11 +184,11 @@
         "11dfdc72-3642-46dc-9c56-c6ed3777d74d",
         "f7b25d8c-0547-4336-a393-17d7b0a41e9f",
         "buy_buttons",
-        "product_organization",
         "91c084e3-67d1-463e-b5bd-5a47d8837949",
         "bb35d3c0-fa32-4b86-9e81-44ce53f148cd",
         "cc6513a2-5262-43d7-b018-6cbea19b910e",
         "d2556500-9561-429c-a87a-8081f074e2cb",
+        "product_organization",
         "68fcf4dc-7ab8-4182-a90e-e7f2a7e324dc",
         "366f2f0f-b45a-4941-8433-f03ff688c8bc",
         "d369c06a-60cd-4a8f-bf6a-c30b622c9a65"
