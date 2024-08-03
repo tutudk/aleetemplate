@@ -137,14 +137,14 @@
         "cc6513a2-5262-43d7-b018-6cbea19b910e": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<!--{%- assign date = 'now' | date: '%s' -%}\n{%- assign seconds = 9 | times: 86400 -%}\n<div class=\"vela-estimate-delivery-label d-flex flex-wrap\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'truck-fast', attr: 'width=\"20\"' %}<\/span>\n    <span class=\"label me-1\">Estimated Delivery: <\/span><span class=\"text-primary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-title=\"{{ 'now' | date: '%d %B, %Y' }} - {{ date | date: '%s' | plus: seconds | date: '%d %B, %Y' }}\">\n    {{ 'now' | date: '%d' }} - {{ date | date: \"%s\" | plus: seconds | date: \"%d %B,%Y\" }}<\/span>\n<\/div>-->",
+            "custom_liquid": "{%- assign date = 'now' | date: '%s' -%}\n{%- assign seconds = 9 | times: 86400 -%}\n<div class=\"vela-estimate-delivery-label d-flex flex-wrap\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'truck-fast', attr: 'width=\"20\"' %}<\/span>\n    <span class=\"label me-1\">Estimated Delivery: <\/span><span class=\"text-primary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-title=\"{{ 'now' | date: '%d %B, %Y' }} - {{ date | date: '%s' | plus: seconds | date: '%d %B, %Y' }}\">\n    {{ 'now' | date: '%d' }} - {{ date | date: \"%s\" | plus: seconds | date: \"%d %B,%Y\" }}<\/span>\n<\/div>",
             "block_margin": "mb-2"
           }
         },
         "d2556500-9561-429c-a87a-8081f074e2cb": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<!--<div class=\"vela-free-shipping-label\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'box', attr: 'width=\"16\"' %}<\/span>\n    <span class=\"label\">Free Shipping &amp; Returns: <\/span>\n    On all orders over <span class=\"text-primary\">{{ '50000' | money }}<\/span>\n<\/div>-->",
+            "custom_liquid": "<!--<div class=\"vela-free-shipping-label\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'box', attr: 'width=\"16\"' %}<\/span>\n    <span class=\"label\">Free Shipping &amp; Returns: <\/span>\n    On all orders over <span class=\"text-primary\">{{ '50000' | money }}<\/span>\n<\/div>",
             "block_margin": "mb-4"
           }
         },
