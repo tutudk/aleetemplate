@@ -251,7 +251,7 @@
         "full_with": false,
         "max_with": "",
         "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "90px 0 100px",
+        "padding_block": "20px 0 50px",
         "padding_block_m": "55px 0 60px",
         "margin_block": "",
         "review_title": "Reviews",
