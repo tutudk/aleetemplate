@@ -16,7 +16,7 @@
           "type": "image",
           "settings": {
             "content_color": "rgba(0,0,0,0)",
-            "position_content": true,
+            "position_content": false,
             "image": "shopify:\/\/shop_images\/banner_2_90d7a367-f7ab-4cd8-8b83-1fcc9a3a528f.jpg",
             "bg_align": "center",
             "link": "",
