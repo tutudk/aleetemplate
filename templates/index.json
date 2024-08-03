@@ -9,14 +9,14 @@
 */
 {
   "sections": {
-    "4a8e740a-48fb-4418-904d-72a05ebc70a8": {
+    "slideshow_YJERzW": {
       "type": "slideshow",
       "blocks": {
-        "image_3gYH9V": {
+        "image_eCDaEt": {
           "type": "image",
           "settings": {
             "content_color": "rgba(0,0,0,0)",
-            "position_content": false,
+            "position_content": true,
             "image": "shopify:\/\/shop_images\/banner_2_90d7a367-f7ab-4cd8-8b83-1fcc9a3a528f.jpg",
             "bg_align": "center",
             "link": "",
@@ -29,9 +29,9 @@
             "subheading_font_size": 18,
             "subheading_font_size_l": 16,
             "subheading_font_size_m": 12,
-            "subheading_margin": "0",
-            "subheading_margin_m": "0",
-            "title": "",
+            "subheading_margin": "",
+            "subheading_margin_m": "",
+            "title": "Slideshow",
             "title_color": "#000000",
             "title_font_family": "ff-special",
             "title_font_size": 40,
@@ -39,7 +39,7 @@
             "title_font_size_m": 20,
             "title_margin": "",
             "title_margin_m": "",
-            "title2": "",
+            "title2": "Slideshow",
             "title2_color": "#000000",
             "title2_font_family": "text",
             "title2_font_size": 40,
@@ -73,32 +73,28 @@
         }
       },
       "block_order": [
-        "image_3gYH9V"
-      ],
-      "custom_css": [
-        ".slide--image > div {background-size: contain;}",
-        ".product-card__name a {font-size: var(--font-size-base); color: #222 !important; font-weight: 500 !important;}"
+        "image_eCDaEt"
       ],
       "settings": {
         "full_with": true,
-        "max_with": "1800px",
+        "max_with": "",
         "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "0",
+        "padding_block": "",
         "padding_block_m": "",
-        "margin_block": "0 0 4px",
+        "margin_block": "",
         "slideshow-height": "400px",
-        "slideshow-theight": "400px",
-        "slideshow-mheight": "300px",
+        "slideshow-theight": "300px",
+        "slideshow-mheight": "350px",
         "navigation": true,
-        "pagination": false,
-        "fade": false,
+        "pagination": true,
+        "fade": true,
         "autoplay": true,
-        "autoplay_speed": "4000",
+        "autoplay_speed": "8000",
         "caption_full_with": false,
         "caption_max_with": "",
         "scrolldown": false,
         "scrolldown_text": "Scroll down",
-        "scrolldown_color": "#ffffff"
+        "scrolldown_color": "#000000"
       }
     },
     "d7a85e18-846f-41bb-9366-9b32e10855ac": {
@@ -188,7 +184,7 @@
     }
   },
   "order": [
-    "4a8e740a-48fb-4418-904d-72a05ebc70a8",
+    "slideshow_YJERzW",
     "d7a85e18-846f-41bb-9366-9b32e10855ac",
     "e4fe7913-0e63-4ee3-95f8-624e8a6f8724"
   ]
