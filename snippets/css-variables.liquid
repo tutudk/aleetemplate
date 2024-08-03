@@ -37,7 +37,7 @@
         {%- if settings.type_special_font != blank -%}
           	--font-special-family: {{ settings.type_special_font }};
 		{%- else -%}
-			--font-special-family: var(--font-heading-family);
+			--font-special-family:Source Sans Pro,sans-serif;
         {%- endif -%}
 		--font-size-heading: {{ settings.type_header_base_size }}px;
 		--font-size-heading-mobile: {{ settings.type_header_base_size | times: 1 | times: 0.8 | floor }}px;;

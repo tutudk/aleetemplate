@@ -44,7 +44,7 @@
   padding: 15px 20px;
   margin: 0;
   color: var(--heading-color);
-  font-family: var(--font-heading-family);
+  font-family:Source Sans Pro,sans-serif;
   font-size: 1.7em;
   font-weight: var(--font-heading-weight);
   line-height: 30px; }

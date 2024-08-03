@@ -239,7 +239,7 @@
   padding: 4px 0;
   color: var(--heading-color);
   background-color: transparent;
-  font-family: var(--font-heading-family);
+  font-family:Source Sans Pro,sans-serif;
   font-weight: var(--font-heading-weight);
   line-height: 20px;
   font-size: 14px; }
