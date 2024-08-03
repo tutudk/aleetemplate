@@ -155,7 +155,8 @@
 													<figure>
 														{% render 'img-global', image: product.featured_media %}
 														<input type="radio" name="radio-set{{ group_item }}" {% if forloop.first %} checked="checked"{% endif %} />
-														<figcaption><a href="{{ product.url }}">{{ product.title }}</a></figcaption>
+														<figcaption><a href="{{ product.url }}">{{ product.title }}</a>
+<div class='opinew-stars-plugin-product-list'>{% render 'opinew_review_stars_lists' product:product %}</div></figcaption>
 												{% endfor %}
 													</figure>	
 												{% for product in collection.products limit: 8 %}
