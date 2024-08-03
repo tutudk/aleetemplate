@@ -90,7 +90,7 @@
     "new_badge_bg_color": "#66cc33",
     "sale_badge_bg_color": "#ce0000",
     "sale_style": "text",
-    "cookie_consent_enable": true,
+    "cookie_consent_enable": false,
     "newsletter_popup_enable": false,
     "newsletter_popup_color_bg": "#f8f8f8",
     "newsletter_popup_image": "shopify:\/\/shop_images\/newslettermodal.png",
