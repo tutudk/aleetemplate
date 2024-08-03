@@ -59,7 +59,7 @@
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4": {
           "type": "text",
           "settings": {
-            "text": "<p>Typi non habent claritatem insitam, est usus legentis in iis qui facit eorum <br\/>claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus.<\/p><p>-    Light green crewneck sweatshirt.<br\/>-    Hand pockets.<br\/>-    Relaxed fit.<\/p>",
+            "text": "<p>{{ product.metafields.custom.short_description | metafield_tag }}<\/p>",
             "text_color": "#606060",
             "text_size": 14,
             "block_margin": "mb-3"
