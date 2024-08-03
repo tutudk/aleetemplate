@@ -172,10 +172,16 @@
             "product_gift_text": "Simply copy the code below and use it when you checkout to enjoy an additional 50% OFF on this product",
             "product_gift_code": "S47P40BTH3JV"
           }
+        },
+        "opinew-stars-plugin-product": {
+          "type": "shopify:\/\/apps\/opinew-reviews\/blocks\/product-stars\/e1d8e0dc-17ff-4e4a-8a8a-1e73c8ef8676",
+          "settings": {
+          }
         }
       },
       "block_order": [
         "title",
+        "opinew-stars-plugin-product",
         "491c3678-a254-4566-821b-051ef3bc6c42",
         "price",
         "c04d58d1-7e33-4924-875c-87b293144f76",
@@ -291,6 +297,22 @@
         "column2": 3,
         "column3": 2
       }
+    },
+    "opinew-reviews-product-page-code": {
+      "type": "apps",
+      "blocks": {
+        "opinew-reviews-widget": {
+          "type": "shopify:\/\/apps\/opinew-reviews\/blocks\/product-widget\/e1d8e0dc-17ff-4e4a-8a8a-1e73c8ef8676",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "opinew-reviews-widget"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -298,6 +320,7 @@
     "main",
     "product-recommendations",
     "producttab-information",
-    "product-viewed"
+    "product-viewed",
+    "opinew-reviews-product-page-code"
   ]
 }
