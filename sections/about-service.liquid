@@ -1,0 +1,155 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="about-service vela-section overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            <div class="row g-0">
+                {% for block in section.blocks %}
+                    <div class="col-12 col-md-6">
+                        <div class="about-service__box p-3 p-md-4 p-xl-5 text-center">
+                            {%- if block.settings.icon != blank -%}
+                                <div class="about-service__icon mx-auto">
+                                    {{ block.settings.icon | image_url: width: block.settings.icon.width | image_tag: loading: 'lazy', width: block.settings.icon.width, height: block.settings.icon.height, class: "img-fluid", alt: block.settings.icon.alt | escape }}
+                                </div>
+                            {%- endif -%}
+                            <div class="about-service__group">
+                                {%- if block.settings.box_title != blank -%}
+                                    <h4 class="about-service__title my-2 my-sm-3 fw-semibol">{{ block.settings.box_title }}</h4>
+                                {%- endif -%}
+                                {%- if block.settings.box_desc != blank -%}
+                                    <div class="about-service__desc">
+                                        {{ block.settings.box_desc }}
+                                    </div>
+                                {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "About Service",
+        "class": "velaFramework",
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "item",
+                "name": "Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon",
+                        "info": "size: 70x70(px)" 
+                    },
+                    {
+                        "type": "text",
+                        "id": "box_title",
+                        "label": "Box heading"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "box_desc",
+                        "label": "Box description"
+                    }
+                ]
+
+            }
+        ],
+		"presets": [
+            {
+                "name": "About service",
+                "blocks": [
+                    {
+                        "type":"item",
+                        "settings":{
+                            "box_title": "Free shipping",
+                            "box_desc": "There are many variations"
+                        }
+                    },
+                    {
+                        "type":"item",
+                        "settings":{
+                            "box_title": "Fast delivery",
+                            "box_desc": "There are many variations "
+                        }
+                    },
+                    {
+                        "type":"item",
+                        "settings":{
+                            "box_title": "2 years warranty",
+                            "box_desc": "There are many variations "
+                        }
+                    },
+                    {
+                        "type":"item",
+                        "settings":{
+                            "box_title": "Gift voucher",
+                            "box_desc": "There are many variations "
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

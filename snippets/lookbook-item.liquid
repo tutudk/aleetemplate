@@ -1,0 +1,117 @@
+{%- if product != blank -%}
+    {%- if product.metafields.custom.shortdescription != blank -%}
+        {%- assign shortDescription = product.metafields.custom.shortdescription -%}
+    {%- else -%}
+        {%- assign shortDescription = product.description | strip_html | truncate: 160 -%}
+    {%- endif -%}
+    {%- if product.metafields.custom.pre_order and settings.pre-order and variant.inventory_policy == "continue" -%}
+        {%- assign preOrder = true -%}
+    {%- else -%}
+        {%- assign preOrder = false -%}
+    {%- endif -%}
+    <div class="lookbook-card__item position-absolute" style="top: {{ top }}%; left: {{ left }}%;">
+        <div class="lookbook-card__point position-absolute lookbook-card--{{ alignment }}">
+            <div class="lookbook-card__button">
+                <button class="lookbook-card__btn bg-transparent p-0 d-block border-0 position-relative" data-bs-toggle="modal" data-bs-target="#lookbook-{{ id }}">
+                    <span class="position-relative d-flex justify-content-center align-items-center">{%- render 'icons', icon: 'plus', attr: 'width="10" height="10"' -%}</span>
+                </button>
+            </div>
+            <div class="lookbook-card__content p-3">
+                <div class="lookbook-product row g-3">
+                    <a class="col-5 lookbook-product__img" href="{{ product.url }}">
+                        {% render 'img-global', image: product.featured_media,image_ratio: 'square', crop: 'center', image_size: '370x' %}
+                    </a>
+                    <div class="col-7 lookbook-product__content">
+                        <a class="lookbook-product__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+                        {%- if settings.product_reviews_enable -%}
+                            <div class="lookbook-card__review">
+                                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                            </div>
+                        {%- endif -%}
+                        <div class="lookbook-product__price ff-special pt-2">
+                            <div class="product-price">{{ product.price | money }}</div>
+                            {%- if product.compare_at_price > product.price -%}
+                                <div class="product-price product-price--regular ms-1">{{ product.compare_at_price | money }}</div>
+                            {%- endif -%}
+                        </div>
+                        <div class="d-flex justify-content-between w-100 pt-2 pt-md-3">
+                            <a class="lookbook-product__link text-capitalize" href="{{ product.url }}">{{ 'products.product.full_details' | t }}</a>
+                            {%- if product.available and settings.product_card_addtocart -%}
+                                <a class="js-btn-quickview text-capitalize" href="javascript:void(0);"  data-preorder="{{ preOrder }}" data-handle="{{ product.handle }}" title="{{ 'products.product.buy_now' | t }}">
+                                    <span >{{ 'products.product.buy_now' | t }}</span>
+                                    <div class="d-none proShortDesc">
+                                        {{ shortDescription }}
+                                    </div>
+                                </a>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade lookbook-modal" id="lookbook-{{ id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header position-relative">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="lookbook-product row g-3">
+                        <a class="col-5 lookbook-product__img" href="{{ product.url }}">
+                            {% render 'img-global', image: product.featured_media,image_ratio: 'square', crop: 'center', image_size: '370x' %}
+                        </a>
+                        <div class="col-7 lookbook-product__content">
+                            <a class="lookbook-product__title" href="{{ product.url }}">{{ product.title | escape }}</a>
+                            {%- if settings.product_reviews_enable -%}
+                                <div class="lookbook-card__review">
+                                    <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                                </div>
+                            {%- endif -%}
+                            <div class="lookbook-product__price ff-special pt-2">
+                                <div class="product-price">{{ product.price | money }}</div>
+                                {%- if product.compare_at_price > product.price -%}
+                                    <div class="product-price product-price--regular ms-1">{{ product.compare_at_price | money }}</div>
+                                {%- endif -%}
+                            </div>
+                            <div class="d-flex w-100 pt-2 pt-sm-3">
+                                <a class="lookbook-product__link text-capitalize" href="{{ product.url }}">{{ 'products.product.full_details' | t }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- else -%}
+    <div class="lookbook-card__item position-absolute" style="top: {{ top }}%; left: {{ left }}%;">
+        <div class="lookbook-card__point position-absolute lookbook-card--{{ alignment }}">
+            <div class="lookbook-card__button">
+                <button class="lookbook-card__btn bg-transparent p-0 d-block border-0 position-relative" data-bs-toggle="modal" data-bs-target="#lookbook-{{ id }}">
+                    <span class="position-relative d-flex justify-content-center align-items-centerposition-relative d-flex justify-content-center align-items-center">{%- render 'icons', icon: 'plus', attr: 'width="10" height="10"' -%}</span>
+                </button>
+            </div>
+            <div class="lookbook-card__content p-3">
+                <div class="lookbook-product row g-3">
+                    <a class="col-5 lookbook-product__img" href="" style="--plh-svg-h: 150px;">
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </a>
+                    <div class="col-7 lookbook-product__content">
+                        <a class="lookbook-product__title" href="">Afteroom Coat Hanger</a>
+                        <div class="lookbook-product__price ff-special pt-2">
+                            <div class="product-price">$90.00</div>
+                        </div>
+                        <div class="d-flex justify-content-between w-100 pt-2 pt-md-3">
+                            <a class="lookbook-product__link text-capitalize" href="">{{ 'products.product.full_details' | t }}</a>
+                            {%- if product.available and settings.product_card_addtocart -%}
+                                <a class="js-btn-quickview text-capitalize" href="" title="{{ 'products.product.buy_now' | t }}">
+                                    <span >{{ 'products.product.buy_now' | t }}</span>
+                                </a>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endif -%}

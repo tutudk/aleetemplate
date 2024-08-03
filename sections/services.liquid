@@ -1,0 +1,453 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- liquid 
+    assign nav = section.settings.navigation
+    assign infinite = section.settings.infinite
+    assign autoplay = section.settings.autoplay
+    assign autoplay_speed = section.settings.autoplay_speed | escape
+    assign owlColumn1 = section.settings.column1 | plus: 0
+    assign owlColumn2 = section.settings.column2 | plus: 0
+    assign owlColumn3 = section.settings.column3 | plus: 0
+    assign owlColumn4 = section.settings.column4 | plus: 0
+    if section.settings.iconsize != blank 
+        assign sv_img_w = section.settings.iconsize | split: "x" | first 
+        assign sv_img_h = section.settings.iconsize | split: "x" | last
+    else
+        assign sv_img_w = "70" 
+        assign sv_img_h = "70"
+    endif 
+-%}
+<div class="vela-section section-services overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{%- if section.settings.full_with -%}-fluid{%- endif -%}">
+        <div class="vela-section__inner">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group text-center mb-3 mb-md-4 pb-1">
+                    <h2 class="heading mb-2">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading mb-2">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content">
+                {%- if section.settings.slide_enable -%}
+                    <div class="js-carousel slick-carousel row g-3"
+                    data-nav="{{ nav }}"
+                    data-infinite="{{ infinite }}"
+                    data-autoplay="{{ autoplay }}"
+                    data-autoplayspeed="{{ autoplay_speed }}"
+                    data-columnone="{{ owlColumn1 }}" 
+                    data-columntwo="{{ owlColumn2 }}" 
+                    data-columnthree="{{ owlColumn3 }}" 
+                    data-columnfour="{{ owlColumn4 }}">
+                        {% for block in section.blocks %}
+                            <div class="slick-carousel__item">
+                                <div class="d-flex justify-content-center">
+                                    {%- if section.settings.service_style == 'style1' -%}
+                                        <div class="services-box text-center">
+                                            {%- if block.settings.icon != blank -%}
+                                                <div class="services-box__image mb-2 mb-md-3 pt-1 pb-md-0">
+                                                    {%- render 'img-global', image_class: 'mx-auto', image: block.settings.icon, image_size: section.settings.iconsize , image_style: true -%}
+                                                </div>
+                                            {%- endif -%}
+                                            <div class="services-box__content">
+                                                {%- if block.settings.box_title != blank -%}
+                                                    <h5 class="services-title mb-2 mb-md-3 pt-1 pb-md-0" style="--sv-h-cl: {{block.settings.heading_color }}">{{ block.settings.box_title }}</h5>
+                                                {%- endif -%}
+                                                {%- if block.settings.box_desc != blank -%}
+                                                    <div class="services-desc mx-auto" style="--sv-desc-cl: {{block.settings.desc_color }}">
+                                                        {{ block.settings.box_desc }}
+                                                    </div>
+                                                {%- endif -%}
+                                                {%- if block.settings.button_text != blank -%}
+                                                    <a class="services-btn d-inline-block pt-2 pt-md-3" href="{{ block.settings.button_url }}" style="--sv-btn-cl: {{block.settings.btn_color }}">{{ block.settings.button_text }} {% render 'icons', icon: 'angle-right', attr: 'width="14" height="14"' %}</a>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    {%- elsif section.settings.service_style == 'style2'-%}
+                                        <div class="services-box d-flex align-items-center">
+                                            {%- if block.settings.icon != blank -%}
+                                                <div class="services-box__image me-2 pe-1" style="min-width: {{ sv_img_w }}px;">
+                                                    {%- render 'img-global', image: block.settings.icon, image_size: section.settings.iconsize , image_style: true -%}
+                                                </div>
+                                            {%- endif -%}
+                                            <div class="services-box__content">
+                                                {%- if block.settings.box_title != blank -%}
+                                                    <h6 class="services-title mb-2" style="--sv-h-cl: {{block.settings.heading_color }}">{{ block.settings.box_title }}</h6>
+                                                {%- endif -%}
+                                                {%- if block.settings.box_desc != blank -%}
+                                                    <div class="services-desc mx-auto" style="--sv-desc-cl: {{block.settings.desc_color }}">
+                                                        {{ block.settings.box_desc }}
+                                                    </div>
+                                                {%- endif -%}
+                                                {%- if block.settings.button_text != blank -%}
+                                                    <a class="services-btn d-inline-block pt-2 pt-md-3" href="{{ block.settings.button_url }}" style="--sv-btn-cl: {{block.settings.btn_color }}">{{ block.settings.button_text }} {% render 'icons', icon: 'angle-right', attr: 'width="14" height="14"' %}</a>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    {%- else -%}
+                                        <div class="services-box d-flex align-items-center">
+                                            <div class="services-box__content">
+                                                <div class="d-flex align-items-end mb-1 pb-2">
+                                                    {%- if block.settings.icon != blank -%}
+                                                        <div class="services-box__image me-2" style="min-width: {{ sv_img_w }}px;">
+                                                            {%- render 'img-global', image: block.settings.icon, image_size: section.settings.iconsize , image_style: true -%}
+                                                        </div>
+                                                    {%- endif -%}
+                                                    {%- if block.settings.box_title != blank -%}
+                                                        <h5 class="services-title mb-0" style="--sv-h-cl: {{block.settings.heading_color }}">{{ block.settings.box_title }}</h5>
+                                                    {%- endif -%}
+                                                </div>
+                                                {%- if block.settings.box_desc != blank -%}
+                                                    <div class="services-desc mx-auto" style="--sv-desc-cl: {{block.settings.desc_color }}">
+                                                        {{ block.settings.box_desc }}
+                                                    </div>
+                                                {%- endif -%}
+                                                {%- if block.settings.button_text != blank -%}
+                                                    <a class="services-btn d-inline-block pt-2 pt-md-3" href="{{ block.settings.button_url }}" style="--sv-btn-cl: {{block.settings.btn_color }}">{{ block.settings.button_text }} {% render 'icons', icon: 'angle-right', attr: 'width="14" height="14"' %}</a>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {%- else -%}
+                    <div class="row g-3 row-cols-{{ owlColumn4 }} row-cols-sm-{{ owlColumn3 }} row-cols-md-{{ owlColumn2 }} row-cols-lg-{{ owlColumn1 }}">
+                        {% for block in section.blocks %}
+                            <div class="col">
+                                <div class="d-flex justify-content-center">
+                                    {%- if section.settings.service_style == 'style1' -%}
+                                        <div class="services-box text-center">
+                                            {%- if block.settings.icon != blank -%}
+                                                <div class="services-box__image mb-2 mb-md-3 pt-1 pb-md-0">
+                                                    {%- render 'img-global', image_class: 'mx-auto', image: block.settings.icon, image_size: section.settings.iconsize , image_style: true -%}
+                                                </div>
+                                            {%- endif -%}
+                                            <div class="services-box__content">
+                                                {%- if block.settings.box_title != blank -%}
+                                                    <h5 class="services-title mb-2 mb-md-3 pt-1 pb-md-0" style="--sv-h-cl: {{block.settings.heading_color }}">{{ block.settings.box_title }}</h5>
+                                                {%- endif -%}
+                                                {%- if block.settings.box_desc != blank -%}
+                                                    <div class="services-desc mx-auto" style="--sv-desc-cl: {{block.settings.desc_color }}">
+                                                        {{ block.settings.box_desc }}
+                                                    </div>
+                                                {%- endif -%}
+                                                {%- if block.settings.button_text != blank -%}
+                                                    <a class="services-btn d-inline-block pt-2 pt-md-3" href="{{ block.settings.button_url }}" style="--sv-btn-cl: {{block.settings.btn_color }}">{{ block.settings.button_text }} {% render 'icons', icon: 'angle-right', attr: 'width="14" height="14"' %}</a>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    {%- elsif section.settings.service_style == 'style2'-%}
+                                        <div class="services-box d-flex align-items-center">
+                                            {%- if block.settings.icon != blank -%}
+                                                <div class="services-box__image me-2 pe-1" style="min-width: {{ sv_img_w }}px;">
+                                                    {%- render 'img-global', image: block.settings.icon, image_size: section.settings.iconsize , image_style: true -%}
+                                                </div>
+                                            {%- endif -%}
+                                            <div class="services-box__content">
+                                                {%- if block.settings.box_title != blank -%}
+                                                    <h6 class="services-title mb-2" style="--sv-h-cl: {{block.settings.heading_color }}">{{ block.settings.box_title }}</h6>
+                                                {%- endif -%}
+                                                {%- if block.settings.box_desc != blank -%}
+                                                    <div class="services-desc mx-auto" style="--sv-desc-cl: {{block.settings.desc_color }}">
+                                                        {{ block.settings.box_desc }}
+                                                    </div>
+                                                {%- endif -%}
+                                                {%- if block.settings.button_text != blank -%}
+                                                    <a class="services-btn d-inline-block pt-2 pt-md-3" href="{{ block.settings.button_url }}" style="--sv-btn-cl: {{block.settings.btn_color }}">{{ block.settings.button_text }} {% render 'icons', icon: 'angle-right', attr: 'width="14" height="14"' %}</a>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    {%- else -%}
+                                        <div class="services-box d-flex align-items-center">
+                                            <div class="services-box__content">
+                                                <div class="d-flex align-items-end mb-1 pb-2">
+                                                    {%- if block.settings.icon != blank -%}
+                                                        <div class="services-box__image me-2" style="min-width: {{ sv_img_w }}px;">
+                                                            {%- render 'img-global', image: block.settings.icon, image_size: section.settings.iconsize , image_style: true -%}
+                                                        </div>
+                                                    {%- endif -%}
+                                                    {%- if block.settings.box_title != blank -%}
+                                                        <h5 class="services-title mb-0" style="--sv-h-cl: {{block.settings.heading_color }}">{{ block.settings.box_title }}</h5>
+                                                    {%- endif -%}
+                                                </div>
+                                                {%- if block.settings.box_desc != blank -%}
+                                                    <div class="services-desc mx-auto" style="--sv-desc-cl: {{block.settings.desc_color }}">
+                                                        {{ block.settings.box_desc }}
+                                                    </div>
+                                                {%- endif -%}
+                                                {%- if block.settings.button_text != blank -%}
+                                                    <a class="services-btn d-inline-block pt-2 pt-md-3" href="{{ block.settings.button_url }}" style="--sv-btn-cl: {{block.settings.btn_color }}">{{ block.settings.button_text }} {% render 'icons', icon: 'angle-right', attr: 'width="14" height="14"' %}</a>
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Vela Service",
+        "class": "velaFramework",
+        "settings": [
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "html",
+                "id": "heading",
+                "label": "t:sections.global.settings.heading_section.label",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "t:sections.global.settings.subheading_section.label",
+                "default": "sub heading"
+            },
+            {
+                "type": "text",
+                "id": "iconsize",
+                "label": "Icon Size (px)",
+                "default": "70x70",
+                "placeholder": "70x70"
+            },
+            {
+                "type": "select",
+                "id": "service_style",
+                "options": [
+                    {
+                        "value": "default",
+                        "label": "Default"
+                    },
+                    {
+                        "value": "style1",
+                        "label": "Style1"
+                    },
+                    {
+                        "value": "style2",
+                        "label": "Style2"
+                    }
+                ],
+                "default": "default",
+                "label": "Layout style"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "slide_enable",
+                "label": "Enable Slide",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 2,
+                "info": "Mobile phone"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "item",
+                "name": "Service item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "icon",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "box_title",
+                        "label": "Title",
+                        "default": "heading"
+                    },
+                    {
+                        "type": "color",
+                        "id": "heading_color",
+                        "label": "Heading color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "box_desc",
+                        "label": "Description",
+                        "default": "30 Day Return"
+                    },
+                    {
+                        "type": "color",
+                        "id": "desc_color",
+                        "label": "Description color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_text",
+                        "label": "Button text",
+                        "default": "Read more"
+                    },
+                    {
+                        "type": "color",
+                        "id": "btn_color",
+                        "label": "Button color",
+                        "default": "#000000"
+                    },
+                    {
+                        "type": "url",
+                        "id": "button_url",
+                        "label": "Url"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Our services",
+                "blocks": [
+                    {
+                        "type": "item"
+                    },
+                    {
+                        "type": "item"
+                    },
+                    {
+                        "type": "item"
+                    },
+                    {
+                        "type": "item"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

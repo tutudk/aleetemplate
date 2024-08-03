@@ -1,0 +1,140 @@
+<div class="product-card product-grid grid__{{ product1_style }}">
+    <div class="product-grid__inner">
+        <div class="product-card__image-wrapper">
+            <a class="product-card__image-link" href="{{ product.url }}">
+                <div class="product-card__img-primary{% if product.media[1] != nil and settings.show_secondary_image %} img-primary{% endif %}">
+                    {% render 'img-global', image: product.featured_media, image_ratio: settings.image_ratio, crop: image_crop, image_style: true %}
+                </div>
+                {%- if product.media[1] != nil and settings.show_secondary_image -%}
+                    <div class="img-secondary position-absolute">
+                        {% render 'img-global', image: product.media[1], image_ratio: settings.image_ratio, crop: image_crop , image_style: true %}
+                    </div>
+                {%- endif -%}
+            </a>
+            <div class="product-card__label position-absolute {{ settings.badge_position }}-0">
+                {%- if difference < 2592000 and settings.product_card_new -%}
+                    <span class="label-new position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_new' | t }}</span></span>
+                {%- endif -%}
+                {%- if sold_out and settings.product_card_available -%}
+                    <span class="label-sold-out position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.out_stock' | t }}</span></span>
+                {%- elsif on_sale and settings.product_card_sale -%}
+                    {%- capture saved_amount -%}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by : product.compare_at_price }}{%- endcapture -%}
+                    <span class="label-on-sale position-relative"><span class="d-block overflow-hidden position-relative">{% if settings.sale_style == 'percent' %}-{{ saved_amount }}%{% else %}{{ 'products.general.sale_price' | t }}{% endif %}</span></span>        
+                {%- endif -%}
+                {%- if preOrder -%}
+                    <span class="label-pre-order position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_pre_order' | t }}</span></span>
+                {%- endif -%}
+            </div>
+            {%- if page_wishlist -%}
+                {%- if settings.product_wishlist and  settings.product_card_wishlist -%}
+                    <button type="button" aria-label="{{ 'products.product.wishlist' | t }}" class="btn--wishlist btn--wishlist-page position-absolute mt-3 top-0 border-0 {% if settings.badge_position == 'start' %}end-0 me-3{% else %}start-0 ms-3{% endif %}" data-product-handle="{{ product.handle }}" title="{{ 'products.product.add_to_wishlist' | t }}">
+                        {% render 'icons', icon: 'trash', attr: 'width="14" height="14"' %}
+                    </button>
+                {%- endif -%}
+            {%- else -%}
+                <div class="shop-action position-absolute">
+                    {%- if settings.quickview_enable -%}
+                        <a class="js-btn-quickview btn btn--action btn--quickview mb-1 {% if settings.pre-order-style == 'popup' and preOrder %} d-none{% endif %}" href="javascript:void(0);"  data-preorder="{{ preOrder }}" data-handle="{{ product.handle }}" title="{{ 'products.product.quickview' | t }}">
+                            {% render 'icons', icon: 'eye-bold', attr: 'width="18" height="18"' %}
+                            <span class="d-none">{{ 'products.product.quickview' | t }}</span>
+                            <div class="d-none proShortDesc">
+                                {{ shortDescription }}
+                            </div>
+                        </a>
+                    {%- endif -%}
+                    {%- if settings.product_wishlist and  settings.product_card_wishlist -%}
+                        <button type="button" aria-label="{{ 'products.product.wishlist' | t }}" class="btn--wishlist btn--action mb-1" data-product-handle="{{ product.handle }}" title="{{ 'products.product.add_to_wishlist' | t }}">
+                            {% render 'icons', icon: 'heart-bold', attr: 'width="18" height="18"' %}
+                        </button>
+                    {%- endif -%}
+                    {%- if settings.product_card_addtocart -%}
+                        <div class="product-card__buttons{% if settings.pre-order-style == 'popup' and preOrder%} d-none{% endif %} w-100">
+                            <div class="product-card__form">
+                                {%- assign variant_count = product.variants | size -%}
+                                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="form-addtocart" data-product-form>
+                                <input type="hidden" name="id" value="{{ variant.id }}" />
+                                {%- unless sold_out -%}
+                                    {%- if variant_count > 1 -%}
+                                        <a class="js-btn-quickview btn btn--add-to-cart btn--action" href="javascript:void(0);" data-preorder="{{ preOrder }}" data-handle="{{ product.handle }}" title="{%- if preOrder -%}{{ 'products.product.pre_order' | t }}{%- else -%}{{ 'products.product.add_to_cart' | t }}{%- endif -%}">
+                                            {% render 'icons', icon: 'cart', class: 'icon-cart', attr: 'width="18" height="18"' %}
+                                            <span class="text d-none">{%- if preOrder -%}{{ 'products.product.pre_order' | t }}{%- else -%}{{ 'products.product.add_to_cart' | t }}{%- endif -%}</span>
+                                            <div class="d-none proShortDesc">
+                                                {{ shortDescription }}
+                                            </div>
+                                        </a>
+                                    {%- else -%}
+                                        <button class="js-btn-addtocart btn btn--add-to-cart btn--action" type="submit" value="Submit" title="{% if preOrder %}{{ 'products.product.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}">
+                                            {% render 'icons', icon: 'cart', class: 'icon-cart', attr: 'width="18" height="18"' %}
+                                            <span class="text d-none">{% if preOrder %}{{ 'products.product.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}</span>
+                                        </button>
+                                    {%- endif -%}
+                                {%- endunless -%}
+                                </form>
+                            </div>
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            {%- if settings.product_card_swatch -%}
+                {% include 'product-card-swatch', class: 'position-absolute bottom-0 px-2 mb-2 start-0 w-100'%}
+            {%- endif -%}
+        </div>
+        <div class="product-card__content mt-lg-1 pt-2">
+            <div class="product-card__content--inner">
+                {%- if settings.product_card_tag -%}
+                    <div class="product-card__tags">
+                        {% for tag in product.tags limit: 2 %}
+                            <a href="{{ routes.all_products_collection_url }}/{{ tag }}" title="{{ tag }}">{{ tag }}</a>{% unless forloop.last %},{% endunless%}
+                        {% endfor %}
+                    </div>
+                {%- endif -%}
+                <h6 class="product-card__name line-clamp-2 mb-1">
+                    <a class="line-title fw-normal" href="{{ product.url }}">{{ product.title }}</a>
+                </h6>
+                {%- if settings.product_vendor_enable -%}
+                    <div class="product-card__vendor mb-1"><label>{{'products.general.label_vendor' | t }}</label>{{ product.vendor | link_to_vendor }}</div>
+                {%- endif -%}
+                <div class="group-cart-price d-flex flex-wrap align-items-center justify-content-between">
+                    <div class="group-cart-price__inner d-flex">
+                        <div class="product-group-price d-flex align-items-center ff-special w-100">
+                            <div class="product-price">{{ product.price | money }}</div>
+                            {%- if on_sale -%}
+                                <div class="product-price product-price--regular ms-1">{{ product.compare_at_price | money }}</div>
+                            {%- endif -%}
+                            {%- if product.price_varies == false and variant.unit_price_measurement -%}
+                                {%- capture unit_price_separator -%}
+                                    <span>/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                                {%- endcapture -%}
+                                {%- capture unit_price_base_unit -%}
+                                    <span>
+                                    {%- if variant.unit_price_measurement.reference_value != 1 -%}
+                                        {{- variant.unit_price_measurement.reference_value -}}
+                                    {%- endif -%}
+                                    {{ variant.unit_price_measurement.reference_unit }}
+                                    </span>
+                                {%- endcapture -%}
+                                <span class="product-unit-price">
+                                    <span class="d-none">{{ 'products.general.unit_price' | t }}</span>
+                                    <span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                                </span>
+                            {%- endif -%}
+                            {%- if shop.taxes_included and settings.product_card_tax -%}
+                                <span class="ms-2">
+                                    {{ 'products.general.include_taxes' | t }}
+                                </span>
+                            {%- endif -%}
+                        </div>
+                    </div>
+                    {%- if settings.product_reviews_enable -%}
+                        <div class="product-card__review product-review mb-1">
+                            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                        </div>
+                    {%- endif -%}
+                </div>
+                {%- if shortDescription != blank and settings.product_card_shortdesc -%}
+                    <div class="product-card__summary pt-2">{{ shortDescription }}</div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="modal fade" id="preOrderModal" tabindex="-1" aria-labelledby="preOrderLable" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header border-0 pt-2 pb-0">
+          <h3 class="modal-title pb-0" id="preOrderLable">{{ 'products.product.pre_order' | t }}</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            {%- form 'contact', id: 'ContactForm' -%}
+                {%- if form.posted_successfully? -%}
+                    <div class="alert-success alert alert-success" autofocus>
+                        {{ 'templates.contact.form.post_success' | t }}
+                    </div>
+                {%- elsif form.errors -%}
+                    <div class="alert-error alert alert-danger alert-dismissible fade show" autofocus>
+                        {{ form.errors | default_errors }}
+                        <button type="button" data-dismiss="alert" aria-hidden="true" data-bs-dismiss="alert" aria-label="Close" class="btn-close"></button>
+                    </div>
+                {%- else -%}
+                    {% assign name_attr = 'templates.contact.form.subject' | t | handle %}
+                    <input type="hidden" name="contact[{{ name_attr }}]" value="{% if form[name_attr] %}{{ form[name_attr] }}{% else %}{{ 'products.product.pre_order' | t }}{% endif %}">
+                    <div class="row g-3 mb-4 mb-xl-5">
+                        <div class="col-12">
+                            <label class="form__label mb-2 d-none" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}<span class="text-danger" aria-hidden="true">*</span></label>
+                            <input class="form-control border-0 border-bottom border-dark px-0 py-1" placeholder="{{ 'templates.contact.form.name_placeholder' | t }}" autocomplete="name" type="text" id="ContactForm-name" name="contact[{{ 'templates.contact.form.name' | t }}]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form__label mb-2 d-none" for="ContactForm-email">{{ 'templates.contact.form.email' | t }} <span class="text-danger" aria-hidden="true">*</span></label>
+                            <input class="form-control border-0 border-bottom border-dark px-0 py-1"
+                                type="email"
+                                id="ContactForm-email"
+                                placeholder="{{ 'templates.contact.form.email_placeholder' | t }}"
+                                name="contact[email]"
+                                autocorrect="off"
+                                autocapitalize="off"
+                                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                                aria-required="true"
+                                required
+                                >
+                        </div>
+                        <div class="col-12">
+                            {% assign name_attr = 'templates.contact.form.phone' | t | handle %}
+                            <label class="form__label mb-2 d-none" for="ContactFormPhone">{{ 'templates.contact.form.phone' | t }}</label>
+                            <input class="form-control border-0 border-bottom border-dark px-0 py-1" type="text" placeholder="{{ 'templates.contact.form.phone_placeholder' | t }}" id="ContactFormPhone" name="contact[{{ name_attr }}]" pattern="[0-9\-]*" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.phone }}{% endif %}" required>
+                        </div>
+                        <div class="col-12">
+                            {% assign name_attr = 'templates.contact.form.address' | t | handle %}
+                            <label class="form__label mb-2 d-none" for="ContactFormAddress">{{ 'templates.contact.form.address' | t }}</label>
+                            <input class="form-control border-0 border-bottom border-dark px-0 py-1" type="text" placeholder="{{ 'templates.contact.form.address_placeholder' | t }}" id="ContactFormAddress" name="contact[{{ name_attr }}]" value="{% if form[name_attr] %}{{ form[name_attr] }}{% else %}{% elsif customer %}{{ customer.address }}{% endif %}" required>
+                        </div>
+                        <div class="col-12">
+                            <div class="card p-3 border-danger mt-2">
+                                <div class="product_name"><span class="fw-medium heading-color">{{ 'templates.contact.form.product_name' | t }}:</span> {{ product.title }}</div>
+                                {% assign name_attr = 'templates.contact.form.product_name' | t | handle %}
+                                <input type="hidden" name="contact[{{ name_attr }}]" value="{% if form[name_attr] %}{{ form[name_attr] }}{% else %}{{ product.title }}{% endif %}">
+                                {% assign name_attr = 'products.product.link' | t | handle %}
+                                <input type="hidden" name="contact[{{ name_attr }}]" value="{{ shop.url | append: product.url }}">
+                                {% unless product.has_only_default_variant %}
+                                    {%- for option in product.options_with_values -%}
+                                        <div class="pre-order__variants-wrapper d-flex flex-wrap mt-2">
+                                            <label class="pre-order__variants__label fw-medium me-2" for="pre-order__variants{{ forloop.index }}">{{ option.name | escape }} :</label>
+                                            <div class="pre-order__variants__options">
+                                                <select id="pre-order__variants{{ forloop.index }}" class=" product-form__input form-select border-0 border-bottom border-dark px-0 py-1 lh-1 bg-transparent" name="contact[{{ option.name | escape }}]">
+                                                    {% for value in option.values %}
+                                                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    {%- endfor -%}
+                                {% endunless %}
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="form__label fw-normal mb-1" for="ContactForm-body">{{ 'templates.contact.form.comment' | t }}<span>*</span></label>
+                            <textarea class="form-control p-3" rows="4" id="ContactForm-message" name="contact[{{ 'templates.contact.form.comment' | t }}]" required>
+                                {%- if form.body -%}{{ form.body }}{%- endif -%}
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="text-start">
+                        <button type="submit" class="btn btn-default">{{ 'products.product.pre_order' | t }}</button>
+                    </div>
+                {%- endif -%}
+            {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>

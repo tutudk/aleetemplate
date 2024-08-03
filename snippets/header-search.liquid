@@ -1,0 +1,65 @@
+
+<div id="searchTop" class="search-modal modal fade" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content container border-0">
+			<div class="modal-header border-0 p-0 text-center flex-column">
+				<button type="button" class="btn-close m-auto w-auto h-auto p-0 text-primary" data-bs-dismiss="modal" aria-label="Close">{% render 'icons', icon: 'close-bold', class: 'icon', attr: 'width="28" height="28"' %}</button>
+				<h4 class="modal-title pb-0 pt-2 pt-md-5 mb-2" id="searchTopLabel">{{ 'general.search.search' | t }}</h4>
+			</div>
+			<div class="search-modal__content " tabindex="-1">
+				{%- if settings.predictive_search_enabled -%}
+					<predictive-search class="search-modal__form w-100" data-loading-text="{{ 'accessibility.loading' | t }}">
+				{%- endif -%}
+					<form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form position-relative pe-5 border-bottom">
+					
+					<input class="search__input form-control search-input border-0 px-0"
+					id="Search-In-Modal-1"
+					type="search"
+					name="q"
+					value=""
+					placeholder="{{ 'general.search.search_placeholder' | t }}"
+					{%- if settings.predictive_search_enabled -%}
+						role="combobox"
+						aria-expanded="false"
+						aria-owns="predictive-search-results-list"
+						aria-controls="predictive-search-results-list"
+						aria-haspopup="listbox"
+						aria-autocomplete="list"
+						autocorrect="off"
+						autocomplete="off"
+						autocapitalize="off"
+						spellcheck="false"
+					{%- endif -%}
+					>
+					<label class="d-none" for="Search-In-Modal">{{ 'general.search.search_placeholder' | t }}</label>
+					<input type="hidden" name="type" value="product" />
+					<input type="hidden" name="options[sort_by]" value="price-descending" />
+					<button class="search__button btn btn-link p-0 text-end position-absolute end-0" aria-label="{{ 'general.search.search_placeholder' | t }}">
+						{% render 'icons', icon: 'search', class: 'icon icon-search', attr: 'width="24" height="24"' %}
+					</button>
+
+					{%- if settings.predictive_search_enabled -%}
+						<div class="predictive-search predictive-search--header position-absolute bg-white overflow-auto" tabindex="-1" data-predictive-search>
+							<div class="predictive-search__loading-state d-none">
+								<svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+								<circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+								</svg>
+							</div>
+						</div>
+
+						<span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+					{%- endif -%}
+					</form>
+				{%- if settings.predictive_search_enabled -%}
+					</predictive-search>
+				{%- endif -%}
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var myCollapsible = document.getElementById('searchTop');
+	myCollapsible.addEventListener('shown.bs.modal', function () {
+		document.getElementById('Search-In-Modal-1').focus();
+	});
+</script>

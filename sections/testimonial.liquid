@@ -1,0 +1,313 @@
+{%- assign nav = section.settings.navigation -%}
+{%- assign pagination = section.settings.pagination -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus: 0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+    {%- if section.settings.margin_block_m != blank -%}
+        --st-mg-mb: {{ section.settings.margin_block_m }};
+    {%- endif -%}
+    {%- if section.settings.image_bg != blank -%}
+        --st-bg-img: url({{ section.settings.image_bg | img_url: 'master' }});
+    {%- endif -%}
+{%- endcapture -%}
+{%- if section.settings.size != blank -%}
+    {%- assign wimg = section.settings.size | split: "x" | first -%}
+    {%- assign himg = section.settings.size | split: "x" | last -%}
+{%- else -%}
+    {%- assign wimg = "140" -%}
+    {%- assign himg = "140" -%}
+{%- endif -%}
+{%- assign image_margin = himg | divided_by: 2 | floor -%}
+<div class="vela-section testimonial overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{%- if section.settings.full_with -%}-fluid{%- endif -%}">
+        <div class="vela-section__inner">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group text-center mb-3 mb-md-4 pb-1">
+                    <h2 class="heading mb-2">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading mb-2">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content" >
+                <div class="vela-section__wrapper">
+                    <div class="js-carousel slick-carousel row g-3"
+                    data-nav="{{ nav }}"
+                    data-dots="{{ pagination }}"
+                    data-infinite="{{ infinite }}"
+                    data-autoplay="{{ autoplay }}"
+                    data-autoplayspeed="{{ autoplay_speed }}"
+                    data-columnone="{{ owlColumn1 }}" 
+                    data-columntwo="{{ owlColumn2 }}" 
+                    data-columnthree="{{ owlColumn3 }}" 
+                    data-columnfour="{{ owlColumn4 }}">
+                        {% for block in section.blocks %}
+                            <div class="slick-carousel__item">
+                                <div class="testimonial__item text-center mx-auto">
+                                    <div class="testimonial__avatar mb-3">
+                                        <div class="avata d-flex justify-content-center">
+                                            <div class="d-block overflow-hidden rounded-circle" style="width: {{ wimg }}px; height: {{ himg }}px;">
+                                                {%- if block.settings.avatar != blank -%}
+                                                    {% render 'img-global', image: block.settings.avatar, image_size: section.settings.size, image_ratio: 'square', crop: 'center', image_style: true %}
+                                                {%- else -%}
+                                                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg ' }}
+                                                {%- endif -%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="testimonial__content">
+                                        {%- if block.settings.name != blank -%}
+                                            <div class="testimonial__name heading-color fw-semibold text-uppercase mb-1">{{ block.settings.name }}</div>
+                                        {%- endif -%}
+                                        {%- if block.settings.position != blank -%}
+                                            <div class="testimonial__position text-primary fw-medium mb-2 pb-1">{{ block.settings.position }}</div>
+                                        {%- endif -%}
+                                        {%- if block.settings.review != blank -%}
+                                            <div class="testimonial__review mx-auto">{{ block.settings.review }}</div>
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Testimonial",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "image_picker",
+                "id": "image_bg",
+                "label": "t:sections.global.settings.bg_image.label"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "text",
+                "id": "margin_block_m",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 0px 0px and use mobile only"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "html",
+                "id": "heading",
+                "label": "t:sections.global.settings.heading_section.label",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "t:sections.global.settings.subheading_section.label",
+                "default": "sub heading"
+            },
+            {
+                "type": "text",
+                "id": "size",
+                "label": "Avata Size",
+                "placeholder": "100x100",
+                "default": "100x100",
+                "info": "100x100"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": true
+			},
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 2,
+                "info": "Mobile phone"
+            }
+        ],
+		"blocks": [
+			{
+                "type": "item",
+                "name": "Testimonial Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "avatar",
+                        "label": "Avatar"
+                    },
+                    {
+                        "type": "text",
+                        "id": "name",
+                        "label": "Customer name",
+                        "default": "Customer name"
+                    },
+                    {
+                        "type": "text",
+                        "id": "position",
+                        "label": "Position",
+                        "default": "Customer position"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "review",
+                        "label": "Customer Review",
+                        "default": "Ipsum dolor sit amet, consectetur adipiscing elit. Fringilla vel tincidunt ipsum ac. Nam at et id leo pulvinar egestas mi lorem. Adipiscing felis, vel faucibus in. Hendrerit viverra elementum venenatis pellentesque pellentesque ornare"
+                    }
+                ]
+            }
+		],
+        "presets": [
+            {
+                "name": "Testimonial",
+                "blocks": [
+                    {
+                        "type": "item"
+                    },
+                    {
+                        "type": "item"
+                    },
+                    {
+                        "type": "item"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

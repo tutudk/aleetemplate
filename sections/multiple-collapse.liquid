@@ -1,0 +1,145 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+    --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+    --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section multiple-collapse overflow-hidden"{% if section_style %} style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner {% if section.settings.color_bg != 'rgba(0,0,0,0)' %}py-5{% endif %}">
+            <div id="multiple-collapse{{ section.id }}">
+                {% for block in section.blocks %}
+                    <div class="multiple-collapse__item {% unless forloop.last %}mb-2{% endunless %}">
+                        <a class="multiple-collapse__heading d-block position-relative {% unless forloop.first %}collapsed{% endunless %}" data-bs-toggle="collapse" href="#collapseItem{{ forloop.index }}{{ section.id }}" role="button" aria-expanded="false" aria-controls="collapseItem{{ forloop.index }}">
+                            <span class="">{{ block.settings.title }}</span>
+                        </a>
+                        <div class="collapse multiple-collapse__content {% if forloop.first %}collapse show{% endif %}" id="collapseItem{{ forloop.index }}{{ section.id }}" data-bs-parent="#multiple-collapse{{ section.id }}">
+                            <div class="multiple-collapse__wrapper p-3 p-sm-4">
+                                {{ block.settings.content }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>            
+		</div>
+	</div>
+</div>
+{% schema %}
+  	{
+        "name": "Multiple Collapse",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings": [
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            }
+		],
+        "blocks": [
+            {
+                "type": "collapse",
+                "name": "Collapse Item",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title",
+                        "default": "Heading"
+                    },
+                    {
+                        "type": "html",
+                        "id": "content",
+                        "label": "Item content",
+                        "default": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Multiple Collapse",
+                "blocks": [
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    },
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    },
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    },
+                    {
+                        "type":"collapse",
+                        "settings":{
+                            "title": "What does Shopify do?",
+                            "content": "Lorem Khaled Ipsum is a major key to success. They don’t want us to win. Always remember in the jungle there’s a lot of they in there, after you overcome they, you will make it to paradise. Major key, don’t fall for the trap, stay focused. It’s the ones closest to you that want to see you fail. Major key, don’t fall for the trap, stay focused"
+                        }
+                    }
+                ]
+            }
+        ]
+  	}
+{% endschema %}

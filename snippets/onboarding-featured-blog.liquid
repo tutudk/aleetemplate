@@ -1,0 +1,44 @@
+{%- assign show_date = section.settings.blog_date | default: true -%}
+{%- assign show_author = section.settings.blog_author | default: true -%}
+{%- assign show_image = section.settings.blog_image | default: true -%}
+{%- assign show_excerpt = section.settings.blog_excerp | default: true -%}
+{%- assign show_readmore = section.settings.blog_readmore | default: false -%}
+{%- assign blogstyle = blogstyle | default: 'default' -%}
+{% for i in (1..4) %}
+  <div class="slick-carousel__item{% if blogstyle == 'default' %} mb-4 {% else %} text-center {% endif %}">
+    <div class="featured-blog__post blog_{{ blogstyle }}">
+      <article class="article">
+		<div class="article__image position-relative mb-3">
+			<a class="article__featured-image-link" href="{{ article.url }}">
+				<div class="article__featured-image-wrapper overflow-hidden">
+				{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+				</div>
+			</a>
+		</div>
+        <div class="article__content pt-1">
+			<h6 class="article__title mb-1">
+				<a href="{{ article.url }}" title="Nam liber tempor cum soluta.">Nam liber tempor cum soluta.</a>
+			</h6>
+			<div class="article__meta d-flex flex-wrap align-items-center{% unless blogstyle == 'default' %} justify-content-center{% endunless %}">
+				{%- if show_date -%}
+					<div class="article__meta-date"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{ 'now' | date: format: 'date' }}</time></div>
+				{%- endif -%}
+				{%- if show_author -%}
+					<div class="article__meta-author">by Velatheme</div>
+				{%- endif -%}
+			</div>
+			{%- if show_excerpt -%}
+				<div class="rte article__excerpt pt-1 mt-md-1">
+					Diga, Koma and Torus are three kitchen utensils designed for Ommo, a new design-oriented brand...
+				</div>
+			{%- endif -%}
+			{%- if show_readmore -%}
+				<div class="d-flex pt-2 my-2{% unless blogstyle == 'default' %} justify-content-center{% endunless %}">
+					<a class="article__btn vela-icon" href="{{ article.url }}"><span class="d-inline-block">{{ 'blogs.article.read_more' | t }}</span></a>
+				</div>
+			{%- endif -%}
+		</div>
+      </article>
+    </div>
+  </div>
+{% endfor %}

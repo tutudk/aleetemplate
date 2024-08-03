@@ -1,0 +1,38 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+    {%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+    {%- assign sold_out = false -%}
+{%- endif -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product.metafields.custom.shortdescription != blank -%}
+    {%- assign shortDescription = product.metafields.custom.shortdescription -%}
+{%- else -%}
+    {%- assign shortDescription = product.description | strip_html | truncate: 160 -%}
+{%- endif -%}
+{%- if product.metafields.custom.pre_order and settings.pre-order and variant.inventory_policy == "continue" -%}
+    {%- assign preOrder = true -%}
+{%- else -%}
+    {%- assign preOrder = false -%}
+{%- endif -%}
+{%- assign image_crop = '' -%}
+{%- if settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%}
+
+{% assign date_created = product.created_at | date:'%s' %}
+{% assign date_now = 'now' | date: '%s' %}
+{% assign   difference = date_now | minus: date_created %}
+{%- assign product1_style = product_style | default: settings.product_style -%}
+{%- if product1_style == 'style1' -%}
+    {% include 'product-grid-style1' %}
+{%- elsif product1_style == 'style2' -%}
+    {% include 'product-grid-style2' %}
+{%- elsif product1_style == 'style3' -%}
+    {% include 'product-grid-style3' %}
+{%- else -%}
+    {% include 'product-grid-default' %}
+{%- endif -%}
+

@@ -1,0 +1,212 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign featured_media = current_variant.featured_media | default: product.featured_media -%}
+{%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+{%- assign stacked = false -%}
+{%- assign thumb_vertical = false -%}
+{% if section.settings.media_layout == "stacked" %}
+	{% assign stacked = true %}
+{%- else -%}
+	{% assign thumb_vertical = true %}
+{% endif %}
+{%- assign color_list = '' -%}
+{%- assign variant_alt_color = false -%}
+{%- if section.settings.enable_multi_variant -%}
+	{%- for option in product.options_with_values -%}
+		{%- assign downcased_option = option.name | downcase -%}
+		{%- for value in option.values -%}
+			{%- assign downcased_value = value | handleize -%}
+			{%- if pro_color_label contains downcased_option  -%}
+				{% unless color_list == blank %}
+					{%- assign color_list = color_list | append: ',' -%}
+				{% endunless%}
+					{%- assign color_list = color_list | append: downcased_value  -%}
+			{%- endif -%}
+		{%- endfor -%}
+	{%- endfor -%}
+	{% if color_list != '' %}
+		{%- assign color_lists = color_list | split: ',' -%}
+		{% for color_label1 in color_lists %}
+			{%- for media in product.media -%}
+				{%- assign color_name = media.alt | split: "__" | last | handleize -%}
+					{%- if color_name == color_label1 -%}
+						{%- assign variant_alt_color = true -%}
+						{%- break -%}
+					{%- endif -%}
+			{%- endfor -%}
+		{%- endfor -%}
+	{%- endif -%}
+{%- endif -%}
+{% if section.settings.enable_multi_variant and variant_alt_color %}
+	<div class="js-product-single-media product-single__media position-relative me-lg-2 me-xl-4{% if stacked %} product-single__media--stacked{% endif %}{% if thumb_vertical %} product-single__media--{{ section.settings.media_layout }}{% endif %} {{ thumb_style }}{% unless product.media.size > 1 %} no-thumbnail{% endunless%}">
+		{%- assign color_lists = color_list | split: ',' -%}
+		{% for color_label1 in color_lists %}
+			<div class="js-product-single-media__wrapp{% if forloop.first %} active{% endif %}" data-variant-color = "{{ color_label1 }}">
+				<div class="product-single__main-media">
+					<div class="js-product-media-group js-product-media-group-{{ section.id }} product-single__media-group">
+					{%- assign enable_image_zoom = section.settings.enable_image_zoom -%}
+					{%- assign width = 770 -%}
+					{%- assign height = 770 -%}
+					{%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+					{%- for media in product.media -%}
+						{%- assign color_name = media.alt | split: "__" | last | handleize -%}
+						{%- if color_name == color_label1 -%}
+							{%- assign featured = false -%}
+							{%- if media == featured_media -%}
+							{%- assign featured = true -%}
+							{%- endif -%}
+							{%- capture thumbnail_alt -%}
+							{%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+								{{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+							{%- elsif media.media_type == 'model' -%}
+								{{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+							{%- else -%}
+								{{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+							{%- endif -%}
+							{%- endcapture -%}
+			
+							<div class="js-product-media-item product-single__media-item"
+							data-slick-media-label="{{ thumbnail_alt }}">
+							{%- include 'media' with media, enable_image_zoom: enable_image_zoom, featured: featured, width: width, height: height -%}
+							</div>
+						{%- endif -%}
+					{%- endfor -%}
+					</div>
+					<div class="main-media__slick-controls">
+						<button class="slick__arrow slick__arrow--previous" data-slick-previous>
+							{% render 'icons', icon: 'angle-left' %}
+						</button>
+						<button class="slick__arrow slick__arrow--next"  data-slick-next>
+							{% render 'icons', icon: 'angle-right' %}
+						</button>
+					</div>
+					{%- for block in section.blocks -%}
+						{%- if block.type == 'gift_box' -%}
+							{% if product.handle == block.settings.product_gift %}
+								{% include 'gift-box' %}
+							{% endif  %}
+						{%- endif -%}
+					{%- endfor-%}
+				</div>
+		
+				{%- unless stacked -%}
+					{% if product.media.size > 1 %}
+						<div class="product-single__thumbnail-wrapper position-relative" data-thumbnail-alt= "{{ color_label1 }}">
+							<div class="js-product-thumbnails js-product-thumbnails-{{ section.id }} product-single__thumbnails" data-thumbnails-show="5">
+								{% for media in product.media %}
+									{%- assign color_name = media.alt | split: "__" | last | handleize -%}
+									{%- if color_name == color_label1 -%}
+										<div class="product-media__wrapper">
+											{%- capture thumbnail_alt -%}
+												{%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+												{{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+												{%- elsif media.media_type == 'model' -%}
+												{{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+												{%- else -%}
+												{{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+												{%- endif -%}
+											{%- endcapture -%}
+											<a href="javascript:void(0)"
+												class="product-single__thumbnail{% if media == featured_media %} active-thumb{% endif %} thumbnail-type_{{ media.media_type }}"
+												data-media="{{ media | image_url: width: 600 }}"
+												data-media-id="{{ section.id }}-{{ media.id }}"
+												data-product-thumbnail >
+												{%- assign media_img_h = 180 | divided_by: media.aspect_ratio -%}
+												{{ media | image_url: width: '180' | image_tag: loading: 'lazy', width: '180', height: media_img_h, class: "img-fluid", alt:  media.alt | escape }}
+												{%- if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' -%}
+													<div class="product-single__thumbnail-badge">
+														{% include 'svg-definitions' with media.media_type, directly: true %}
+													</div>
+												{%- endif -%}
+											</a>
+										</div>
+									{%- endif -%}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{%- endunless -%}
+			</div>
+		{% endfor %}
+	</div>
+{%- else -%}
+	<div class="js-product-single-media product-single__media pe-lg-2 pe-xl-3{% if stacked %} product-single__media--stacked{% endif %}{% if thumb_vertical %} product-single__media--{{ section.settings.media_layout }}{% endif %} {{ thumb_style }}{% unless product.media.size > 1 %} no-thumbnail{% endunless%}">
+		<div class="product-single__main-media">
+			<div class="js-product-media-group js-product-media-group-{{ section.id }} product-single__media-group">
+			{%- assign enable_image_zoom = section.settings.enable_image_zoom -%}
+			{%- assign width = 800 -%}
+			{%- assign height = 1000 -%}
+			{%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
+			{%- for media in product.media -%}
+				{%- assign featured = false -%}
+				{%- if media == featured_media -%}
+				{%- assign featured = true -%}
+				{%- endif -%}
+				{%- capture thumbnail_alt -%}
+				{%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+					{{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+				{%- elsif media.media_type == 'model' -%}
+					{{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+				{%- else -%}
+					{{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+				{%- endif -%}
+				{%- endcapture -%}
+
+				<div class="js-product-media-item product-single__media-item"
+				data-slick-media-label="{{ thumbnail_alt }}">
+				{%- include 'media' with media, enable_image_zoom: enable_image_zoom, featured: featured, width: width, height: height -%}
+				</div>
+			{%- endfor -%}
+			</div>
+			<div class="main-media__slick-controls">
+				<button class="slick__arrow slick__arrow--previous" data-slick-previous>
+					{% render 'icons', icon: 'angle-left' %}
+				</button>
+				<button class="slick__arrow slick__arrow--next"  data-slick-next>
+					{% render 'icons', icon: 'angle-right' %}
+				</button>
+			</div>
+			{%- for block in section.blocks -%}
+				{%- if block.type == 'gift_box' -%}
+					{% if product.handle == block.settings.product_gift %}
+						{% include 'gift-box' %}
+					{% endif  %}
+				{%- endif -%}
+			{%- endfor-%}
+		</div>
+
+		{%- unless stacked -%}
+			{% if product.media.size > 1 %}
+				<div class="product-single__thumbnail-wrapper position-relative">
+					<div class="js-product-thumbnails js-product-thumbnails-{{ section.id }} product-single__thumbnails" data-thumbnails-show="5">
+						{% for media in product.media %}
+							<div class="product-media__wrapper">
+								{%- capture thumbnail_alt -%}
+									{%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+									{{ 'products.product.video_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+									{%- elsif media.media_type == 'model' -%}
+									{{ 'products.product.model_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+									{%- else -%}
+									{{ 'products.product.gallery_thumbnail_alt' | t: imageAlt: media.alt | escape }}
+									{%- endif -%}
+								{%- endcapture -%}
+								<a href="javascript:void(0)"
+									class="product-single__thumbnail{% if media == featured_media %} active-thumb{% endif %} thumbnail-type_{{ media.media_type }}"
+									data-media="{{ media | image_url: width: 600 }}"
+									data-media-id="{{ section.id }}-{{ media.id }}"
+									data-product-thumbnail >
+									{%- assign media_img_h = 180 | divided_by: media.aspect_ratio -%}
+									{{ media | image_url: width: '180' | image_tag: loading: 'lazy', width: '180', height: media_img_h, class: "img-fluid", alt:  media.alt | escape }}
+									{%- if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' -%}
+									<div class="product-single__thumbnail-badge">
+										{% include 'svg-definitions' with media.media_type, directly: true %}
+									</div>
+									{%- endif -%}
+								</a>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+			{% endif %}
+		{%- endunless -%}
+	</div>
+{% endif %}

@@ -1,0 +1,62 @@
+<script>
+  window.vela = window.vela || {};
+  vela.strings = {
+    shop_money_with_currency_format: {{ shop.money_with_currency_format | strip_html | json }},
+    shop_money_format: {{ shop.money_format | strip_html | json }},
+    currency: {{ shop.currency | json }},
+    moneyFormat: {{ shop.money_format | json }},
+    zoomClose: {{ 'products.zoom.close' | t | json }},
+    zoomPrev: {{ 'products.zoom.prev' | t | json }},
+    zoomNext: {{ 'products.zoom.next' | t | json }},
+    productSlideLabel: {{ 'products.product.slide_label' | t: slide_number: '[slide_number]', slide_max: '[slide_max]' | json }},
+    countdownDays: {{ 'general.countdown.days' | t | json }},
+    countdownHours: {{ 'general.countdown.hours' | t | json }},
+    countdownMinutes: {{ 'general.countdown.minutes' | t | json }},
+    countdownSeconds: {{ 'general.countdown.seconds' | t | json }},
+    countdownFinish: {{ 'general.countdown.finish' | t | json }},
+    addToCart: {{ 'products.product.add_to_cart' | t | json }},
+    preOrder: {{ 'products.product.pre_order' | t | json }},
+    preOrderLabel: {{ 'products.general.label_pre_order' | t | json }},
+    soldOut: {{ 'products.product.sold_out' | t | json }},
+    unavailable: {{ 'products.product.unavailable' | t | json }},
+    inStock: {{ 'products.product.in_stock' | t | json }},
+    outStock: {{ 'products.product.out_stock' | t | json }},
+    cartEmpty: {{ 'sections.cart.empty' | t | json }},
+    cartCookies: {{ 'sections.cart.cookies_required' | t | json }},
+    newsletterSuccess: {{ 'newsletter.newsletter_confirmation' | t | json }},
+    add_to_wishlist: '{{ 'products.product.add_to_wishlist' | t }}',
+    remove_wishlist: '{{ 'products.product.remove_wishlist' | t }}'
+  };
+  vela.settings = {
+    currencies: {{ settings.show_multiple_currencies | json }},
+    cartType: {{ settings.cart_type | json }},
+    enableReview: {{ settings.product_reviews_enable | json }},
+    enablePreLoading: {{ settings.preloading | json }},
+    enableQuickView: {{ settings.quickview_enable | json }},
+    quickViewVariantType: {{ settings.quickview_variant_selector | json }},
+    quickViewColorSwatch: {{ settings.quickview_variant_color_enable | json }},
+    quickViewImageSwatch: {{ settings.quickview_variant_image_enable | json }},
+    enableWishlist: {{ settings.product_wishlist | json }},
+    fileURL: "{{ '' | file_url | split: '?' | first }}",
+    cartNoteEnable: {{ settings.cart_notes_enable | json }},
+    shippingCalcEnable: {{ settings.cart_shipping_enable | json }},
+    preOrderEnable: {{ settings.pre-order | json }},
+    preOrderType: {{ settings.pre-order-style | json }},
+    {%- if settings.cart_shipping_enable -%}
+      shippingBarEnable: {{ settings.shipping_bar | json }},
+    {%- endif -%}
+    {%- if settings.cart_shipping_enable -%}
+      shippingCalcSubmitButton: {{ 'sections.cart.estimate_shipping_button' | t: default: 'Estimate' | json }},
+      shippingCalcSubmitButtonDisabled: {{ 'sections.cart.estimate_shipping_button_disable' | t: default: 'Estimating...' | json }},
+      shippingCalcMessSuccess: {{ 'sections.cart.estimate_shipping_mess_success' | t | json }},
+      shippingCalcMessSuccess1: {{ 'sections.cart.estimate_shipping_mess_success1' | t | json }},
+      {% if customer %}shippingCalcCustomerIsLoggedIn: true,{% endif %}
+      shippingCalcMessError: {{ 'sections.cart.estimate_shipping_mess_error' | t | json }}
+    {%- endif -%}
+  };
+  vela.loading = '<div class="vela-loading"><div class="vela-loading__icon"><span></span><span></span><span></span><span></span></div></div>';
+</script>
+{{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+{{ 'vendor.min.js' | asset_url | script_tag }}
+{%- if settings.cart_shipping_enable -%}{{ 'estimate-shipping.min.js' | asset_url | script_tag }}{%- endif -%}
+<script src="{{ 'global.js' | asset_url }}" defer="defer"></script>

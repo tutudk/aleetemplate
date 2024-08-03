@@ -1,0 +1,41 @@
+<article class="article blog-simple overflow-hidden position-relative p-4 p-xl-5 border">
+    <div class="article__image position-absolute top-0 start-0 w-100 h-100">
+        {%- if article.image != blank -%}
+            <div class="bg-image w-100 h-100" style="background-image: url({{ article.image | img_url: '500x500', crop: 'center'}}); background-size: cover;"></div>
+        {%- endif -%}
+    </div>
+
+    <div class="article__content position-relative">
+        <div class="article__meta d-flex flex-wrap align-items-center">
+            {%- if section.settings.blog_categories -%}
+                <div class="article__meta-categories d-flex align-items-center mb-1">
+                    {{ blog.title }}
+                </div>
+            {%- endif -%}
+            {%- if section.settings.blog_date -%}
+                {%- capture post_date -%}{{ article.published_at | date: format: 'month_date_year' }}{%- endcapture -%}
+                    <div class="article__meta-date mb-1"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{ post_date }}</time></div>
+            {%- endif -%}
+            {%- if section.settings.blog_author -%}
+                {%- capture author -%}{{ article.author }}{%- endcapture -%}
+                <div class="article__meta-author d-flex align-items-center mb-1">
+                    {{ 'blogs.article.author_html' | t: author: author }}
+                </div>
+            {%- endif -%}
+        </div>
+        <h5 class="article__title mb-2 pb-lg-1 line-clamp-2">
+            <a class="line-title" href="{{ article.url }}" title="{{ article.title | strip_html }}"><span>{{ article.title }}</span></a>
+        </h5>
+        {%- if section.settings.blog_excerp -%}
+            {%- if noowlColumn1 == 12 -%} {%- assign words_count = 280 -%} {%- elsif noowlColumn1 == 6  -%}{%- assign words_count = 160 -%}{% else %}{%- assign words_count = 120 -%} {% endif %}
+            <div class="rte article__excerpt pt-1 line-clamp-3">
+                {{ article_content | strip_html | truncate: words_count }}
+            </div>
+        {%- endif -%}
+        {%- if section.settings.blog_readmore -%}
+            <div class="d-flex pt-2 my-2">
+                <a class="article__btn vela-icon" href="{{ article.url }}"><span class="d-inline-block">{{ 'blogs.article.read_more' | t }}</span></a>
+            </div>
+        {%- endif -%}
+    </div>
+</article>

@@ -1,0 +1,362 @@
+
+{%- assign blogName = section.settings.blog_handle -%}
+{%- assign blogLimit = section.settings.limit -%}
+{%- assign nav = section.settings.navigation -%}
+{%- assign pagination = section.settings.pagination -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus: 0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign image_crop = nil -%}
+{%- if section.settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%} 
+<div class="vela-section vela-section-blogs overflow-hidden"  {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group text-center mb-3 mb-md-4 pb-1">
+                    <h2 class="heading mb-2">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading mb-2">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content position-relative"> 
+                <div class="js-carousel slick-carousel row g-2 g-md-{{ section.settings.space_between }}"
+                data-nav="{{ nav }}"
+                data-infinite="{{ infinite }}"
+                data-dots="{{ pagination }}"
+                data-autoplay="{{ autoplay }}"
+                data-autoplayspeed="{{ autoplay_speed }}"
+                data-columnone="{{ owlColumn1 }}" 
+                data-columntwo="{{ owlColumn2 }}" 
+                data-columnthree="{{ owlColumn3 }}" 
+                data-columnfour="{{ owlColumn4 }}">
+                    {%- if blogName == blank or blogs[blogName].articles == empty -%}
+                        {%- include 'onboarding-featured-blog', blogstyle: section.settings.blog_style -%}
+                    {%- else -%}
+                        {% for article in blogs[blogName].articles limit: blogLimit %}
+                            <div class="slick-carousel__item">
+                                {%- assign article_content = article.excerpt_or_content -%}
+                                {%- if section.settings.blog_style == 'grid' -%}
+                                    {%- include 'blog-grid-item' -%}
+                                {%- elsif section.settings.blog_style == 'grid1' -%}
+                                    {%- include 'blog-grid-item1' -%}
+                                {%- else -%}
+                                    {%- include 'blog-list-item1' -%}
+                                {%- endif -%}
+                            </div>
+                        {% endfor %}
+                    {%- endif -%}
+                </div>
+                {%- if section.settings.button_text != blank -%}
+                    <div class="text-center mt-4 mt-md-5 mt-lg-6">
+                        <a class="btn--viewall btn" href="{{ blogs[blogName].url }}" title="{{ section.settings.button_text | strip_html }}"><span class="d-none">{{ section.settings.button_text }}</span><span class="icon">{% render 'icons', icon: 'arrow_right', class: 'arrow_right' %}</span></a>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
+{%- assign prostyle = nil -%}
+{% schema %}
+    {
+        "name": "Blog posts",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "html",
+                "id": "heading",
+                "label": "t:sections.global.settings.heading_section.label",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "t:sections.global.settings.subheading_section.label",
+                "default": "sub heading"
+            },
+            {
+                "type": "blog",
+                "id": "blog_handle",
+                "label": "Blog"
+            },
+			{
+                "type": "range",
+                "id": "limit",
+                "min": 1,
+                "max": 12,
+                "step": 1,
+                "label": "Maximum item to show",
+                "default": 8
+            },
+            {
+                "type": "select",
+                "id": "space_between",
+                "label": "Space Between Item",
+                "default": "4",
+                "options": [
+                    {
+                        "value": "3",
+                        "label": "20"
+                    },
+                    {
+                        "value": "4",
+                        "label": "30"
+                    },
+                    {
+                        "value": "5",
+                        "label": "40"
+                    },
+                    {
+                        "value": "6",
+                        "label": "50"
+                    }
+                ]
+            },
+            {
+                "type": "header",
+                "content": "BLog card"
+            },
+            {
+                "type": "checkbox",
+                "id": "blog_image",
+                "label": "Show image",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "blog_date",
+                "label": "Show date",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "blog_author",
+                "label": "Show author",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "blog_excerp",
+                "label": "Show Excerp",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "blog_readmore",
+                "label": "Show readmore",
+                "default": true
+            },
+            {
+                "type": "select",
+                "id": "image_ratio",
+                "options": [
+                  {
+                    "value": "adapt",
+                    "label": "Adapt to image"
+                  },
+                  {
+                    "value": "portrait",
+                    "label": "Portrait"
+                  },
+                  {
+                    "value": "square",
+                    "label": "Square"
+                  }
+                ],
+                "default": "adapt",
+                "label": "Image ratio"
+            },
+            {
+                "type": "checkbox",
+                "id": "crop",
+                "label": "Crop Image",
+                "default": false,
+                "info": "Not use with Adapt to image"
+            },
+            {
+                "type": "select",
+                "id": "blog_style",
+                "options": [
+                  {
+                    "value": "grid",
+                    "label": "Grid"
+                  },
+                  {
+                    "value": "grid1",
+                    "label": "Grid 1"
+                  },
+                  {
+                    "value": "list",
+                    "label": "List"
+                  }
+                ],
+                "default": "grid",
+                "label": "Blog Style"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button read more",
+                "placeholder": "View all",
+                "info": "Hidden, if it's blank"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": true
+			},
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 2,
+                "info": "Mobile phone"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Blog posts",
+                "category": "4. element"
+            }
+        ]
+    }
+{% endschema %}

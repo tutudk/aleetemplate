@@ -1,0 +1,138 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+    --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+    --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    --st-cl: {{ section.settings.color_copyright }};--st-cl-l: {{ section.settings.color_copyright_link }};
+{%- endcapture -%}
+<div class="copy-right vela-section overflow-hidden"{% if section_style %} style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="copy-right__inner">
+            <div class="d-flex flex-wrap flex-column text-center align-items-center justify-content-between">
+                {%- if section.settings.copyright != blank -%}
+                    <div class="copyright mb-2 mb-md-0">
+                        {{ section.settings.copyright }}
+                    </div>
+                {%- endif -%}
+                {%- if section.settings.payment_enable -%}
+                    <div class="payment pt-1 pt-md-2">
+                        {%- if section.settings.payment_image != blank -%}
+                            <img srcset="{{ section.settings.payment_image | image_url: width: section.settings.payment_image.width }} 1x, {{ section.settings.payment_image | image_url: width: section.settings.payment_image.width, scale: 2 }} 2x"
+                            src="{{ section.settings.payment_image | image_url: width: section.settings.payment_image.width }}"
+                            width="{{ section.settings.payment_image.width }}" height="{{ section.settings.payment_image.height }}"
+                            loading="lazy"
+                            class="img-fluid"
+                            alt="{{ section.settings.payment_image.alt | default: shop.name | escape }}" >
+                        {%- else -%}
+                            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+                            <ul class="list list-payment list-unstyled m-0 d-flex flex-wrap" role="list">
+                            {%- for type in shop.enabled_payment_types -%}
+                                <li class="list-payment__item py-1{% unless forloop.last %} me-2{% endunless%}">
+                                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                                </li>
+                            {%- endfor -%}
+                            </ul>
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+                {%- if section.settings.social_enable -%}
+                    <div class="footer-social pt-1 pt-md-2">
+                        {%- include 'social-link' position: "copy-right" -%}
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "CopyRight",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "html",
+                "id": "copyright",
+                "label": "t:sections.copyright.settings.copyright.label",
+                "default": "Copyright © Velatheme. All rights reserved."
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "color",
+                "id": "color_copyright",
+                "label": "t:sections.copyright.settings.color_copyright.label",
+                "default": "#323232"
+            },
+            {
+                "type": "color",
+                "id": "color_copyright_link",
+                "label": "t:sections.copyright.settings.color_copyright_link.label",
+                "default": "#323232"
+            },
+            {
+				"type": "header",
+				"content": "t:sections.copyright.settings.header_1.content"
+			},
+			{
+				"type": "checkbox",
+				"id": "payment_enable",
+				"label": "t:sections.copyright.settings.payment_enable.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "payment_image",
+				"label": "t:sections.copyright.settings.payment_image.label"
+			},
+            {
+				"type": "header",
+				"content": "t:sections.copyright.settings.header_2.content"
+			},
+			{
+				"type": "checkbox",
+				"id": "social_enable",
+				"label": "t:sections.copyright.settings.social_enable.label"
+			}
+        ]
+    }
+{% endschema %}

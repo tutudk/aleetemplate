@@ -1,0 +1,185 @@
+{%- capture section_style -%}
+	{%- if section.settings.max_with != blank -%}
+		--st-mx-w: {{ section.settings.max_with }};
+	{%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+<product-recommendations class="product-recommendations " data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}">
+	{% if recommendations.performed and recommendations.products_count > 0 %}
+		<div class="product-recommendations__inner vela-section overflow-hidden"  {% if section_style %}style="{{ section_style }}"{% endif %}>
+			<div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+				{%- if section.settings.heading != blank -%}
+					<div class="heading-group mb-3 mb-md-4 text-center">
+						<h2 class="heading mb-2">
+							<span>{{ section.settings.heading }}</span>
+						</h2>
+						{%- if section.settings.sub_heading != blank -%}
+							<div class="sub-heading mb-2">
+								{{ section.settings.sub_heading }}
+							</div>
+						{%- endif -%}
+					</div>
+				{%- endif -%}
+				<div class=" product-recommendations__content">
+					<div class="row g-2 g-md-4 gy-4 row-cols-{{ owlColumn3 }} row-cols-md-{{ owlColumn2 }} row-cols-lg-{{ owlColumn1 }}">
+						{%- for product in recommendations.products -%}
+							<div class="col">
+								{% include 'product-grid-item' %}
+							</div>
+						{%- endfor -%}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+</product-recommendations>
+	  
+{% javascript %}
+	class ProductRecommendations extends HTMLElement {
+		constructor() {
+		super();
+		const handleIntersection = (entries, observer) => {
+			if (!entries[0].isIntersecting) return;
+			observer.unobserve(this);
+			fetch(this.dataset.url)
+			.then(response => response.text())
+			.then(text => {
+				const html = document.createElement('div');
+				html.innerHTML = text;
+				const recommendations = html.querySelector('product-recommendations');
+				if (recommendations && recommendations.innerHTML.trim().length) {
+					this.innerHTML = recommendations.innerHTML;
+					initButtons();
+					vela.swatchProduct();
+					if (window.SPR && vela.settings.enableReview) {
+						return window.SPR.registerCallbacks(), window.SPR.initRatingHandler(), window.SPR.initDomEls(), window.SPR.loadProducts(), window.SPR.loadBadges();				
+					}
+				}
+			})
+			.catch(e => {
+				console.error(e);
+			});
+		}
+	
+		new IntersectionObserver(handleIntersection.bind(this), {rootMargin: '0px 0px 200px 0px'}).observe(this);
+		}
+	}
+	customElements.define('product-recommendations', ProductRecommendations);
+{% endjavascript %}
+{% schema %}
+{
+  "name": "Product recommendations",
+  "settings": [
+	{
+		"type": "paragraph",
+		"content": "Dynamic recommendations use order and product information to change and improve over time. [Learn more](https:\/\/shopify.dev\/themes\/product-merchandising\/recommendations)"
+	},
+	{
+		"type": "header",
+		"content": "Design Section"
+	},
+	{
+		"type": "checkbox",
+		"id": "full_with",
+		"label": "Make section full width"
+	},
+	{
+		"type": "text",
+		"id": "max_with",
+		"label": "Container max width?(px)",
+		"info": "Ex: 1440px"
+	},
+	{
+		"type": "color",
+		"id": "color_bg",
+		"label": "Background Color",
+		"default": "rgba(0,0,0,0)"
+	},
+	{
+		"type": "text",
+		"id": "padding_block",
+		"label": "Padding",
+		"placeholder": "0px 0px"
+	},
+	{
+		"type": "text",
+		"id": "padding_block_m",
+		"label": "Padding on the mobile",
+		"placeholder": "0px 0px",
+		"info": "Ex: 0px 0px 0px 0px and use mobile only"
+	},
+	{
+		"type": "text",
+		"id": "margin_block",
+		"label": "Margin",
+		"placeholder": "0px 0px"
+	},
+	{
+		"type": "header",
+		"content": "General Settings"
+	},
+	{
+		"type": "html",
+		"id": "heading",
+		"label": "Heading",
+		"default": "Heading"
+	},
+	{
+		"type": "text",
+		"id": "sub_heading",
+		"label": "Sub heading",
+		"default": "sub heading"
+	},
+	{
+		"type": "range",
+		"id": "products_to_show",
+		"min": 2,
+		"max": 10,
+		"step": 1,
+		"default": 5,
+		"label": "Maximum products to show"
+	},
+	{
+		"type": "range",
+		"id": "column1",
+		"min": 1,
+		"max": 6,
+		"step": 1,
+		"label": "Number of columns on desktop",
+		"default": 5
+	},
+	{
+		"type": "range",
+		"id": "column2",
+		"min": 1,
+		"max": 5,
+		"step": 1,
+		"label": "Number of columns on tablet",
+		"default": 3
+	},
+	{
+		"type": "range",
+		"id": "column3",
+		"min": 1,
+		"max": 5,
+		"step": 1,
+		"label": "Number of columns on mobile",
+		"default": 2
+	}
+  ]
+}
+{% endschema %}

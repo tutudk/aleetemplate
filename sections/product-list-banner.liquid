@@ -1,0 +1,184 @@
+
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+    --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+    --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign proCollection = section.settings.collection_handle -%}
+{%- assign proLimit = section.settings.limit -%}
+<div class="vela-section product-banner overflow-hidden"  {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group text-center mb-3 mb-md-4 pb-1">
+                    <h2 class="heading mb-2">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading mb-2">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content">
+                <div class="row g-2 g-md-3 {% if section.settings.banner_position == 'right' %}flex-row-reverse{% endif %}">
+                    <div class="col-12 col-md-6">
+                        <a class="product-banner__image" href="{{ section.settings.banner_url }}" title="{{ section.settings.banner_title | strip_html }}">
+                            {% if section.settings.banner != blank %}
+                                {% render 'img-global' with image: section.settings.banner %}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                        </a>
+                    </div>  
+                    <div class="col-12 col-md-6">
+                        <div class="product-banner__product">
+                            <div class="row g-2 g-md-3 gy-4 gy-xl-5 row-cols-2 row-cols-md-3 row-cols-lg-3">
+                                {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                                    {% include 'onboarding-featured-products' %}
+                                {%- else -%}
+                                    {%- for product in collections[proCollection].products limit: proLimit -%}
+                                        {% include 'product-grid-item' %}
+                                    {%- endfor -%}
+                                {%- endif -%}
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%- assign prostyle = nil -%}
+{% schema %}
+{
+    "name": "Product with banner",
+    "tag": "section",
+    "class": "velaFramework",
+    "disabled_on": {
+        "groups": ["header", "footer"]
+    },
+    "settings":[
+        {
+            "type": "header",
+            "content": "t:sections.global.settings.header_section.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "t:sections.global.settings.full_width.label"
+        },
+        {
+            "type": "text",
+            "id": "max_with",
+            "label": "t:sections.global.settings.max_with.label",
+            "info": "t:sections.global.settings.max_with.info"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "t:sections.global.settings.bg_color.label",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "t:sections.global.settings.padding.label",
+            "placeholder": "0px 0px",
+            "info": "t:sections.global.settings.padding.info"
+        },
+        {
+            "type": "text",
+            "id": "padding_block_m",
+            "label": "t:sections.global.settings.padding_mobile.label",
+            "placeholder": "0px 0px",
+            "info": "t:sections.global.settings.padding_mobile.info"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "t:sections.global.settings.margin.label",
+            "placeholder": "0px 0px"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.global.settings.header_settings.content"
+        },
+        {
+            "type": "html",
+            "id": "heading",
+            "label": "t:sections.global.settings.heading_section.label",
+            "default": "Heading"
+        },
+        {
+            "type": "text",
+            "id": "sub_heading",
+            "label": "t:sections.global.settings.subheading_section.label",
+            "default": "sub heading"
+        },
+        {
+            "type": "collection",
+            "id": "collection_handle",
+            "label": "Collection"
+        },
+        {
+            "type": "range",
+            "id": "limit",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "label": "Maximum products to show",
+            "default": 6
+        },
+        {
+            "type": "header",
+            "content": "Banner"
+        },
+        {
+            "type": "image_picker",
+            "id": "banner",
+            "label": "Banner"
+        },
+        {
+            "type": "url",
+            "id": "banner_url",
+            "label": "Banner url"
+        },
+        {
+            "type": "select",
+            "id": "banner_position",
+            "label": "Position",
+            "default": "right",
+            "options": [
+                {
+                    "value": "left",
+                    "label": "Left"
+                },
+                {
+                    "value": "right",
+                    "label": "Right"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Product with banner",
+            "category": "2. Products"
+        }
+    ]
+}
+{% endschema %}

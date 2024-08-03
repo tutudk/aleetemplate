@@ -1,0 +1,106 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section google-map overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="google-map__map d-flex w-100" style="{% if section.settings.min-height != blank %}--gm-h: {{ section.settings.min-height }};{% endif %}{% if section.settings.min-height-m != blank %}--gm-h-m: {{ section.settings.min-height-m }};{% endif %}">
+                {{ section.settings.googlemap_iframe }}
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Google map",
+        "class": "velaFramework",
+        "tag": "section",
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "textarea",
+                "id": "googlemap_iframe",
+                "label": "Google Map Code",
+                "placeholder": "Embed Map",
+                "default": "<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m14!1m8!1m3!1d19867.311686031117!2d-0.111056!3d51.505621!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4291f3172409ea92!2slastminute.com%20London%20Eye!5e0!3m2!1sen!2sus!4v1631783144736!5m2!1sen!2sus\" width=\"100%\" height=\"600px\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"><\/iframe>"
+            },
+            {
+                "type": "text",
+                "id": "min-height",
+                "label": "Height on desktop(px)",
+                "placeholder": "600px",
+                "default": "600px"
+            },
+            {
+                "type": "text",
+                "id": "min-height-m",
+                "label": "Height on mobile(px)",
+                "placeholder": "300px",
+                "default": "300px"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Google map"
+            }
+        ]
+    }
+{% endschema %}

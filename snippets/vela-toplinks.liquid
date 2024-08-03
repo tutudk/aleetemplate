@@ -1,0 +1,18 @@
+{% if shop.customer_accounts_optional or shop.customer_accounts_enabled %}
+	{%- capture fullname -%}{{ customer.first_name }}{%- endcapture -%}
+	{%- assign logout = 'customer.log_out' | t -%}
+	{%- assign login = 'customer.login_page.title' | t -%}
+	{%- assign register = 'customer.registration' | t -%}
+	<div class="velaTopLinks">
+		<a class="d-block d-md-none" href="{{routes.account_url}}" title="{{ 'customer.account.title' | t }}">{% render 'icons', icon: 'user', class: '', attr: 'width="20" height="22"' %}</a>
+		<ul class="list-unstyled m-0 d-none d-md-flex">
+			{% if customer  %}
+				<li class="link"><a href="{{routes.account_url}}" title="{{ 'customer.account.title' | t }}">{{ 'customer.account.title' | t }}</a></li>              
+				<li class="link">{{ logout | customer_logout_link }}</li>
+			{% else %}
+				<li class="link">{{ login | customer_login_link }}</li>
+				<li class="link">{{ register | customer_register_link }}</li>
+			{% endif %}
+		</ul>
+	</div>
+{% endif %}

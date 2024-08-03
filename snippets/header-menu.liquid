@@ -1,0 +1,66 @@
+{%- assign main_menu = section.settings.menu -%}
+<div class="main-menu{% if section.settings.velavermenu_linklist != blank %} ms-4 ms-xl-5{% endif %} d-none d-lg-block">
+	<nav class="main-menu__wrap">
+		<ul class="main-menu__nav list-unstyled d-flex flex-wrap m-0">
+		{%- for menu_link in linklists[main_menu].links -%}
+			{%- assign is_mega = false -%}
+			{%- for block in section.blocks -%}
+			{%- assign menu_item = menu_link.title | strip_html | handle -%}
+			{%- assign mega_menu_item = block.settings.title | strip_html | handle -%}
+			{%- if mega_menu_item == menu_item -%}
+				{%- assign is_mega = true -%}
+					{% include 'header-megamenu' %}
+				{%- break -%}
+			{%- endif -%}
+			{%- endfor -%}
+			{%- if is_mega == false -%}
+				{%- if menu_link.links != blank -%}
+					{% comment %}====== MENU DROPDOWN LEVEL I ======{% endcomment %}
+					<li class="main-menu__nav-item menu-dropdown menu-dropdown--basic{% if menu_link.active %} active{% endif %}">
+						<a class="main-menu__link" href="{{ menu_link.url }}" title="{{ menu_link.title | strip_html }}"><span>{{ menu_link.title }}{% render 'icons', icon: 'angle-down', class: 'ms-1', attr: 'width="8" height="15"' %}</span></a>
+						<ul class="menu-dropdown__content list-unstyled">
+							{%- for menu_link_child in menu_link.links -%}
+								{%- if menu_link_child.links != blank -%}
+									{% comment %}====== MENU DROPDOWN LEVEL II ======{% endcomment %}
+									<li class="menu-dropdown menu-dropdown--basic{% if menu_link_child.active %} active{% endif %}">
+										<a  class="main-menu__link" href="{{ menu_link_child.url }}" title="{{ menu_link_child.title | strip_html }}"><span>{{ menu_link_child.title }}</span>{% render 'icons', icon: 'angle-right', class: "icon-arrow position-absolute top-50 end-0 translate-middle-y", attr: 'width="5"' %}</a>
+										<ul class="menu-dropdown__content list-unstyled">
+											{%- for menu_link_child1 in menu_link_child.links -%}
+												{%- if menu_link_child1.links != blank -%}
+													{% comment %}====== MENU DROPDOWN LEVEL III ======{% endcomment %}
+													<li class="menu-dropdown menu-dropdown--basic{% if menu_link_child1.active %} active{% endif %}">
+													<a  class="main-menu__link" href="{{ menu_link_child1.url }}" title=""><span>{{ menu_link_child1.title }}</span>{% render 'icons', icon: 'angle-right', class: "icon-arrow position-absolute top-50 end-0 translate-middle-y", attr: 'width="5"' %}</a>
+														<ul class="menu-dropdown__content list-unstyled">
+															{%- for menu_link_child2 in menu_link_child1.links -%}
+																<li class="{% if menu_link_child2.active %}active{% endif %}">
+																	<a  class="main-menu__link" href="{{ menu_link_child2.url }}" title="{{ menu_link_child2.title | strip_html }}"><span>{{ menu_link_child2.title }}</span></a>
+																</li>
+															{%- endfor -%}
+														</ul>
+													</li>
+												{%- else -%}
+													<li class="{% if menu_link_child1.active %}active{% endif %}">
+														<a  class="main-menu__link" href="{{ menu_link_child1.url }}" title="{{ menu_link_child1.title | strip_html }}"><span>{{ menu_link_child1.title }}</span></a>
+													</li>
+												{%- endif -%}
+											{%- endfor -%}
+										</ul>
+									</li>
+								{%- else -%}
+									<li class="{% if menu_link_child.active %}active{% endif %}">
+										<a  class="main-menu__link" href="{{ menu_link_child.url }}" title="{{ menu_link_child.title | strip_html }}"><span>{{ menu_link_child.title }}</span></a>
+									</li>
+								{%- endif -%}
+							{%- endfor -%}
+						</ul>
+					</li>
+				{%- else -%}
+					<li class="main-menu__nav-item{% if menu_link.active %} active{% endif %}">
+						<a  class="main-menu__link" href="{{ menu_link.url }}" title="{{ menu_link.title | strip_html }}"><span>{{ menu_link.title }}</span></a>
+					</li>
+				{%- endif -%}
+			{%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+</div>

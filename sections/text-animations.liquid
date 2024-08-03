@@ -1,0 +1,244 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+    --ta-fs: {{ section.settings.font-size }}px; --ta-fs-m: {{ section.settings.font-size-m }}px; --ta-link-cl: {{ section.settings.color_top_link }}; --ta-cl: {{ section.settings.color_top_text }};
+{%- endcapture -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.speed | escape -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus: 0 -%}
+<div class="vela-section text-animations overflow-hidden position-relative" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            <div class="text-animation__content">
+                <div class="js-carousel slick-carousel row g-3"
+                    data-nav="false"
+                    data-dots="false"
+                    data-infinite="true"
+                    data-speedslide="{{ autoplay_speed }}"
+                    data-autoplay="{{ autoplay }}"
+                    data-autoplayspeed="1"
+                    data-columnone="{{ owlColumn1 }}" 
+                    data-columntwo="{{ owlColumn2 }}" 
+                    data-columnthree="{{ owlColumn3 }}" 
+                    data-columnfour="{{ owlColumn4 }}">
+                    {%- for block in section.blocks -%}	
+                        <div class="slick-carousel__item {{ block.settings.text_alignment}}">
+                            <{% if block.settings.link != blank %}a href="{{ block.settings.link }}" title="" {% else %}div{% endif %} class="text-animation__text-item">			
+                                {{ block.settings.text }}
+                            </{% if block.settings.link != blank %}a{% else %}div{% endif %}>
+                        </div>
+                    {%- endfor -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "t:sections.text-animation.name",
+        "class": "velaFramework",
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "image_picker",
+                "id": "image_bg",
+                "label": "t:sections.global.settings.bg_image.label"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "color",
+                "id": "color_top_text",
+                "label": "Color",
+                "label": "t:sections.global.settings.color.label",
+                "default": "#1f2021"
+            },
+            {
+                "type": "color",
+                "id": "color_top_link",
+                "label": "t:sections.global.settings.color_link.label",
+                "default": "#1f2021"
+            },
+            {
+                "type": "range",
+                "id": "font-size",
+                "min": 8,
+                "max": 30,
+                "step": 1,
+                "unit":"px",
+                "label": "t:sections.global.settings.font_size.label",
+                "default": 14
+            },
+            {
+                "type": "range",
+                "id": "font-size-m",
+                "min": 8,
+                "max": 30,
+                "step": 1,
+                "unit":"px",
+                "label": "t:sections.global.settings.font_size_m.label",
+                "default": 14
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": true
+            },
+            {
+                "type": "text",
+                "id": "speed",
+                "label": "Speed",
+                "info": "Speed in milliseconds. Type: int(ms)",
+                "default": "5000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 8,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 1,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 7,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 1,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 1,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 1,
+                "info": "Mobile phone"
+            }
+        ],
+        "blocks": [
+          {
+            "type": "text-item",
+            "name": "t:sections.text-animation.blocks.text-item.name",
+            "settings": [
+                {
+                    "type": "html",
+                    "id": "text",
+                    "default": "Welcome to our store",
+                    "label": "t:sections.text-animation.blocks.text-item.settings.text.label"
+                },
+                {
+                    "type": "select",
+                    "id": "text_alignment",
+                    "label": "t:sections.text-animation.blocks.text-item.settings.text_alignment.label",
+                    "default": "text-start",
+                    "options": [
+                        {
+                            "value": "text-start",
+                            "label": "t:sections.text-animation.blocks.text-item.settings.text_alignment.options__1.label"
+                        },
+                        {
+                            "value": "text-center",
+                            "label": "t:sections.text-animation.blocks.text-item.settings.text_alignment.options__2.label"
+                        },
+                        {
+                            "value": "text-end",
+                            "label": "t:sections.text-animation.blocks.text-item.settings.text_alignment.options__3.label"
+                        }
+                    ]
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "t:sections.text-animation.blocks.text-item.settings.link.label"
+                }
+            ]
+          }
+        ],
+        "presets": [
+            {
+              "name": "t:sections.text-animation.name",
+              "blocks": [
+                {
+                  "type": "text-item"
+                },
+                {
+                  "type": "text-item"
+                },
+                {
+                  "type": "text-item"
+                }
+              ]
+            }
+        ]
+    }
+{% endschema %}

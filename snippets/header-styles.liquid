@@ -1,0 +1,18 @@
+{%- if settings.type_special_type == "upload_fonts" -%} 
+    {{- 'customfont.css' | asset_url | stylesheet_tag -}}
+{%- endif -%}
+{%- if settings.font_icon -%}
+    {{- 'font-awesome.min.css' | asset_url | stylesheet_tag -}}
+{%- endif -%}
+{%- if settings.predictive_search_enabled -%}
+    <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+{%- endif -%}
+{{- 'bootstrap.css' | asset_url | stylesheet_tag -}}
+{{- 'theme.css' | asset_url | stylesheet_tag -}}	
+{{- 'vendor.min.css' | asset_url | stylesheet_tag -}}
+{%- if settings.cart_type == "drawer" -%}
+    {{- 'component-cart-drawer.css' | asset_url | stylesheet_tag -}}
+{%- endif -%}
+{%- if request.page_type == 'policy' -%}
+    {{- 'template-policy.css' | asset_url | stylesheet_tag -}}
+{%- endif -%}

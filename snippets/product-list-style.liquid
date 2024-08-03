@@ -1,0 +1,77 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+{%- assign variant = product.selected_or_first_available_variant -%}
+{%- if product.metafields.custom.shortdescription != blank -%}
+    {%- assign shortDescription = product.metafields.custom.shortdescription -%}
+{%- else -%}
+    {%- assign shortDescription = product.description | strip_html | truncate: 200 -%}
+{%- endif -%}
+{%- assign image_crop = nil -%}
+{%- if section.settings.crop -%}
+    {%- assign image_crop = 'center' -%}
+{%- endif -%}
+<div class="product-card product-list-style product-list__list">
+    <div class="row g-3">
+        <div class="col" style="max-width: 100px;">
+            <div class="product-card__image-wrapper">
+                <a class="product-card__image-link" href="{{ product.url }}">
+                    {% render 'img-global', image: product.featured_media, image_size: '150x150', image_style: true %}
+                    {%- if product.media[1] != nil and settings.show_secondary_image -%}
+                        <span class="img-secondary position-absolute">
+                            {% render 'img-global', image: product.media[1], image_size: '150x150', image_style: true %}
+                        </span>
+                    {%- endif -%}
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="product-card__content position-relative pt-1">
+                {%- if settings.product_card_tag -%}
+                    <div class="product-card__tags mb-1">
+                        {% for tag in product.tags limit: 2 %}
+                            <a href="{{ routes.all_products_collection_url }}/{{ tag }}" title="{{ tag }}">{{ tag }}</a>{% unless forloop.last %},{% endunless%}
+                        {% endfor %}
+                    </div>
+                {%- endif -%}
+                <div class="product-card__name line-clamp-2 mb-1">
+                    <a href="{{ product.url }}"><span>{{ product.title }}</span></a>
+                </div>
+                {%- if settings.product_reviews_enable and settings.product_card_review -%}
+                    <div class="product-card__review product-review mb-1">
+                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                    </div>
+                {%- endif -%}
+                <div class="product-group-price ff-special d-flex align-items-center pt-1">
+                    <div class="product-price">{{ product.price | money }}</div>
+                    {%- if on_sale -%}
+                        <div class="product-price product-price--regular ms-1">{{ product.compare_at_price | money }}</div>
+                    {%- endif -%}
+                    
+                    {%- if product.price_varies == false and variant.unit_price_measurement -%}
+                    {%- capture unit_price_separator -%}
+                        <span>/</span><span class="d-none">&nbsp;{{ 'general.accessibility.unit_price_separator' | t }}&nbsp;</span>
+                    {%- endcapture -%}
+                    {%- capture unit_price_base_unit -%}
+                        <span>
+                        {%- if variant.unit_price_measurement.reference_value != 1 -%}
+                            {{- variant.unit_price_measurement.reference_value -}}
+                        {%- endif -%}
+                        {{ variant.unit_price_measurement.reference_unit }}
+                        </span>
+                    {%- endcapture -%}
+                    <span class="product-unit-price">
+                        <span class="d-none">{{ 'products.general.unit_price' | t }}</span>
+                        <span>{{ variant.unit_price | money }}</span>{{- unit_price_separator -}}{{- unit_price_base_unit -}}
+                    </span>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

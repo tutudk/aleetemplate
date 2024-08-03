@@ -1,0 +1,198 @@
+
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+    --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+    --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+    <div id="product-more-info" class="vela-section product-more-info"{% if section_style %} style="{{ section_style }}"{% endif %}>
+        <div class="container{%- if section.settings.full_with -%}-fluid{%- endif -%}">
+            {%- if section.blocks.size > 0 -%}
+                <div class="product-more-info__inner">
+                    <div class="more-info-tabs__heading mb-2 mb-lg-3 tab-sm-scroll">
+                        <ul class="more-info-tabs__nav nav d-flex justify-content-center list-unstyled mb-1">
+                            {%- for block in section.blocks -%}
+                                {%- if block.type == "description" or block.settings.content != blank or block.settings.content_1 != blank -%}
+                                    <li class="more-info-tabs__nav-item">
+                                        <a class="more-info-tabs__nav-link {% if forloop.first %} active{% endif %}" data-bs-toggle="tab" href="#js-more-info-tabs-{{ forloop.index }}">
+                                            {{- block.settings.heading -}}
+                                        </a>
+                                    </li>
+                                {%- endif -%}
+                            {%- endfor -%}
+                            {%- if section.settings.product_review == 'tab' and settings.product_reviews_enable -%}
+                                <li class="more-info-tabs__nav-item">
+                                    <a class="more-info-tabs__nav-link {% if forloop.first %} active{% endif %}" data-bs-toggle="tab" href="#js-more-info-tabs-review">
+                                        {{- section.settings.review_title -}}
+                                    </a>
+                                </li>
+                            {%- endif -%}
+                        </ul>
+                    </div>
+                    <div class="more-info-tabs__content tab-content pt-3">
+                        {%- for block in section.blocks -%}
+                            <div id="js-more-info-tabs-{{ forloop.index }}" class="tab-pane fade {% if forloop.first %}show active{% endif %}">
+                                <div class="rte">
+                                    {% if block.type == "description" %}
+                                        {{ product.description }}
+                                    {%- else -%}
+                                        {{ block.settings.content }}
+                                        {{ block.settings.content_1 }}
+                                        {%- if block.settings.image != blank -%}
+                                            <div class="more-info-tabs__image mb-2">
+                                                <img class="img-fluid lazyload" data-src="{{ block.settings.image | img_url: 'master'}}" data-size="auto" />
+                                            </div>
+                                        {%- endif -%}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        {%- endfor -%}
+                        {%- if section.settings.product_review == 'tab' and settings.product_reviews_enable -%}
+                            <div id="js-more-info-tabs-review" class="tab-pane fade {% if forloop.first %}show active{% endif %}">
+                                <div class="product-reviews">
+                                    <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    </div>
+                </div>
+            {%- endif -%}
+            {%- if section.settings.product_review == 'bottom' and settings.product_reviews_enable -%}
+                <div class="product-reviews">
+                    <div id="shopify-product-reviews" data-id="{{ product.id }}">{{ product.metafields.spr.reviews }}</div>
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+{% schema %}
+{
+    "name": "Product tab information",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "header",
+            "content": "t:sections.global.settings.header_section.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "t:sections.global.settings.full_width.label"
+        },
+        {
+            "type": "text",
+            "id": "max_with",
+            "label": "t:sections.global.settings.max_with.label",
+            "info": "t:sections.global.settings.max_with.info"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "t:sections.global.settings.bg_color.label",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "t:sections.global.settings.padding.label",
+            "placeholder": "0px 0px",
+            "info": "t:sections.global.settings.padding.info"
+        },
+        {
+            "type": "text",
+            "id": "padding_block_m",
+            "label": "t:sections.global.settings.padding_mobile.label",
+            "placeholder": "0px 0px",
+            "info": "t:sections.global.settings.padding_mobile.info"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "t:sections.global.settings.margin.label",
+            "placeholder": "0px 0px"
+        },
+        {
+            "type": "header",
+            "content": "Product review"
+        },
+        {
+            "type": "text",
+            "id": "review_title",
+            "label": "Review Title",
+            "default": "Reviews"
+        },
+        {
+            "type": "radio",
+            "id": "product_review",
+            "label": "Choose position",
+            "options": [
+                {
+                    "value": "tab",
+                    "label": "Show in Tab"
+                },
+                {
+                    "value": "bottom",
+                    "label": "Show bottom"
+                }
+            ],
+            "default": "tab"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "description",
+            "name": "Description",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "html",
+                    "id": "heading",
+                    "default": "Tab heading",
+                    "info": "Include a heading that explains the content.",
+                    "label": "Heading"
+                }
+            ]
+        },
+        {
+            "type": "extra_tab",
+            "name": "Extra tab",
+            "limit": 5,
+            "settings": [
+                {
+                    "type": "html",
+                    "id": "heading",
+                    "default": "Tab heading",
+                    "info": "Include a heading that explains the content.",
+                    "label": "Heading"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "html",
+                    "id": "content",
+                    "label": "Tab content",
+                    "info": "HTML"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content_1",
+                    "label": "Tab content"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

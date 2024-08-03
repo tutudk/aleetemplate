@@ -1,0 +1,12 @@
+
+@font-face {
+    font-family: 'quentin';
+    src:url('//aleefurnishing.com/cdn/shop/t/3/assets/quentin.eot?v=50122446900968282541702438115');
+    src:url('//aleefurnishing.com/cdn/shop/t/3/assets/quentin.eot?v=50122446900968282541702438115') format('embedded-opentype'),
+        url('//aleefurnishing.com/cdn/shop/t/3/assets/quentin.woff?v=170981935592580920341702438115') format('woff'),
+        url('//aleefurnishing.com/cdn/shop/t/3/assets/quentin.woff2?v=34130287029558885991702438115') format('woff2'),
+        url('//aleefurnishing.com/cdn/shop/t/3/assets/quentin.ttf?v=154820697784510184241702438115') format('truetype'),
+        url('//aleefurnishing.com/cdn/shop/t/3/assets/quentin.svg?v=15741647247974719561702438115') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}

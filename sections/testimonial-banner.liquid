@@ -1,0 +1,331 @@
+{%- assign nav = section.settings.navigation -%}
+{%- assign pagination = section.settings.pagination -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus: 0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+    {%- if section.settings.imge_bg != blank -%}
+        --st-bg-img: url({{ section.settings.imge_bg | img_url: 'master' }});
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section testimonial-banner overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{%- if section.settings.full_with -%}-fluid{%- endif -%}">
+        <div class="vela-section__inner">
+            {%- if section.settings.heading != blank -%}
+                <div class="heading-group text-center mb-3 mb-md-4 pb-1">
+                    <h2 class="heading mb-2">
+                        <span>{{ section.settings.heading }}</span>
+                    </h2>
+                    {%- if section.settings.sub_heading != blank -%}
+                        <div class="sub-heading mb-2">
+                            {{ section.settings.sub_heading }}
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- endif -%}
+            <div class="vela-section__content" >
+                <div class="vela-section__wrapper">
+                    <div class="row g-3">
+                        {%- assign bnw = section.settings.banner_width | plus: 0 -%}
+                        {%- assign testiw = 100 | minus: bnw -%}
+                        {%- assign bnwm = section.settings.banner_width_m | plus: 0 -%}
+                        {%- if bnwm == 100 -%}
+                            {%- assign testiwm = 100  -%}
+                        {%- else -%}
+                            {%- assign testiwm = 100 | minus: bnwm -%}
+                        {%- endif -%}
+                        <div class="col-12 testimonial-banner__banner" style="--tb-w-col: {{ bnw }}%; --tb-w-col-m: {{ bnwm }}%;">
+                            <div class="banner" style="--plh-svg-h: 720px;">
+                                {% if section.settings.banner != blank %}
+                                    {% render 'img-global', image: section.settings.banner %}
+                                {% else %}
+                                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-12 testimonial-banner__testimonial" style="--tb-w-col: {{ testiw }}%; --tb-w-col-m: {{ testiwm }}%;">
+                            {%- if section.settings.img_quote != blank -%}
+                                <div class="testimonial-banner__quote text-center mb-4 pb-lg-4">
+                                    {{ section.settings.img_quote | image_url: width: section.settings.img_quote.width | image_tag: loading: 'lazy', width: section.settings.img_quote.width, height: section.settings.img_quote.height, class: "img-fluid", alt:  section.settings.img_quote.alt | escape }}
+                                </div>
+                            {%- endif -%}
+                            <div class="js-carousel slick-carousel row g-3"
+                            data-nav="{{ nav }}"
+                            data-dots="{{ pagination }}"
+                            data-infinite="{{ infinite }}"
+                            data-autoplay="{{ autoplay }}"
+                            data-autoplayspeed="{{ autoplay_speed }}"
+                            data-columnone="{{ owlColumn1 }}" 
+                            data-columntwo="{{ owlColumn2 }}" 
+                            data-columnthree="{{ owlColumn3 }}" 
+                            data-columnfour="{{ owlColumn4 }}">
+                                {% for block in section.blocks %}
+                                    <div class="slick-carousel__item">
+                                        <div class="testimonial-banner__item text-center mx-auto">
+                                            {%- if block.settings.review != blank -%}
+                                                <div class="testimonial-banner__review mx-auto mb-1 h3 text-white">{{ block.settings.review }}</div>
+                                            {%- endif -%}
+                                            <div class="testimonial-banner__item-content position-relative pt-3 pt-md-4 pt-xl-5">
+                                                <div class="text-center">
+                                                    {%- if block.settings.name != blank -%}
+                                                        <div class="testimonial-banner__name h6 text-white">{{ block.settings.name }}</div>
+                                                    {%- endif -%}
+                                                    {%- if block.settings.position != blank -%}
+                                                        <div class="testimonial-banner__position">{{ block.settings.position }}</div>
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Testimonial - banner",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings":[
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Make section full width"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "Container max width?(px)",
+                "info": "Ex: 1440px"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "image_picker",
+                "id": "imge_bg",
+                "label": "Background Image"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "Padding on the mobile",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use mobile only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 30px 0px"
+            },
+            {
+                "type": "header",
+                "content": "Testimonial"
+            },
+            {
+                "type": "image_picker",
+                "id": "img_quote",
+                "label": "Quote",
+                "info": "size: 100x100(px)"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": true
+			},
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 2,
+                "info": "Mobile phone"
+            },
+            {
+                "type": "header",
+                "content": "Banner"
+            },
+            {
+                "type": "image_picker",
+                "id": "banner",
+                "label": "Banner",
+                "info": "Recommend size: 750x750(px)"
+            },
+            {
+                "type": "range",
+                "id": "banner_width",
+                "min": 30,
+                "max": 70,
+                "step": 1,
+                "unit": "%",
+                "label": "Banner width",
+                "default": 50,
+                "info": "Desktops"
+            },
+            {
+                "type": "range",
+                "id": "banner_width_m",
+                "min": 30,
+                "max": 100,
+                "step": 1,
+                "unit": "%",
+                "label": "Banner width",
+                "default": 100,
+                "info": "Mobile"
+            }
+        ],
+		"blocks": [
+			{
+                "type": "item",
+                "name": "Testimonial Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "avatar",
+                        "label": "Avatar"
+                    },
+                    {
+                        "type": "text",
+                        "id": "name",
+                        "label": "Customer name",
+                        "default": "Customer name"
+                    },
+                    {
+                        "type": "text",
+                        "id": "position",
+                        "label": "Position",
+                        "default": "Customer position"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "review",
+                        "label": "Customer Review",
+                        "default": "Ipsum dolor sit amet, consectetur adipiscing elit. Fringilla vel tincidunt ipsum ac. Nam at et id leo pulvinar egestas mi lorem. Adipiscing felis, vel faucibus in. Hendrerit viverra elementum venenatis pellentesque pellentesque ornare"
+                    }
+                ]
+            }
+		],
+        "presets": [
+            {
+                "name": "Testimonial - banner",
+                "blocks": [
+                    {
+                        "type": "item"
+                    },
+                    {
+                        "type": "item"
+                    },
+                    {
+                        "type": "item"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

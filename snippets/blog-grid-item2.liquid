@@ -1,0 +1,46 @@
+<article class="article blog__grid-style1 p-4 p-xl-5 border">
+    {%- if article.image != blank and section.settings.blog_image -%}
+        <div class="article__image mb-3">
+            <a class="article__featured-image-link" href="{{ article.url }}">
+                {% render 'img-global', image: article.image, image_ratio: section.settings.image_ratio, crop: image_crop %}
+            </a>
+        </div>
+    {%- endif -%}
+
+    <div class="article__content">
+        <h5 class="article__title mb-2 line-clamp-2">
+            <a class="line-title" href="{{ article.url }}" title="{{ article.title | strip_html }}"><span>{{ article.title }}</span></a>
+        </h5>
+        {%- if section.settings.blog_excerp -%}
+            {%- assign words_count = 110 -%}
+            <div class="rte article__excerpt">
+                {{ article_content | strip_html | truncate: words_count }}
+            </div>
+        {%- endif -%}
+        <div class="article__meta d-flex flex-wrap align-items-center border-top pt-4 mt-4">
+            {%- if section.settings.blog_tags and article.tags.size > 0 -%}
+                <div class="blog-tags mb-1">
+                    {% for tag in article.tags limit: 2 %}
+                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tags__item">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+                    {% endfor %}
+                </div>
+            {%- endif -%}
+            {%- if section.settings.blog_author -%}
+                {%- capture author -%}{{ article.author }}{%- endcapture -%}
+                <div class="article__meta-author d-flex align-items-center mb-1">
+                    {{ 'blogs.article.author_html' | t: author: author }}</div>
+            {%- endif -%}
+            {%- if section.settings.blog_date -%}
+                {%- capture post_date -%}{{ article.published_at | date: format: 'date_month' }}{%- endcapture -%}
+                    <div class="article__meta-date mb-1"><span class="date-icon">{%- render 'icons', icon: 'calendar', attr: 'width="14" height="14"' -%}</span><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{- post_date -}}</time></div>
+            {%- endif -%}
+            {%- if article.comments_enabled? and section.settings.blog_comment -%}
+                {%- assign number_of_comments = article.comments_count -%}
+                <div class="article__meta-comment mb-1">
+                    <span class="comment-icon">{%- render 'icons', icon: 'comment-o', attr: 'width="15" height="15"' -%}</span>
+                    {{- number_of_comments -}}
+                </div>
+            {%- endif -%}
+        </div>
+    </div>
+</article>

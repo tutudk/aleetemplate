@@ -1,0 +1,14 @@
+<div class="header-cart {% unless template == 'cart' %} cart-hover{% endunless %}">
+  <a class="{% unless template == 'cart' %}js-header-cart{% endunless %} header__icon d-flex align-items-center justify-content-center rounded-circle position-relative ms-2 ms-sm-3" href="{% if settings.cart_type == "modal" or settings.cart_type == "draw" %}javascript:void(0){% else %}{{ routes.cart_url }}{% endif %}" id="cart-icon-bubble">
+    {%- render 'icons' with icon: 'cart', class: 'icon icon-cart', attr: 'width="18" height="18"' -%}
+    <span class="header-cart__span d-none">{{ 'general.cart.cart_title' | t }}</span>
+    <span class="header-cart__count cart-count-bubble rounded-circle position-absolute" data-cart-count>{{ cart.item_count }}</span>
+    <span class="header-cart__span d-none">{{ 'general.cart.cart_items_count' | t:count:cart.item_count }}</span>
+    <span class="header-cart__span d-none" data-cart-cost>{{ cart.total_price | money }}</span>
+  </a>
+  {%- if settings.cart_type == "modal" -%}
+    <div class="header-cart__content">
+      <div class="ajaxcart-container" data-cart-container></div>
+    </div>
+  {%- endif -%}
+</div>

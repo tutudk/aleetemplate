@@ -1,0 +1,192 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+    {%- if section.settings.margin_block_m != blank -%}
+        --st-mg-mb: {{ section.settings.margin_block_m }};
+    {%- endif -%}
+{%- endcapture -%}
+
+<div class="section-newsletter vela-section overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            <div class="section-newsletter__wrap">
+                {%- if section.settings.heading != blank -%}
+                    <div class="section-newsletter__heading text-uppercase mb-2 pb-md-1">
+                        {%- if section.settings.sub_heading != blank -%}
+                            <div class="sub-heading text-center fw-semibold text-primary pb-1">
+                                {{ section.settings.sub_heading }}
+                            </div>
+                        {%- endif -%}
+                        <h2 class="heading text-center text-white mb-0">
+                            <span>{{ section.settings.heading }}</span>
+                        </h2>
+                    </div>
+                {%- endif -%}
+                <div class="section-newsletter__content text-center mx-auto">
+                    {%- if section.settings.description != blank -%}
+                        <div class="section-newsletter__desc text-center mb-3 pb-md-2 mx-auto">
+                            {{ section.settings.description }}
+                        </div>
+                    {%- endif -%}
+                    {%- if section.settings.mailchimp -%}
+                        {%- assign form_action = section.settings.newsletter_form_action | replace: '/post?', '/post-json?' | append: '&amp;c=?' -%}
+                        <form action="{{ form_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="js-vela-newsletter formNewsletter clearfix">			                                           
+                            <input class="js-input-newsletter form-control text-center mb-3 mb-md-4" type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'newsletter.newsletter_email' | t }}" name="EMAIL" id="mail" aria-label="{{ 'newsletter.newsletter_email' | t }}" aria-describedby="btn-newsletter" required>						                          
+                            <button class="btn btn--newsletter rounded-1" type="submit">
+                                <span class="text d-block px-md-4 px-lg-5">{{ 'newsletter.button_label' | t }}</span>
+                            </button>
+                        </form>
+                    {%- else -%}
+                        {% form 'customer' %}
+                            {%- if form.errors -%}
+                                <div class="alert-error alert alert-danger alert-dismissible fade show">
+                                    {{ form.errors | default_errors }}
+                                    <button type="button" data-dismiss="alert" aria-hidden="true" data-bs-dismiss="alert" aria-label="Close" class="btn-close"></button>
+                                </div>
+                            {%- endif -%}
+                            {%- if form.posted_successfully? -%}
+                                <div class="alert-success alert alert-success">
+                                    {{ 'newsletter.newsletter_confirmation' | t }}
+                                </div>
+                            {%- else -%}
+                                <input type="hidden" name="action" value="0">
+                                <input class="form-control text-center mb-3 mb-md-4" id="newsletter-input" type="email" name="contact[email]" placeholder="{{ 'newsletter.newsletter_email' | t }}" required aria-describedby="btn-newsletter">
+                                <button class="btn btn--newsletter rounded-1" type="submit" aria-label="Center Align">
+                                    <span class="text d-block px-md-4 px-lg-5">{{ 'newsletter.button_label' | t }}</span>
+                                </button>
+                            {%- endif -%}
+                        {% endform %}
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Newsletter",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header"]
+        },
+        "settings": [
+            {
+                "type": "header",
+                "content": "Design Section"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "Make section full width"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "Container max width?(px)",
+                "info": "Ex: 1440px"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "Background Color",
+                "default": "#222222"
+            },
+            {
+                "type": "image_picker",
+                "id": "image_bg",
+                "label": "Background Image"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "Padding",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "Padding on the mobile",
+                "placeholder": "0px 0px",
+                "info": "Ex: 0px 0px 0px 0px and use mobile only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 0px 0px and use desktop only"
+            },
+            {
+                "type": "text",
+                "id": "margin_block_m",
+                "label": "Margin",
+                "placeholder": "0px 0px",
+                "default": "0 0 30px",
+                "info": "Ex: 0px 0px 0px 0px and use mobile only"
+            },
+            {
+                "type": "header",
+                "content": "General Settings"
+            },
+            {
+                "type": "html",
+                "id": "heading",
+                "label": "Heading",
+                "placeholder": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "Sub heading",
+                "default": "Sub heading"
+            },
+            {
+                "type": "textarea",
+                "id": "description",
+                "placeholder": "Description for block",
+                "label": "Description"
+            },
+            {
+                "type": "checkbox",
+                "id": "mailchimp",
+                "label": "Use mailChimp",
+                "default": false
+            },
+            {
+				"type": "paragraph",
+				"content": "Uncheck if You use Newsletter of Shopify. Email will be saved to shopify customer. Admin -> Customers -> Accepts Marketting. You must send invite account for customer."
+			},
+			{
+				"type": "text",
+				"id": "newsletter_form_action",
+				"label": "MailChimp form action URL",
+				"info": "[Where do I find my MailChimp form action URL?](https:\/\/www.youtube.com/watch?v=mQ6UFLP_iEI)"
+			}
+        ],
+        "presets": [
+            {
+                "name": "Newsletter",
+                "category": "5. Vela Element",
+				"settings": {
+					"heading": "Vela Newsletter"
+				}
+            }
+        ]
+	}
+{% endschema %}

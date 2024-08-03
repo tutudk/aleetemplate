@@ -1,0 +1,483 @@
+
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="list-collections vela-section overflow-hidden" style="{{ section_style }}">
+	<div class="container">
+		{%- if section.settings.title != blank -%}
+			<h1 class="page-title mb-4">{{ section.settings.title | escape }}</h1>
+		{%- endif -%}
+		{%- liquid
+			case section.settings.sort
+			when 'products_high' or 'products_low'
+				assign collections = collections | sort: 'all_products_count'
+			when 'date' or 'date_reversed'
+				assign collections = collections | sort: 'published_at'
+			endcase
+
+			if section.settings.sort == 'products_high' or section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+			assign collections = collections | reverse
+			endif
+		-%}
+		{%- assign owlColumn1 = section.settings.products_ditem_per_row | plus: 0 -%}
+		{%- assign owlColumn2 = section.settings.products_titem_per_row  | plus: 0 -%}
+		{%- assign owlColumn3 = section.settings.products_mitem_per_row | plus: 0 -%}
+		{%- assign image_crop = '' -%}
+		{%- if section.settings.crop -%}
+			{%- assign image_crop = 'center' -%}
+		{%- endif -%}
+		{%- paginate collections by section.settings.products_per_page -%}
+			<div class="collection-list row {% if section.settings.layout_style != 'default' %}gy-3 gy-md-4 gy-lg-5{% endif %} {% if section.settings.space_between == 2%}g-2{% else %}g-3 g-md-{{ section.settings.space_between }}{% endif%} row-cols-{{ owlColumn3 }} row-cols-md-{{ owlColumn2 }} row-cols-lg-{{ owlColumn1 }}">
+				{%- for collection in collections -%}
+					{%- assign nitem = nitem | plus: 1 -%}
+					{%- assign imagePlacdhold = "collection-" | append: nitem -%}
+					{%- if nitem > 5 -%}
+						{%- assign nitem = 0 -%} 
+					{%- endif -%}
+					<div class="col">
+						{%- if section.settings.layout_style == 'style1' -%}
+							<div class="collection-list__item collection-wrapper position-relative overflow-hidden {{ section.settings.layout_style }}">
+								<div class="collection-image collection-effect__image">
+									<a class="position-relative d-block overflow-hidden" href="{{ collection.url }}" title="{{ collection.title | strip_html }}">
+										{%- if collection.image != blank -%}
+											{%- include 'img-global', image: collection.image, image_ratio: section.settings.image_ratio, crop: image_crop -%}
+										{%- else -%}
+											{{ imagePlacdhold | placeholder_svg_tag }}
+										{%- endif -%}
+									</a>
+								</div>
+								<div class="collection-list--content text-center pt-3">
+									<h2 class="mb-1 h5">
+										<a class="collection-list--title collection-effect__title" href="{{ collection.url }}"> 
+											<span class="position-relative">
+												{{ collection.title }}
+											</span>
+										</a>
+									</h2>
+									{%- if section.settings.show_count -%}
+										<div class="collection-count mb-2">{% if collection.all_products_count > 1%}{{ 'collections.general.product_count.other' | t : product_count: collection.all_products_count }}{% else %}{{ 'collections.general.product_count.one' | t : product_count: collection.all_products_count }}{% endif %}</div>
+									{%- endif -%}
+									{%- if section.settings.show_description -%}
+										<div class="collection-desc mb-2">{{ collection.description | truncate: 146, '...' }}</div>
+									{%- endif -%}
+									{%- if section.settings.show_button -%}
+										<a class="collection-button btn btn-default d-inline-block" href="{{ collection.url }}" title="{{ collection.title | strip_html }}" >{{ 'collections.general.all_of_collection' | t }}</a>
+									{%- endif -%}
+								</div>
+							</div>						
+						{%- elsif  section.settings.layout_style == 'style2' -%}
+							{%- assign last-item = forloop.index | modulo: 2 -%}
+							<div class="row g-0 g-md-{{ section.settings.space_between }} collection-list__item {% if last-item == 0 %} flex-row-reverse{% endif %} {{ section.settings.layout_style }}">
+								<div class="col-12 col-md-6">
+									<div class="collection-image collection-effect__image">
+										<a class="position-relative d-block overflow-hidden" href="{{ collection.url }}" title="{{ collection.title | strip_html }}">
+											{%- if collection.image != blank -%}
+												{%- include 'img-global', image: collection.image, image_ratio: section.settings.image_ratio, crop: image_crop -%}
+											{%- else -%}
+												{{ imagePlacdhold | placeholder_svg_tag }}
+											{%- endif -%}
+										</a>
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="collection-list--content h-100" style="background-color: #fafafa">
+										<div class="collection-list--wrapp position-relative start-50 top-50 translate-middle p-3 text-center">
+											<h2 class="mb-1 h4 text-uppercase fw-semibold">
+												<a class="collection-list--title collection-effect__title" href="{{ collection.url }}"> 
+													<span class="position-relative">
+														{{ collection.title }}
+													</span>
+												</a>
+											</h2>
+											{%- if section.settings.show_count -%}
+												<div class="collection-count">{% if collection.all_products_count > 1%}{{ 'collections.general.product_count.other' | t : product_count: collection.all_products_count }}{% else %}{{ 'collections.general.product_count.one' | t : product_count: collection.all_products_count }}{% endif %}</div>
+											{%- endif -%}
+											{%- if section.settings.show_description -%}
+												<div class="collection-desc mx-auto mt-2 mt-md-3 mb-4 mb-md-5 line-clamp-3" style="max-width: 440px;">{{ collection.description }}</div>
+											{%- endif -%}
+											{%- if section.settings.show_button -%}
+												<a class="collection-button btn btn-default d-inline-block px-5 py-2" href="{{ collection.url }}" title="{{ collection.title | strip_html }}" >{{ 'collections.general.all_of_collection' | t }}</a>
+											{%- endif -%}
+										</div>
+									</div>
+								</div>
+							</div>
+						{%- elsif  section.settings.layout_style == 'style3' -%} 
+							<div class="collection-list__item collection-wrapper position-relative overflow-hidden pb-md-5 {{ section.settings.layout_style }}">
+								<div class="collection-list__header-group d-flex align-items-end justify-content-between border-bottom mb-4 mb-md-5 pb-2">
+									<h2 class="mb-0 h4 text-uppercase fw-semibold">
+										{{ collection.title }}
+									</h2>
+									<a class="link" href="{{ collection.url }}">{{ 'sections.collection_list.view_all' | t }}{% render 'icons', icon: 'angle-double-right', class: 'ms-1', attr: 'width="14" height="14"' %}</a>
+								</div>
+								<div class="row gx-xl-6 d-flex align-items-center">
+									<div class="col-12 col-md-5">
+										<div class="me-md-6 pe-md-5">
+											<div class="collection-image collection-effect__image ">
+												<a class="position-relative d-block overflow-hidden" href="{{ collection.url }}" title="{{ collection.title | strip_html }}">
+													{%- if collection.image != blank -%}
+														{%- include 'img-global', image: collection.image, image_ratio: section.settings.image_ratio, crop: image_crop -%}
+													{%- else -%}
+														{{ imagePlacdhold | placeholder_svg_tag }}
+													{%- endif -%}
+												</a>
+											</div>
+											{%- if section.settings.show_description -%}
+												<div class="collection-desc mx-auto mt-2 mt-md-4 line-clamp-3" style="max-width: 440px;">{{ collection.description }}</div>
+											{%- endif -%}
+										</div>
+									</div>
+									<div class="col-12 col-md-7">
+										{%- assign group_item = forloop.index -%}
+										{%- if collection.all_products_count > 8 -%}
+											{%- assign pa-number = 7 -%}
+										{%- else -%}
+											{%- assign pa-number = collection.all_products_count | minus: 1 -%}
+										{%- endif -%}
+										<div class="collection-list--content" style="--pa-number: {{ pa-number }} ">
+											<div class="ia-container">
+												{% for product in collection.products limit: 8 %}
+													<figure>
+														{% render 'img-global', image: product.featured_media %}
+														<input type="radio" name="radio-set{{ group_item }}" {% if forloop.first %} checked="checked"{% endif %} />
+														<figcaption><a href="{{ product.url }}">{{ product.title }}</a></figcaption>
+												{% endfor %}
+													</figure>	
+												{% for product in collection.products limit: 8 %}
+													</figure>
+												{% endfor %}	
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{%- elsif  section.settings.layout_style == 'style4' -%} 
+							<div class="collection-list__item collection-wrapper position-relative overflow-hidden pb-3 {{ section.settings.layout_style }}">
+								<div class="collection-list__header-group d-flex align-items-end justify-content-between border-bottom mb-3 mb-md-4 pb-2">
+									<h2 class="mb-0 h4 text-uppercase fw-semibold">
+										{{ collection.title }}
+									</h2>
+									<a class="link" href="{{ collection.url }}">{{ 'sections.collection_list.view_all' | t }}{% render 'icons', icon: 'angle-double-right', class: 'ms-1', attr: 'width="14" height="14"' %}</a>
+								</div>
+								<div class="row align-items-center collection-list__content">
+									<div class="col-12 col-md-5 col-xl-4">
+										<div class="collection-image collection-effect__image ">
+											<a class="position-relative d-block overflow-hidden" href="{{ collection.url }}" title="{{ collection.title | strip_html }}">
+												{%- if collection.image != blank -%}
+													{%- include 'img-global', image: collection.image, image_ratio: section.settings.image_ratio, crop: image_crop -%}
+													{%- else -%}
+													{{ imagePlacdhold | placeholder_svg_tag }}
+												{%- endif -%}
+											</a>
+										</div>
+									</div>
+									<div class="col-12 col-md-7 col-xl-8">
+										{%- if section.settings.show_description -%}
+											<div class="collection-desc mb-3" >{{ collection.description }}</div>
+										{%- endif -%}
+										<div class="js-carousel slick-carousel row g-2 g-md-{{ section.settings.space_between }}"
+											data-nav="true"
+											data-dots="false"
+											data-infinite="false"
+											data-autoplay="false"
+											data-autoplayspeed="10000"
+											data-columnone="4" 
+											data-columntwo="2" 
+											data-columnthree="2" 
+											data-columnfour="2">
+											{% for product in collection.products limit: 8 %}
+												<div class="slick-carousel__item">
+													{% include 'product-grid-item' %}
+												</div>
+											{%- endfor -%}
+										</div>
+									</div>
+								</div>
+							</div>
+						{%- else -%} 
+							<div class="collection-list__item collection-wrapper position-relative overflow-hidden {{ section.settings.layout_style }}">
+								<div class="collection-image collection-effect__image">
+									<a class="position-relative d-block overflow-hidden" href="{{ collection.url }}" title="{{ collection.title | strip_html }}">
+										{%- if collection.image != blank -%}
+											{%- include 'img-global', image: collection.image, image_ratio: section.settings.image_ratio, crop: image_crop -%}
+										{%- else -%}
+											{{ imagePlacdhold | placeholder_svg_tag }}
+										{%- endif -%}
+									</a>
+								</div>
+								<div class="collection-list--content position-absolute bottom-0 w-100 mb-4 text-center">
+									<h2 class="mb-0 h5">
+										<a class="collection-list--title collection-effect__title" href="{{ collection.url }}"> 
+											<span class="position-relative">
+												{{ collection.title }}
+											</span>
+										</a>
+									</h2>
+									{%- if section.settings.show_count -%}
+										<div class="collection-count mb-2">{% if collection.all_products_count > 1%}{{ 'collections.general.product_count.other' | t : product_count: collection.all_products_count }}{% else %}{{ 'collections.general.product_count.one' | t : product_count: collection.all_products_count }}{% endif %}</div>
+									{%- endif -%}
+									{%- if section.settings.show_description -%}
+										<div class="collection-desc">{{ collection.description | truncate: 146, '...' }}</div>
+									{%- endif -%}
+									{%- if section.settings.show_button -%}
+										<a class="collection-button btn btn-default d-inline-block" href="{{ collection.url }}" title="{{ collection.title | strip_html }}" >{{ 'collections.general.all_of_collection' | t }}</a>
+									{%- endif -%}
+								</div>
+							</div>
+						{%- endif -%}
+						
+					</div>
+				{%- endfor -%}
+			</div>
+
+			{% include 'pagination', paginate: paginate, anchor: '', class: 'pagination-wrapper d-flex justify-content-center border-top pt-4 pt-md-5 mt-4 mt-md-5' %}
+  		{%- endpaginate -%}
+	</div>
+</div>
+<script>
+	document.querySelectorAll('.ia-container').forEach((element) => {
+		element.style.cssText = "--ia-w:" + `${element.offsetWidth}px` + ";";
+	});
+</script>
+{% schema %}
+{
+	"name": "Collections list page",
+	"settings": [
+		{
+			"type": "header",
+			"content": "t:sections.global.settings.header_section.content"
+		},
+		{
+			"type": "checkbox",
+			"id": "full_with",
+			"label": "t:sections.global.settings.full_width.label"
+		},
+		{
+			"type": "text",
+			"id": "max_with",
+			"label": "t:sections.global.settings.max_with.label",
+			"info": "t:sections.global.settings.max_with.info"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "t:sections.global.settings.bg_color.label",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "t:sections.global.settings.padding.label",
+			"placeholder": "0px 0px",
+			"info": "t:sections.global.settings.padding.info"
+		},
+		{
+			"type": "text",
+			"id": "padding_block_m",
+			"label": "t:sections.global.settings.padding_mobile.label",
+			"placeholder": "0px 0px",
+			"info": "t:sections.global.settings.padding_mobile.info"
+		},
+		{
+			"type": "text",
+			"id": "margin_block",
+			"label": "t:sections.global.settings.margin.label",
+			"placeholder": "0px 0px",
+			"info": "t:sections.global.settings.margin.info"
+		},
+		{
+			"type": "header",
+			"content": "t:sections.global.settings.header_settings.content"
+		},
+		{
+			"type": "text",
+			"id": "title",
+			"label": "t:sections.global.settings.heading_section.label",
+			"default": "Collections"
+		},
+		{
+			"type": "select",
+			"id": "layout_style",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "style1",
+					"label": "Style1"
+				},
+				{
+					"value": "style2",
+					"label": "Style2"
+				},
+				{
+					"value": "style3",
+					"label": "Style3"
+				},
+				{
+					"value": "style4",
+					"label": "Style4"
+				}
+			],
+			"default": "default",
+			"label": "Layout style"
+		},
+		{
+			"type": "select",
+			"id": "space_between",
+			"label": "t:sections.global.settings.space_between.label",
+			"default": "4",
+			"options": [
+				{
+					"value": "2",
+					"label": "t:sections.global.settings.space_between.option__2.label"
+				},
+				{
+					"value": "3",
+					"label": "t:sections.global.settings.space_between.option__3.label"
+				},
+				{
+					"value": "4",
+					"label": "t:sections.global.settings.space_between.option__4.label"
+				},
+				{
+					"value": "5",
+					"label": "t:sections.global.settings.space_between.option__5.label"
+				}
+			]
+		},
+		{
+			"type": "range",
+			"id": "products_per_page",
+			"min": 6,
+			"max": 50,
+			"step": 1,
+			"default": 6,
+			"label": "Item per page"
+		},
+		{
+			"type": "range",
+			"id": "products_ditem_per_row",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"default": 4,
+			"label": "item per row",
+			"info": "On the Desktop"
+		},
+		{
+			"type": "range",
+			"id": "products_titem_per_row",
+			"min": 1,
+			"max": 4,
+			"step": 1,
+			"default": 3,
+			"label": "item per row",
+			"info": "On the Tablets"
+		},
+		{
+			"type": "range",
+			"id": "products_mitem_per_row",
+			"min": 1,
+			"max": 3,
+			"step": 1,
+			"default": 2,
+			"label": "item per row",
+			"info": "On the Mobile"
+		},
+		{
+			"type": "select",
+			"id": "image_ratio",
+			"options": [
+				{
+					"value": "adapt",
+					"label": "Adapt to image"
+				},
+				{
+					"value": "portrait",
+					"label": "Portrait"
+				},
+				{
+					"value": "square",
+					"label": "Square"
+				}
+			],
+			"default": "adapt",
+			"label": "Image ratio"
+		},
+		{
+			"type": "checkbox",
+			"id": "crop",
+			"label": "Crop Image",
+			"default": false,
+			"info": "Not use with Adapt to image"
+		},
+		{
+			"type": "checkbox",
+			"id": "show_count",
+			"label": "Show total product",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "show_description",
+			"label": "Show description",
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "show_button",
+			"label": "Show button",
+			"default": true
+		},
+		{
+			"type": "select",
+			"id": "sort",
+			"options": [
+			  {
+				"value": "alphabetical",
+				"label": "t:sections.main-list-collections.settings.sort.options__1.label"
+			  },
+			  {
+				"value": "alphabetical_reversed",
+				"label": "t:sections.main-list-collections.settings.sort.options__2.label"
+			  },
+			  {
+				"value": "date_reversed",
+				"label": "t:sections.main-list-collections.settings.sort.options__3.label"
+			  },
+			  {
+				"value": "date",
+				"label": "t:sections.main-list-collections.settings.sort.options__4.label"
+			  },
+			  {
+				"value": "products_high",
+				"label": "t:sections.main-list-collections.settings.sort.options__5.label"
+			  },
+			  {
+				"value": "products_low",
+				"label": "t:sections.main-list-collections.settings.sort.options__6.label"
+			  }
+			],
+			"default": "alphabetical",
+			"label": "t:sections.main-list-collections.settings.sort.label"
+		}
+	]
+}
+{% endschema %}

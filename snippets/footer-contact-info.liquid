@@ -1,0 +1,54 @@
+
+{%- if block.settings.contactinfo_logo != blank or block.settings.contactinfo_logo_svg != blank -%}
+	<div class="footer-info--logo mb-3 mb-md-4 pb-lg-1">
+	{%- assign mw_logo = block.settings.logo_footer_width | append: 'px' -%}
+		<a class="d-flex" href="/" itemprop="url" style="max-width: {{ mw_logo }};">
+			{%- if block.settings.contactinfo_logo != blank -%}
+					{%- assign image_footer_size = block.settings.logo_footer_width | append: 'x' -%}
+					{%- assign footer_size_rentina = block.settings.logo_footer_width | times: 2 -%}
+					<img {% unless block.settings.contactinfo_logo.width < footer_size_rentina %}srcset="{{ block.settings.contactinfo_logo | image_url: width: block.settings.logo_footer_width }} 1x, {{ block.settings.contactinfo_logo | image_url: width: block.settings.logo_footer_width, scale: 2 }} 2x" {% endunless %}
+					src="{{ block.settings.contactinfo_logo | image_url: width: block.settings.logo_footer_width }}"
+					loading="lazy"
+					width="{{ block.settings.logo_footer_width }}"
+					heigth="auto"
+					class="img-fluid"
+					alt="{{ block.settings.logo.alt | default: shop.name | escape }}" >
+			{%- endif -%}
+		</a>
+	</div>
+{%- endif -%}
+{% if contactinfoDesc != blank %}
+	<div class="footer-info--desc">{{ contactinfoDesc }}</div>
+{% endif %}
+{% if contactinfoAdd != blank %}
+	<div class="footer-info--address d-flex align-items-center mt-3 pt-lg-2">
+		<i class="icons">
+			{% render 'icons', icon: 'map-marker' %}
+		</i>
+		{{ contactinfoAdd }}
+	</div>
+{% endif %}	
+{% if contactinfoPhone != blank %}
+	<div class="footer-info--phone d-flex align-items-center mt-2 pt-md-1">
+		<i class="icons">
+			{% render 'icons', icon: 'call-in' %}
+		</i>
+		{{ contactinfoPhone }}
+	</div>
+{% endif %}	
+{% if contactinfoEmail != blank %}
+	<div class="footer-info--email d-flex align-items-center mt-2 pt-md-1">
+		<i class="icons">
+			{% render 'icons', icon: 'envolope-letter', attr: 'width="14px"' %}
+		</i>
+		<div>{{ contactinfoEmail }}</div>
+	</div>
+{% endif %}	
+{% if contactinfoTime != blank %}
+	<div class="footer-info--time d-flex align-items-center mt-2 pt-md-1">
+		<i class="icons me-2">
+			{% render 'icons', icon: 'calender' %}
+		</i>
+		{{ contactinfoTime }}
+	</div>
+{% endif %}

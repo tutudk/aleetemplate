@@ -1,0 +1,30 @@
+{%- assign socials = "Facebook Twitter Pinterest Instagram Tiktok Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
+<div class="social-link social-link__{{ position }}{% if position == 'sidebar' %} d-none d-sm-block{% endif %}">
+    <ul class="d-flex flex-wrap {{ position }}-social list-unstyled mb-0">
+        {%- for social in socials -%}
+            {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
+            {%- assign icon_link = social | downcase -%}
+            {%- assign icon_class = 'icon-' | append: icon_link -%}
+            {%- if settings[social_link] != blank -%}
+                <li class="social-icons-item">
+                    <a class="social-icons--link {{ social | downcase }}-link" href="{{ settings[social_link] | escape }}" title="{{ social }}">
+                        <span class="social-icon">
+                            {%- render 'icons', class: icon_class, icon: icon_link -%}
+                        </span>
+                        <span class="text">{{ social }}</span>
+                    </a>
+                </li>
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if position == 'sidebar'-%}
+            <li class="social-icons-item">
+                <a class="social-icons--link contact-link" href="{{ root_url }}pages/contact-us" title="Mail To Us">
+                    <span class="social-icon">
+                        {%- render 'icons', class: 'icon-envolope-letter', icon: 'envolope-letter' -%}
+                    </span>
+                    <span class="text">Mail To Us</span>
+                </a>
+            </li>
+        {%- endif -%}
+    </ul>
+</div>

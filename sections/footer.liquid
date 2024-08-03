@@ -1,0 +1,584 @@
+{%- capture section_style -%}
+	{%- if section.settings.max_with != blank -%}
+		--st-mx-w: {{ section.settings.max_with }};
+	{%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+	{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+	{%- if section.settings.image_bg != blank -%}
+        --st-bg-img: url({{ section.settings.image_bg | img_url: 'master' }});
+    {%- endif -%}
+		--footer-heading-color: {{ section.settings.color_footer_heading }};--footer-link: {{ section.settings.color_footer_link }};--footer-link-hover: {{ section.settings.color_footer_link_hover }};--footer-color: {{ section.settings.color_footer_text }};
+{%- endcapture -%}
+<footer id="footer" class="footer vela-section overflow-hidden"{% if section_style %} style="{{ section_style }}"{% endif %}>
+    <div class="footer-inner" style="{{- footer_style -}}"> 
+		<div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+			<div class="row g-2 g-md-4 justify-content-center">
+				{%- for block in section.blocks -%}
+					{%- case block.type -%}
+						{%- when 'newsletter' -%}
+							<div class="col-12 footer-col" style="--dsk-mx: {{ block.settings.desk_width}}%;">
+								<div class="footer-newsletter">
+									{%- if block.settings.newsletter_title != blank -%}
+										<h5 class="footer__title py-1 mb-0 mb-md-3 d-flex justify-content-between">{{ block.settings.newsletter_title }}</h5>
+									{%- endif -%}
+									<div class="footer-newsletter__content ">
+										{% assign newsletterCaption = block.settings.newsletter_caption %}
+										{% assign newsletterDesc = block.settings.newsletter_description %}
+										{% assign newsletterMailchimp = block.settings.newsletter_mailchimp %}
+										{% assign newsletterFormAction = block.settings.newsletter_form_action %}
+										{%- include 'footer-newsletter' -%}
+									</div>
+								</div>
+							</div>
+						{%- when 'contact_info' -%}
+							<div class="col-12 footer-col" style="--dsk-mx: {{ block.settings.desk_width}}%;">
+								<div class="footer-info accordion-footer">
+									{%- if block.settings.contactinfo_heading != blank -%}
+										<h5 class="footer__title py-1 mb-0 mb-md-3 d-flex justify-content-between">{{ block.settings.contactinfo_heading }} {% render 'icons', icon: 'angle-down', attr: 'width="10"' class: "d-md-none" %}</h5>
+									{%- endif -%}
+									<div class="footer-info__content {% if block.settings.contactinfo_heading != blank %} accordion-footer__content{% endif %}">
+										<div class="pt-1 pt-md-0">
+											{%- assign contactinfoDesc = block.settings.contactinfo_desc -%}
+											{%- assign contactinfoAdd = block.settings.contactinfo_add -%}
+											{%- assign contactinfoPhone = block.settings.contactinfo_phone -%}
+											{%- assign contactinfoEmail = block.settings.contactinfo_email -%}
+											{%- assign contactinfoTime = block.settings.contactinfo_time -%}
+											{% include 'footer-contact-info' %}
+										</div>
+									</div>
+								</div>
+							</div>
+						{%- when 'image_list' -%}
+							<div class="col-12 footer-col" style="--dsk-mx: {{ block.settings.desk_width}}%;">
+								<div class="footer-image-list accordion-footer">
+									{%- if block.settings.title != blank -%}
+										<h5 class="footer__title py-1 mb-0 mb-md-3 footer__title py-1 mb-0 mb-md-3 d-flex justify-content-between">{{ block.settings.title }} {% render 'icons', icon: 'angle-down', attr: 'width="10"' class: "d-md-none" %}</h5>
+									{%- endif -%}
+									<div class="footer-info__content pt-2{% if block.settings.title != blank %} accordion-footer__content{% endif %}">
+										<div class="row g-2 row-cols-4">
+											{% for i in(1..9) %}
+												{%- assign image_item = "image" | append: forloop.index -%}
+												{%- assign image_url = "url" | append: forloop.index -%}
+												{%- if block.settings[image_item] != blank -%}
+													{%- if block.settings[image_url] != blank -%}
+														<a href="{{ block.settings[image_url] }}" title="{{ shop.name }}" target="_blank">
+													{%- endif -%}
+														{% render 'img-global' with image: block.settings[image_item], image_ratio: 'square', crop: 'center' %}
+													{%- if block.settings[image_url] != blank -%}
+														</a>
+													{%- endif -%}
+												{%- endif -%}
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+							</div>
+						{%- when 'link_list' -%}
+							<div class="col-12 footer-col" style="--dsk-mx: {{ block.settings.desk_width}}%;">
+								<div class="footer-link-list accordion-footer">
+									{%- if block.settings.title != blank -%}
+										<h5 class="footer__title py-1 mb-0 mb-md-3 d-flex justify-content-between">{{ block.settings.title }} {% render 'icons', icon: 'angle-down', attr: 'width="10"' class: "d-md-none" %}</h5>
+									{% endif %}
+									<div class="footer-link-list-content {% if block.settings.title != blank %}accordion-footer__content{% endif %}">
+										<ul class="footer-links list-unstyled mb-2 mb-md-0 pt-1 pt-md-0">
+											{% for linklist in linklists[block.settings.menu].links %}
+												<li class="{% unless forloop.last %}pb-1{% endunless %}">
+													<a href="{{ linklist.url }}" title="">{{ linklist.title }}</a>
+												</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+						{%- when 'text' -%}
+							<div class="col-12 footer-col" style="--dsk-mx: {{ block.settings.desk_width}}%;">
+								<div class="footer__center-text accordion-footer">
+									{%- if block.settings.heading != blank -%}
+										<h6 class="footer__title py-1 mb-0 mb-md-3 footer__title py-1 mb-0 mb-md-3 d-flex justify-content-between">{{ block.settings.heading }} {% render 'icons', icon: 'angle-down', attr: 'width="10"' class: "d-md-none" %}</h6>
+									{%- endif -%}
+									{%- if block.settings.subtext != blank -%}
+										<div class="footer__content pt-1{% if block.settings.heading != blank %} accordion-footer__content{% endif %}">
+											{{ block.settings.subtext }}
+										</div>
+									{%- endif -%}
+								</div>
+							</div>
+						{%- when 'payment_social' -%}
+							<div class="col-12 footer-col" style="--dsk-mx: {{ block.settings.desk_width}}%;">
+								<div class="footer-payment-social">
+									{%- if block.settings.payment_enable -%}
+										<div class="footer-payment accordion-footer">
+											{%- if block.settings.payment_heading != blank -%}
+												<h5 class="footer__title py-1 mb-0 mb-md-3 footer__title py-1 mb-0 mb-md-3 d-flex justify-content-between">{{ block.settings.payment_heading }}{% render 'icons', icon: 'angle-down', attr: 'width="10"' class: "d-md-none" %}</h5>
+											{%- endif -%}
+											<div class="footer-product__content{% if block.settings.payment_heading != blank %} accordion-footer__content{% endif %}">
+												<div class="py-3 py-md-0">
+													{%- if block.settings.payment_text != blank -%}
+														<div class="footer-payment__text mb-2 mb-md-3 pb-1">{{ block.settings.payment_text }}</div>
+													{%- endif -%}
+													<div class="footer-payment__image">
+														{%- if block.settings.payment_image != blank -%}
+															<img srcset="{{ block.settings.payment_image | image_url: width: block.settings.payment_image.width }} 1x, {{ block.settings.payment_image | image_url: width: block.settings.payment_image.width, scale: 2 }} 2x"
+															src="{{ block.settings.payment_image | image_url: width: block.settings.payment_image.width }}"
+															width="{{ block.settings.payment_image.width }}" height="{{ block.settings.payment_image.height }}"
+															loading="lazy"
+															class="img-fluid"
+															alt="{{ block.settings.payment_image.alt | default: shop.name | escape }}" >
+														{%- else -%}
+															<span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+															<ul class="list list-payment list-unstyled m-0 d-flex flex-wrap" role="list">
+															{%- for type in shop.enabled_payment_types -%}
+																<li class="list-payment__item py-1{% unless forloop.last %} me-2{% endunless%}">
+																{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+																</li>
+															{%- endfor -%}
+															</ul>
+														{%- endif -%}
+													</div>
+												</div>
+											</div>
+										</div>
+									{%- endif -%}
+									{%- if block.settings.social_enable -%}
+										<div class="footer-social accordion-footer mt-2 mt-md-4">
+											{%- if block.settings.social_heading != blank -%}
+												<h5 class="footer__title py-1 mb-0 mb-md-3 footer__title py-1 mb-0 mb-md-3 d-flex justify-content-between">{{ block.settings.social_heading }}{% render 'icons', icon: 'angle-down', attr: 'width="10"' class: "d-md-none" %}</h5>
+											{%- endif -%}
+											<div class="footer-product__content{% if block.settings.social_heading != blank %} accordion-footer__content{% endif %}">
+												<div class="py-3 py-md-0 mt-1">
+													{%- include 'social-link' position: "footer" -%}
+												</div>
+											</div>
+										</div>
+									{%- endif -%}
+								</div>
+							</div>
+					{%- endcase-%}
+				{%- endfor -%}
+			</div>
+		</div>
+	</div>
+</footer>
+
+{% schema %}
+{
+  	"name": "Footer",
+	"class": "velaFramework",
+	"settings":[
+		{
+			"type": "header",
+			"content": "t:sections.global.settings.header_section.content"
+		},
+		{
+			"type": "checkbox",
+			"id": "full_with",
+			"label": "t:sections.global.settings.full_width.label"
+		},
+		{
+			"type": "text",
+			"id": "max_with",
+			"label": "t:sections.global.settings.max_with.label",
+			"info": "t:sections.global.settings.max_with.info"
+		},
+		{
+			"type": "image_picker",
+			"id": "image_bg",
+			"label": "t:sections.global.settings.bg_image.label"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "t:sections.global.settings.padding.label",
+			"placeholder": "0px 0px",
+			"info": "t:sections.global.settings.padding.info"
+		},
+		{
+			"type": "text",
+			"id": "padding_block_m",
+			"label": "t:sections.global.settings.padding_mobile.label",
+			"placeholder": "0px 0px",
+			"info": "t:sections.global.settings.padding_mobile.info"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "t:sections.footer.settings.color_footer_bg.label",
+			"default": "#ffffff"
+		},
+		{
+			"type": "color",
+			"id": "color_footer_heading",
+			"label": "t:sections.footer.settings.color_footer_heading.label",
+			"default": "#ffffff"
+		},
+		{
+			"type": "color",
+			"id": "color_footer_text",
+			"label": "t:sections.footer.settings.color_footer_text.label",
+			"default": "#000000"
+		},
+		{
+			"type": "color",
+			"id": "color_footer_link",
+			"label": "t:sections.footer.settings.color_footer_link.label",
+			"default": "#000000"
+		},
+		{
+			"type": "color",
+			"id": "color_footer_link_hover",
+			"label": "t:sections.footer.settings.color_footer_link_hover.label",
+			"default": "#ed6436"
+		}
+	],
+  	"blocks": [
+	{
+		"type": "newsletter",
+		"name": "t:sections.footer.blocks.newsletter.name",
+		"limit": 1,
+		"settings": [
+			{
+				"type": "range",
+				"id": "desk_width",
+				"min": 15,
+				"max": 100,
+				"step": 1,
+				"unit": "%",
+				"label": "t:sections.footer.blocks.newsletter.settings.desk_width.label",
+				"default": 25
+			},
+			{
+				"type": "text",
+				"id": "newsletter_title",
+				"label": "t:sections.footer.blocks.newsletter.settings.newsletter_title.label"
+			},
+			{
+				"type": "textarea",
+				"id": "newsletter_description",
+				"label": "t:sections.footer.blocks.newsletter.settings.newsletter_description.label"
+			},
+			{
+				"type": "checkbox",
+				"id": "newsletter_mailchimp",
+				"label": "t:sections.footer.blocks.newsletter.settings.newsletter_mailchimp.label",
+				"default": true
+			},
+			{
+				"type": "paragraph",
+				"content": "t:sections.footer.blocks.newsletter.settings.paragraph.content"
+			},
+			{
+				"type": "text",
+				"id": "newsletter_form_action",
+				"label": "t:sections.footer.blocks.newsletter.settings.newsletter_form_action.label",
+				"info": "t:sections.footer.blocks.newsletter.settings.newsletter_form_action.info"
+			}
+		]
+	},
+	{
+		"type": "contact_info",
+		"name": "t:sections.footer.blocks.contact_info.name",
+		"limit": 1,
+		"settings": [
+			{
+				"type": "range",
+				"id": "desk_width",
+				"min": 15,
+				"max": 100,
+				"step": 1,
+				"unit": "%",
+				"label": "t:sections.footer.blocks.contact_info.settings.desk_width.label",
+				"default": 25
+			},
+			{
+				"type": "text",
+				"id": "contactinfo_heading",
+				"label": "t:sections.footer.blocks.contact_info.settings.contactinfo_heading.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "contactinfo_logo",
+				"label": "t:sections.footer.blocks.contact_info.settings.contactinfo_logo.label"
+			},
+			{
+				"type": "range",
+				"id": "logo_footer_width",
+				"min": 50,
+				"max": 250,
+				"step": 10,
+				"default": 100,
+				"unit": "px",
+				"label": "t:sections.footer.blocks.contact_info.settings.logo_footer_width.label"
+			},
+			{
+				"type": "html",
+				"id": "contactinfo_desc",
+				"label": "t:sections.footer.blocks.contact_info.settings.contactinfo_desc.label"
+			},
+			{
+				"type": "html",
+				"id": "contactinfo_add",
+				"label": "t:sections.footer.blocks.contact_info.settings.contactinfo_add.label",
+				"default": "1234 Heaven Stress, Beverly Hill."
+			},
+			{
+				"type": "html",
+				"id": "contactinfo_phone",
+				"label": "t:sections.footer.blocks.contact_info.settings.contactinfo_phone.label",
+				"default": "Telephone: +01 234 567 89"
+			},
+			{
+				"type": "html",
+				"id": "contactinfo_email",
+				"label": "t:sections.footer.blocks.contact_info.settings.contactinfo_email.label",
+				"default": "Email: info@gmail.com"
+			},
+			{
+				"type": "html",
+				"id": "contactinfo_time",
+				"label": "t:sections.footer.blocks.contact_info.settings.contactinfo_time.label",
+				"default": "8:00 - 19:00, Monday - Saturday"
+			}
+		]
+	},
+    {
+      "type": "link_list",
+      "name": "t:sections.footer.blocks.menu.name",
+      "settings": [
+		{
+			"type": "range",
+			"id": "desk_width",
+			"min": 15,
+			"max": 100,
+			"step": 1,
+			"unit": "%",
+			"label": "t:sections.footer.blocks.menu.settings.desk_width.label",
+			"default": 25
+		},
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Link List",
+          "label": "t:sections.footer.blocks.menu.settings.title.label",
+          "info": "t:sections.footer.blocks.menu.settings.title.info"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "t:sections.footer.blocks.menu.settings.menu.label",
+          "info": "t:sections.footer.blocks.menu.settings.menu.info"
+        }
+      ]
+    },
+	{
+		"type": "image_list",
+		"name": "t:sections.footer.blocks.image_list.name",
+		"limit": 1,
+		"settings": [
+			{
+				"type": "range",
+				"id": "desk_width",
+				"min": 15,
+				"max": 100,
+				"step": 1,
+				"unit": "%",
+				"label": "t:sections.footer.blocks.image_list.settings.desk_width.label",
+				"default": 25
+			},
+			{
+				"type": "text",
+				"id": "title",
+				"default": "Instagram",
+				"label": "t:sections.footer.blocks.image_list.settings.title.label"
+			},
+			{
+				"type": "header",
+				"content": "t:sections.footer.blocks.image_list.settings.header.content"
+			},
+			{
+				"type": "image_picker",
+				"id": "image1",
+				"label": "t:sections.footer.blocks.image_list.settings.image1.label"
+			},
+			{
+				"type": "url",
+				"id": "url1",
+				"label": "t:sections.footer.blocks.image_list.settings.url1.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image2",
+				"label": "t:sections.footer.blocks.image_list.settings.image2.label"
+			},
+			{
+				"type": "url",
+				"id": "url2",
+				"label": "t:sections.footer.blocks.image_list.settings.url2.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image3",
+				"label": "t:sections.footer.blocks.image_list.settings.image3.label"
+			},
+			{
+				"type": "url",
+				"id": "url3",
+				"label": "t:sections.footer.blocks.image_list.settings.url3.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image4",
+				"label": "t:sections.footer.blocks.image_list.settings.image4.label"
+			},
+			{
+				"type": "url",
+				"id": "url4",
+				"label": "t:sections.footer.blocks.image_list.settings.url4.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image5",
+				"label": "t:sections.footer.blocks.image_list.settings.image5.label"
+			},
+			{
+				"type": "url",
+				"id": "url5",
+				"label": "t:sections.footer.blocks.image_list.settings.url5.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image6",
+				"label": "t:sections.footer.blocks.image_list.settings.image6.label"
+			},
+			{
+				"type": "url",
+				"id": "url6",
+				"label": "t:sections.footer.blocks.image_list.settings.url6.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image7",
+				"label": "t:sections.footer.blocks.image_list.settings.image7.label"
+			},
+			{
+				"type": "url",
+				"id": "url7",
+				"label": "t:sections.footer.blocks.image_list.settings.url7.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image8",
+				"label": "t:sections.footer.blocks.image_list.settings.image8.label"
+			},
+			{
+				"type": "url",
+				"id": "url8",
+				"label": "t:sections.footer.blocks.image_list.settings.url8.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "image9",
+				"label": "t:sections.footer.blocks.image_list.settings.image9.label"
+			},
+			{
+				"type": "url",
+				"id": "url9",
+				"label": "t:sections.footer.blocks.image_list.settings.url9.label"
+			}
+		]
+	},
+    {
+      "type": "text",
+      "name": "t:sections.footer.blocks.text.name",
+	  "limit": 2,
+      "settings": [
+		{
+			"type": "range",
+			"id": "desk_width",
+			"min": 15,
+			"max": 100,
+			"step": 1,
+			"unit": "%",
+			"label": "t:sections.footer.blocks.text.settings.desk_width.label",
+			"default": 25
+		},
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Heading",
+          "label": "t:sections.footer.blocks.text.settings.heading.label"
+        },
+        {
+          "type": "html",
+          "id": "subtext",
+          "default": "<p>Share store details, promotions, or brand content with your customers.</p>",
+          "label": "t:sections.footer.blocks.text.settings.subtext.label"
+        }
+      ]
+    },
+	{
+		"type": "payment_social",
+		"name": "t:sections.footer.blocks.payment_social.name",
+		"settings": [
+			{
+				"type": "range",
+				"id": "desk_width",
+				"min": 15,
+				"max": 100,
+				"step": 1,
+				"unit": "%",
+				"label": "t:sections.footer.blocks.payment_social.settings.desk_width.label",
+				"default": 25
+			},
+			{
+				"type": "header",
+				"content": "t:sections.footer.blocks.payment_social.settings.header_1.content"
+			},
+			{
+				"type": "checkbox",
+				"id": "payment_enable",
+				"label": "t:sections.footer.blocks.payment_social.settings.payment_enable.label"
+			},
+			{
+				"type": "html",
+				"id": "payment_heading",
+				"label": "t:sections.footer.blocks.payment_social.settings.payment_heading.label",
+				"default": "Heading"
+			},
+			{
+				"type": "textarea",
+				"id": "payment_text",
+				"label": "t:sections.footer.blocks.payment_social.settings.payment_text.label"
+			},
+			{
+				"type": "image_picker",
+				"id": "payment_image",
+				"label": "t:sections.footer.blocks.payment_social.settings.payment_image.label"
+			},
+			{
+				"type": "header",
+				"content": "t:sections.footer.blocks.payment_social.settings.header_2.content"
+			},
+			{
+				"type": "checkbox",
+				"id": "social_enable",
+				"label": "t:sections.footer.blocks.payment_social.settings.social_enable.label"
+			},
+			{
+				"type": "html",
+				"id": "social_heading",
+				"label": "t:sections.footer.blocks.payment_social.settings.social_heading.label",
+				"default": "Heading"
+			}
+		]
+	}
+  ]
+}
+{% endschema %}

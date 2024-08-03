@@ -1,0 +1,25 @@
+
+<div id="shipping-calculator">
+    <label class=" heading-color fw-medium mb-2">{{'sections.cart.estimate_shipping_title' | t: default: 'Estimates shipping ' }}</label>
+    <div class="shipping-calculator__content">
+        <div class="mb-2">
+            <label for="address_country">{{ 'customer.addresses.country' | t }}</label>
+            <select class="form-select" id="address_country" name="address[country]" data-default="{% if shop.customer_accounts_enabled and customer %}{{ customer.default_address.country }}{% elsif settings.shipping_calculator_default_country != '' %}{{ settings.shipping_calculator_default_country }}{% endif %}" autocomplete="none">{{ country_option_tags }}</select>
+        </div>
+        <div class="mb-2" id="address_province_container" style="display:none;">
+            <label for="address_province" id="address_province_label">{{ 'customer.addresses.province' | t }}</label>
+            <select  class="form-select" id="address_province" name="address[province]" data-default="{% if shop.customer_accounts_enabled and customer and customer.default_address.province != '' %}{{ customer.default_address.province }}{% endif %}"></select>
+        </div>  
+        <div class="mb-3">
+            <label for="address_zip">{{ 'customer.addresses.zip' | t }}</label>
+            <input  class="form-control" type="text" id="address_zip" name="address[zip]"{% if shop.customer_accounts_enabled and customer %} value="{{ customer.default_address.zip }}"{% endif %} autocomplete="none" />
+        </div>
+        <div id="wrapper-response"></div>
+        <div>
+            <input type="button" class="get-rates btn btn-default w-100 py-2" value="{{ 'sections.cart.estimate_shipping_button' | t }}" />
+            {%- unless request.page_type == 'cart' -%}
+                <a href="#ajaxcart__estimate" class="ajaxcart__info--cancel btn d-block text-center" data-bs-toggle="collapse"  role="button" aria-expanded="false" aria-controls="ajaxcart__estimate"><span class="border-bottom">{{ 'sections.cart.cancel' | t }}</span></a>
+            {%- endunless -%}
+        </div>
+    </div>
+</div>

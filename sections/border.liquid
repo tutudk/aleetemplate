@@ -1,0 +1,132 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section velaBorder overflow-hidden"{% if section_style %} style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="borderStyle" style="border-top: {{ section.settings.border_style }} {{ section.settings.border_width }}px {{ section.settings.border_color }};">&nbsp;</div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Vela Border",
+        "tag": "section",
+        "class": "velaFramework",
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "select",
+                "id": "border_style",
+                "label": "Border style",
+                "default": "solid",
+                "options": [
+                    {
+                        "value": "dashed",
+                        "label": "Dashed"
+                    },			  	
+                    {
+                        "value": "dotted",
+                        "label": "Dotted"
+                    },			  	
+                    {
+                        "value": "double",
+                        "label": "Double"
+                    },			  	
+                    {
+                        "value": "solid",
+                        "label": "Solid"
+                    },
+                    {
+                        "value": "groove",
+                        "label": "Groove"
+                    },			  	
+                    {
+                        "value": "ridge",
+                        "label": "Ridge"
+                    }
+                ]
+            },
+            {
+                "type": "range",
+                "id": "border_width",
+                "min": 1,
+                "max": 50,
+                "step": 1,
+                "unit": "px",
+                "label": "Font size",
+                "default": 1
+            },
+            {
+                "type": "color",
+                "id": "border_color",
+                "label": "Border color",
+                "default": "#ccc"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Vela Border",
+                "category": "4. element"
+            }
+        ]
+    }
+{% endschema %}

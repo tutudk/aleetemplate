@@ -1,0 +1,334 @@
+{%- assign nav = section.settings.navigation -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus: 0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+	{%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign proLimit = section.settings.limit -%}
+
+<div class="vela-section product-tabs overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+	<div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+		<div class="vela-section__inner product-tabs__{{ section.settings.producttab_style }}">
+			<div class="product-tabs__heading">
+				<ul class="nav d-flex justify-content-center list-unstyled mb-0">
+					{%- for block in section.blocks -%}
+					{%- assign tab_heading =  block.settings.title | escape -%}
+					<li class="nav-item product-tabs__nav-item{% if forloop.last %} me-0{% else %} me-4{% endif %}">
+						<a class="product-tabs__nav-link {% if forloop.first %} active{% endif %}"  data-bs-toggle="tab"
+						href="#product-tabs-{{ section.id }}{{ forloop.index }}">
+						<span>{{ tab_heading }}</span>
+						</a>
+					</li>
+					{%- endfor -%}
+				</ul>
+			</div>
+			<div class="vela-section__content pt-3 pt-md-4 pt-xl-5">
+				<div class="tab-banner_content">
+					<div class="tab-content product-tabs__content">
+						{%- for block in section.blocks -%}
+							{%- assign proCollection = block.settings.collection -%}
+							<div class="tab-pane fade{% if forloop.first %} show active{% endif %}" id="product-tabs-{{ section.id }}{{ forloop.index }}">
+								{%- if section.settings.slide_enable -%}
+									<div class="js-carousel slick-carousel row g-2 gy-3 gy-md-4 gy-lg-5 g-md-{{ section.settings.space_between }}"
+									data-nav="{{ nav }}"
+									data-infinite="{{ infinite }}"
+									data-autoplay="{{ autoplay }}"
+									data-autoplayspeed="{{ autoplay_speed }}"
+									data-columnone="{{ owlColumn1 }}" 
+									data-columntwo="{{ owlColumn2 }}" 
+									data-columnthree="{{ owlColumn3 }}" 
+									data-columnfour="{{ owlColumn4 }}">
+										{%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+											{% include 'onboarding-featured-products', product_style: section.settings.product_style, number: proLimit  %}
+										{%- else -%}
+											{%- for product in collections[proCollection].products limit: proLimit -%}
+												<div class="slick-carousel__item">
+													{% include 'product-grid-item', product_style: section.settings.product_style %}
+												</div>
+											{%- endfor -%}
+										{%- endif -%}
+									</div>
+								{%- else -%}
+									{%- capture strGridItem -%}col{%- endcapture -%}
+									<div class="row g-2 gy-3 gy-md-4 gy-lg-5 g-md-{{ section.settings.space_between }} row-cols-{{ owlColumn4 }} row-cols-sm-{{ owlColumn3 }} row-cols-md-{{ owlColumn2 }} row-cols-lg-{{ owlColumn1 }}">
+										{%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+											{% include 'onboarding-featured-products', strGridItem: strGridItem, product_style: section.settings.product_style, number: proLimit %}
+										{%- else -%}
+											{% for product in collections[proCollection].products limit: proLimit %}
+												<div class="{{ strGridItem }}">
+													{% include 'product-grid-item', product_style: section.settings.product_style %}
+												</div>
+											{% endfor %}
+										{%- endif -%}
+									</div>
+								{%- endif -%}
+							</div>
+						{%- endfor -%}
+					</div>
+				</div>
+			</div>
+		</div>
+  	</div>
+</div>
+{% schema %}
+{
+	"name": "Product tabs",
+	"tag": "section",
+	"class": "velaFramework",
+	"disabled_on": {
+		"groups": ["header", "footer"]
+	},
+	"settings": [
+		{
+			"type": "header",
+			"content": "Design Section"
+		},
+		{
+			"type": "checkbox",
+			"id": "full_with",
+			"label": "Make section full width"
+		},
+		{
+			"type": "text",
+			"id": "max_with",
+			"label": "Container max width?(px)",
+			"info": "Ex: 1440px"
+		},
+		{
+			"type": "color",
+			"id": "color_bg",
+			"label": "Background Color",
+			"default": "rgba(0,0,0,0)"
+		},
+		{
+			"type": "text",
+			"id": "padding_block",
+			"label": "Padding",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 0px 0px and use desktop only"
+		},
+		{
+			"type": "text",
+			"id": "padding_block_m",
+			"label": "Padding on the mobile",
+			"placeholder": "0px 0px",
+			"info": "Ex: 0px 0px 0px 0px and use mobile only"
+		},
+		{
+			"type": "text",
+			"id": "margin_block",
+			"label": "Margin",
+			"placeholder": "0px 0px",
+			"default": "0 0 30px",
+			"info": "Ex: 0px 0px 30px 0px"
+		},
+		{
+			"type": "header",
+			"content": "General Settings"
+		},
+		{
+			"type": "select",
+			"id": "producttab_style",
+			"label": "Product tab style",
+			"default": "style1",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "style1",
+					"label": "Style1"
+				},
+				{
+					"value": "style2",
+					"label": "Style2"
+				}
+			]
+		},
+		{
+			"type": "range",
+			"id": "limit",
+			"min": 1,
+			"max": 12,
+			"step": 1,
+			"label": "Maximum products to show",
+			"default": 8
+		},
+		{
+			"type": "select",
+			"id": "product_style",
+			"label": "Product layout",
+			"default": "default",
+			"options": [
+				{
+					"value": "default",
+					"label": "Default"
+				},
+				{
+					"value": "style1",
+					"label": "Style1"
+				},
+				{
+					"value": "style2",
+					"label": "Style2"
+				},
+				{
+					"value": "style3",
+					"label": "Style3"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"id": "space_between",
+			"label": "Space Between Item",
+			"default": "4",
+			"options": [
+				{
+					"value": "3",
+					"label": "20"
+				},
+				{
+					"value": "4",
+					"label": "30"
+				},
+				{
+					"value": "5",
+					"label": "40"
+				}
+			]
+		},
+		{
+			"type": "header",
+			"content": "Carousel Settings"
+		},
+		{
+			"type": "checkbox",
+			"id": "slide_enable",
+			"label": "Enable Slide",
+			"default": false
+		},
+		{
+			"type": "checkbox",
+			"id": "navigation",
+			"label": "Show navigation",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "infinite",
+			"label": "Infinite loop sliding",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "autoplay",
+			"label": "Enable autoplay",
+			"default": false
+		},
+		{
+			"type": "text",
+			"id": "autoplay_speed",
+			"label": "Autoplay speed",
+			"info": "Autoplay speed in milliseconds. Type: int(ms)",
+			"default": "10000"
+		},
+		{
+			"type": "range",
+			"id": "column1",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"label": "#Column 1",
+			"default": 4,
+			"info": "Large desktops"
+		},
+		{
+			"type": "range",
+			"id": "column2",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"label": "#Column 2",
+			"default": 3,
+			"info": "Desktops & Tablets landscape"
+		},
+		{
+			"type": "range",
+			"id": "column3",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"label": "#Column 3",
+			"default": 2,
+			"info": "Mobile phone landscape"
+		},
+		{
+			"type": "range",
+			"id": "column4",
+			"min": 1,
+			"max": 5,
+			"step": 1,
+			"label": "#Column 4",
+			"default": 2,
+			"info": "Mobile phone"
+		}
+  	],
+	"blocks": [
+		{
+			"type": "tab",
+			"name": "Tab item",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Tab heading"
+				},
+				{
+					"type": "collection",
+					"id": "collection",
+					"label": "Collection"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Product tabs",
+			"category": "3. Product",
+			"blocks": [
+				{
+					"type": "tab"
+				},
+				{
+					"type": "tab"
+				},
+				{
+					"type": "tab"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

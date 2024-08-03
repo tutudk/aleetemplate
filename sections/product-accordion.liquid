@@ -1,0 +1,202 @@
+{{ 'product-accordion.css' | asset_url | stylesheet_tag }}
+{%- assign proCollection = section.settings.collection_handle -%}
+{%- assign proLimit = section.settings.limit | plus:0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="product-accordion vela-section overflow-hidden"{% if section_style %} style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+		<div class="vela-section__inner">
+            <div class="row gy-4 align-items-center">
+                <div class="col-12 col-md-5">
+                    <div class="product-accordion__group-title">
+                        {%- if section.settings.sub_heading != blank -%}
+                            <h5 class="product-accordion__subtitle text-primary m-0">
+                                {{ section.settings.sub_heading }}
+                            </h5>
+                        {%- endif -%}			            
+                        {%- if section.settings.heading != blank -%}
+                            <h3 class="product-accordion__title mb-3 mb-md-4 fw-semibold">
+                                {{ section.settings.heading }}
+                            </h3>
+                        {%- endif -%}
+                        {%- if section.settings.desc != blank -%}
+                            <div class="product-accordion__desc mb-4 mb-md-5">
+                                {{ section.settings.desc }}
+                            </div>
+                        {%- endif -%}		                
+                        {%- if section.settings.textbutton != blank -%}
+                            <a class="btn product-accordion__btn border-2" href="{{ section.settings.link }}">
+                                {{ section.settings.textbutton }}
+                            </a>
+                        {%- endif -%}
+                    </div>
+                </div>
+                <div class="col-12 col-md-7">
+                    {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                        <div class="vela-section__content" style="--pa-number: 7; --plh-svg-h: 445px;">
+                            <div id="ia-container" class="ia-container">
+                                {% for i in (1..8) %}
+                                    <figure>
+                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                        <input type="radio" name="radio-set" {% if forloop.first %}checked="checked"{% endif %} />
+                                        <figcaption><a href="/admin/products">Wooden container Bowl</a></figcaption>
+                                {% endfor %}
+                                    </figure>	
+                                {% for i in (1..8) %}
+                                    </figure>
+                                {% endfor %}	
+                            </div>
+                        </div>
+                    {%- else -%}
+                        {%- if collections[proCollection].products_count > proLimit -%}
+                            {%- assign pa-number = proLimit | minus: 1 -%}
+                        {%- else -%}
+                            {%- assign pa-number = collections[proCollection].products_count | minus: 1 -%}
+                        {%- endif -%}
+                        <div class="vela-section__content" style="--pa-number: {{ pa-number }}">
+                            <div id="ia-container" class="ia-container">
+                                {% for product in collections[proCollection].products limit:proLimit %}
+                                    <figure>
+                                        {% render 'img-global', image: product.featured_media, image_ratio: 'portrait', crop: 'center', image_style: true %}
+                                        <input type="radio" name="radio-set{{section.id}}" {% if forloop.first %}checked="checked"{% endif %} />
+                                        <figcaption><a href="{{ product.url }}">{{ product.title }}</a></figcaption>
+                                {% endfor %}
+                                    </figure>	
+                                {% for product in collections[proCollection].products limit:proLimit %}
+                                    </figure>
+                                {% endfor %}	
+                            </div>
+                        </div>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var iaW = document.getElementById('ia-container');
+    iaW.style.cssText = "--ia-w:" + `${iaW.offsetWidth}px` + ";";
+</script>
+{% schema %}
+    {
+        "name": "Product accordion",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "html",
+                "id": "heading",
+                "label": "t:sections.global.settings.heading_section.label",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "t:sections.global.settings.subheading_section.label",
+                "default": "sub heading"
+            },
+            {
+                "type": "html",
+                "id": "desc",
+                "label": "Description",
+                "default": "<p>Add your text here</p>"
+            },
+            {
+                "type": "html",
+                "id": "textbutton",
+                "label": "Text button",
+                "placeholder": "Show now"
+            },
+            {
+                "type": "url",
+                "id": "link",
+                "label": "Url"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle",
+                "label": "Collection"
+            },
+            {
+                "type": "range",
+                "id": "limit",
+                "min": 1,
+                "max": 8,
+                "step": 1,
+                "label": "Limit",
+                "default": 8
+            }
+        ],
+		"presets": [
+            {
+                "name": "Product accordion",
+                "settings": {
+                    "collection_handle": "frontpage"
+                }
+            }
+        ]
+    }
+{% endschema %}

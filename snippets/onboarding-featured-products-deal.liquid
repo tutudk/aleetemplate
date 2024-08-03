@@ -1,0 +1,126 @@
+{%- if product_style == 'list' -%}
+	{%- assign anumber = number | default: 4 -%}
+	{%- for i in (1..anumber) -%}
+		<div class="product-card mb-3 product-deal-list d-flex {% if strGridItem %}{{ strGridItem }}{% else %}slick-carousel__item{% endif %}">
+			<div class="row g-4 align-items-center">
+				<div class="col-12 col-md-5 col-lg-6">
+					<div class="product-card__image-wrapper">
+						<a class="product-card__image-link" href="/admin/products">
+							{%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+							{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+						</a>
+					</div>
+				</div>
+				<div class="col-12 col-md-7 col-lg-6">
+					<div class="product-card__content position-relative pb-3">
+						<div class="product-card__tags pb-1">
+                            <a href="#">Digital</a>,
+                            <a href="/#">Electronics</a>
+                    	</div>
+						<h6 class="product-card__name line-clamp-2 mb-1 mb-lg-2">
+							<a class="heading-color" href="/admin/products">Home furniture product</a>
+						</h6>
+						{%- if settings.product_reviews_enable -%}
+							<div class="product-card__review product-review mb-1 mb-lg-2">
+								<div class="d-flex">
+									{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+									{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+									{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+									{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+									{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+								</div>
+							</div>
+						{%- endif -%}
+						<div class="product-group-price ff-special d-flex align-items-center mb-2 mb-lg-3">
+							<div class="product-price">$290.99</div>
+							<div class="product-price product-price--regular ms-2"><span class="money">$390.00</span></div>
+						</div>
+                        <div class="product-card__summary line-clamp-2">
+                            Blandit duis vulputate proin vestibulum vitae venenatis sapien erat tristique in. 
+                        </div>
+						{%- assign date = 'now' | date: '%s' -%}
+						{%- assign seconds = 15 | times: 86400 -%}
+                        {% assign final_time = date | date: "%s" | plus: seconds | date: "%Y-%m-%d" %} 
+                        <div class="countdown-group mt-2 mt-lg-3">
+							<h6 class="countdown-title mb-2 mb-md-3 fw-medium">{{ 'general.countdown.title' | t }}</h6>
+                            <div class="product-card__countdown countdown justify-content-start" data-countdown="{{ final_time }}"></div>
+                        </div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	{%- endfor -%}
+{%- else -%}
+	{%- assign anumber = number | default: 8 -%}
+	{%- for i in (1..anumber) -%}
+	   	<div class="{% if strGridItem %}{{ strGridItem }}{% else %}slick-carousel__item{% endif %}">
+			<div class="product-card product-grid">
+				<div class="product-grid__inner">
+					<div class="product-card__image-wrapper">
+						<a class="product-card__image-link" href="/admin/products">
+							{%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+							{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+						</a>
+						<div class="product-card__label position-absolute">
+							{%- if settings.product_card_new -%}
+								<span class="label-new position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_new' | t }}</span></span>
+							{%- endif -%}
+							{%- if forloop.index == 2 -%}
+								<span class="label-on-sale position-relative"><span class="d-block overflow-hidden position-relative">-10%</span></span>		
+							{%- endif -%}
+							{%- if forloop.index == 4 -%}
+								<span class="label-sold-out position-relative bg-warning heading-color"><span class="d-block overflow-hidden position-relative">{{ 'products.general.out_stock' | t }}</span></span>		
+							{%- endif -%}
+						</div>
+						{%- if settings.quickview_enable -%}
+							<a class="js-btn-quickview btn btn--quickview position-absolute" href="/admin/products"  title="{{ 'products.product.quickview' | t }}">
+								{% render 'icons', icon: 'expand', attr: 'width="14" height="14"' %}
+                    			<span class="d-none">{{ 'products.product.quickview' | t }}</span>
+							</a>
+						{%- endif -%}
+					</div>
+					<div class="product-card__content">
+						<div class="product-card__content--inner text-center mt-3">
+							<h6 class="product-card__name line-clamp-2 mb-1">
+								<a class="line-title" href="/admin/products">Home furniture product</a>
+							</h6>
+							{%- if settings.product_reviews_enable and settings.product_card_review -%}
+								<div class="product-card__review product-review mb-1">
+									<div class="d-flex justify-content-center py-1">
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+									</div>
+								</div>
+							{%- endif -%}
+							{%- if settings.product_vendor_enable -%}
+								<div class="product-card__vendor mb-1 pb-md-1"><label>{{'products.general.label_vendor' | t }}</label>{{ 'AyoMart' | link_to_vendor }}</div>
+							{%- endif -%}
+							<div class="product-card__price">
+								<div class="product-group-price d-flex justify-content-center align-items-center">
+									<div class="product-price">$90.00</div>
+									{%- if forloop.index == 2 -%}
+										<div class="product-price product-price--regular ms-1"><span class="money">$100.00</span></div>
+									{%- endif -%}
+								</div>
+							</div>
+							<div class="product-card__buttons position-absolute bottom-0 start-0 w-100">
+								{%- if settings.product_card_addtocart -%}
+									<div class="product-card__form">
+										{%- unless forloop.index == 4 -%}
+											<a class="btn btn--add-to-cart" href="/admin/products">
+												<span class="text">{{ 'products.product.add_to_cart' | t }}</span>
+											</a>
+										{%- endunless -%}
+									</div>
+								{%- endif -%}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{%- endfor -%}
+{%- endif -%}

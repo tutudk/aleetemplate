@@ -1,0 +1,192 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+	<head> 
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <!-- Google Tag Manager -->
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+
+})(window,document,'script','dataLayer','GTM-TGSW59PV');</script>
+
+<!-- End Google Tag Manager -->
+      
+		<meta name="theme-color" content="">
+
+      <!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-16492470635"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+ 
+
+  gtag('config', 'AW-16492470635');
+
+</script>
+      <meta name="google-site-verification" content="zkFFtJ0wUVbPZp6bK6A5bSipG_nngiCr34ZnMWDeb9k" />
+      
+		<link rel="canonical" href="{{ canonical_url | split: "?" | first }}" />
+	
+      
+      {% if settings.favicon != blank %}
+			<link rel="icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" type="image/png">
+			<!-- iPad icons -->
+			<link rel="apple-touch-icon-precomposed" href="{{ settings.favicon | image_url: width: 48, height: 48 }}" type="image/png">
+			<link rel="nokia-touch-icon" href="{{ settings.favicon | image_url: width: 48, height: 48 }}" type="image/png">
+		{% endif %}
+
+		{%- if settings.type_header_font_select == 'shopify_header_fonts' or settings.type_body_font_select == 'shopify_body_fonts' -%}
+			<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+			<link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+		{%- endif -%}
+		
+	    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %}  &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+		{% if page_description %}
+			<meta name="description" content="{{ page_description | escape }}">
+		{% endif %}
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "ALEEFURNISHING",
+  "image": "https://aleefurnishing.com/cdn/shop/files/z4989315255064_5302264da176eb085b8ae9d11553539c_5471b747-1069-4333-ab82-368b4703309e.jpg?v=1704270985&width=1391",
+  "@id": "https://aleefurnishing.com/",
+  "url": "https://aleefurnishing.com/",
+  "telephone": "(+1) 832 983 0049",
+  "priceRange": "0-1000",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "6901 CORPORATE DR STE",
+    "addressLocality": "HOUSTON",
+    "addressRegion": "TX",
+    "postalCode": "77036",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 29.7041712,
+    "longitude": -95.5507518
+  }  
+}
+</script>	
+      
+		{% render 'meta-tags' %}
+		{% include 'header-styles' %}
+		{% include 'header-javascript' %}
+        <script>
+            (function(w,d,t,r,u)
+            {
+                var f,n,i;
+                w[u]=w[u]||[],f=function()
+                {
+                    var o={ti:"343107264", tm:"shpfy_ui", enableAutoSpaTracking: true};
+                    o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")
+                },
+                n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function()
+                {
+                    var s=this.readyState;
+                    s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
+                },
+                i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
+            })
+            (window,document,"script","//bat.bing.com/bat.js","uetq");
+        </script>
+		{{ content_for_header }}
+
+		{%- liquid
+			unless settings.type_header_font_select == 'google_header_fonts'
+				if settings.type_header_font.weight == 700
+					assign header_font_semibold = settings.type_header_font | font_modify: 'weight', '600'
+					assign header_font_medium = settings.type_header_font | font_modify: 'weight', '500'
+				elsif settings.type_header_font.weight == 600 
+					assign header_font_medium = settings.type_header_font | font_modify: 'weight', '500'
+				else
+					assign header_font_semibold = settings.type_header_font | font_modify: 'weight', '600'
+				endif
+			endunless
+			unless settings.type_body_font_select == 'google_body_fonts'
+				if settings.type_body_font.weight == 300
+					assign body_font_light = settings.type_body_font | font_modify: 'weight', '400'
+				else 
+					assign body_font_light = settings.type_body_font | font_modify: 'weight', '300'
+				endif
+			endunless
+		%}
+		
+
+		{%- if settings.type_body_font_select == 'google_body_fonts' and settings.type_body_google_font != blank -%}
+			<link href="{{ settings.type_body_google_font }}" rel="stylesheet">
+		{%- else -%}
+			<link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+		{%- endif -%}
+		{%- if settings.type_header_font_select == 'google_header_fonts' and settings.type_header_google_font != blank -%}
+			<link href="{{ settings.type_header_google_font }}" rel="stylesheet">
+		{%- else -%}
+			<link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
+		{%- endif -%}
+		{%- if settings.type_special_type == 'google_fonts' and settings.type_special_link != blank -%}
+			<link href="{{ settings.type_special_link }}" rel="stylesheet">
+		{%- endif -%}
+		{% include 'css-variables' %}
+		<script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+	</head>
+
+	<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ request.page_type | handle }} {{ template.suffix }}">
+		
+      <!-- Google Tag Manager (noscript) -->
+
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGSW59PV" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<!-- End Google Tag Manager (noscript) -->
+      
+      {%- if settings.preloading -%}
+			{% render 'preloading' %}
+		{%- endif -%}
+		{% sections 'header-group' %}
+		{%- render 'header-search' -%}
+		<main id="MainContent" class="main-content content-for-layout" tabindex="-1">
+			<div class="main-content__inner">
+				{{ content_for_layout }}
+			</div>
+		</main>
+		{% sections 'footer-group' %}
+		{% include 'footer-javascript' %}
+		{% include 'site-template' %}
+		<script>
+			window.shopUrl = '{{ shop.url }}';
+			window.routes = {
+				cart_add_url: '{{ routes.cart_add_url }}',
+				{%- if request.page_type == 'cart' -%}
+					cart_change_url: '{{ routes.cart_change_url }}',
+					cart_update_url: '{{ routes.cart_update_url }}',
+				{%- endif -%}
+				predictive_search_url: '{{ routes.predictive_search_url }}'
+			};
+		</script>
+	{{ '//cdn.shopify.com/s/files/1/0194/1736/6592/t/1/assets/booster-page-speed-optimizer.js?23' | script_tag }}
+</body>
+</html>

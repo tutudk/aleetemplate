@@ -1,0 +1,27 @@
+{%- if section.settings.bannertop_image -%}
+    <div id="bannerTop" class="bannerTop text-center active">
+        <div class="container position-relative">
+            <span class="btn-bannerTop d-flex">{{ 'accessibility.close' | t }}  {% include 'icons', icon: 'close-bold', attr: 'width="16" height="16" ' %}</span>
+        </div>  
+        <a href="{{ section.settings.bannertop_link }}" title="">
+            {% render 'img-global', image: section.settings.bannertop_image %}
+        </a>                  
+    </div>
+{%- endif -%}
+{% schema %}
+{
+  "name": "t:sections.banner-top.name",
+  "settings": [
+	{
+		"type": "image_picker",
+		"id": "bannertop_image",
+		"label": "t:sections.banner-top.settings.banner.label"
+	},
+	{
+		"type": "url",
+		"id": "bannertop_link",
+		"label": "t:sections.global.settings.url.label"
+	}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,196 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section section-lookbook" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="lookbook__content position-relative" style="--plh-svg-h: 600px;">
+                {%- if section.settings.image != blank -%}
+                    {% include 'img-global' with image: section.settings.image %}
+                {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+                {% for block in section.blocks %}
+                    {%- assign product_handle = block.settings.product -%}
+                    {%- assign alignment = block.settings.display -%}
+                    {%- assign postion_top = block.settings.top -%}
+                    {%- assign postion_left = block.settings.left -%}
+                    {%- render 'lookbook-item', id: block.id , product: all_products[product_handle], alignment: alignment, top: postion_top, left: postion_left -%}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Lookbook",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings": [
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "Lookbook image"
+            },
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image "
+            }
+        ],
+        "blocks": [
+            {
+                "type": "item",
+                "name": "Product",
+                "settings": [
+                    {
+                        "type": "product",
+                        "id": "product",
+                        "label": "Choose product"
+                    },
+                    {
+                        "type": "select",
+                        "id": "display",
+                        "label": "Display type",
+                        "default": "top-left",
+                        "options": [
+                            {
+                                "value": "top-left",
+                                "label": "Top left"
+                            },
+                            {
+                                "value": "top-right",
+                                "label": "Top right"
+                            },
+                            {
+                                "value": "center-left",
+                                "label": "Center left"
+                            },
+                            {
+                                "value": "center-top",
+                                "label": "Center top"
+                            },
+                            {
+                                "value": "center-right",
+                                "label": "Center right"
+                            },
+                            {
+                                "value": "center-bottom",
+                                "label": "Center bottom"
+                            },
+                            {
+                                "value": "bottom-left",
+                                "label": "Bottom left"
+                            },
+                            {
+                                "value": "bottom-right",
+                                "label": "Bottom right"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "range",
+                        "id": "top",
+                        "min": 0,
+                        "max": 100,
+                        "step": 1,
+                        "unit": "%",
+                        "label": "Offset top",
+                        "default": 50
+                    },
+                    {
+                        "type": "range",
+                        "id": "left",
+                        "min": 0,
+                        "max": 100,
+                        "step": 1,
+                        "unit": "%",
+                        "label": "Offset left",
+                        "default": 50
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Lookbook",
+				"blocks": [
+                    {
+                        "type":"item",
+                        "settings": {
+                          "product": "",
+                          "display": "center-right",
+                          "top": 28,
+                          "left": 16
+                        }
+                    },
+                    {
+                        "type":"item",
+                        "settings": {
+                            "display": "center-right",
+                            "top": 49,
+                            "left": 37
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

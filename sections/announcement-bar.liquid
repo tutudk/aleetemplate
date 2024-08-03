@@ -1,0 +1,184 @@
+
+{%- if section.settings.enable_country_selector -%}
+	<script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{%- capture topbar_style -%}
+	{%- if section.settings.max_with != blank -%}
+		--st-mx-w: {{ section.settings.max_with }};
+	{%- endif -%}
+	{%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+		--st-bg-cl: {{ section.settings.color_bg }};
+	{%- endif -%}
+	{%- if section.settings.padding_block != blank -%}
+		--st-pd-dt: {{ section.settings.padding_block }};
+	{%- endif -%}
+	{%- if section.settings.padding_block_m != blank -%}
+		--st-pd-mb: {{ section.settings.padding_block_m }};
+	{%- endif -%}
+	{%- if section.settings.image_bg != blank -%}
+		--st-bg-img: url({{ section.settings.image_bg | image_url: width: section.settings.image_bg.width }});
+	{%- endif -%}
+	--tb-fs: {{ section.settings.font-size }}px; --tb-fs-m: {{ section.settings.font-size-m }}px; --tb-link-cl: {{ section.settings.color_top_link }}; --tb-cl: {{ section.settings.color_top_text }};
+{%- endcapture -%}
+<div class="announcement-bar vela-section" style="{{- topbar_style -}}">
+	<div class="container{%- if section.settings.full_with -%}-fluid{%- endif -%}">
+		<div class="announcement-bar__inner row g-3 align-items-center justify-content-between">	
+			{%- if section.settings.enable_country_selector or section.settings.text_left != blank -%}			
+				<div class="announcement-bar__left col d-flex align-items-center">
+					{%- if section.settings.enable_country_selector -%}
+						{%- include 'localization' -%}
+					{%- endif -%}
+					{%- if section.settings.text_left != blank -%}
+						<div class="announcement-bar__left--text line-clamp-1 ms-3">
+							{{ section.settings.text_left }}
+						</div>
+					{%- endif -%}
+				</div>
+			{% endif %}
+			{%- if section.settings.text_center != blank -%}
+				<div class="announcement-bar__center line-clamp-1 col-auto d-none d-md-flex">
+					{{ section.settings.text_center }}
+				</div>
+			{%- endif -%}
+			{%- if section.settings.social_enable or section.settings.link_list != blank  -%}	
+				<div class="announcement-bar__right position-relative col d-none d-md-flex justify-content-end align-items-center flex-wrap">
+					{%- if section.settings.social_enable -%}
+						<div class="announcement-bar__social ms-3">
+							{%- include 'social-link' position: "announcement-bar" -%}
+						</div>
+					{%- endif -%}
+					{%- if section.settings.link_list != blank -%}
+						<ul class="announcement-bar__quicklink list-unstyled mb-0 d-flex ms-3">
+							{% for linklist in linklists[section.settings.link_list].links %}
+								<li>
+									<a href="{{ linklist.url }}" title="">{{ linklist.title }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{%- endif -%}
+				</div>	
+			{%- endif -%}
+		</div>
+	</div>
+</div>
+{% schema %}
+{
+  "name": "t:sections.announcement-bar.name",
+  "settings": [
+	{
+		"type": "header",
+		"content": "t:sections.global.settings.header_section.content"
+	},
+	{
+		"type": "checkbox",
+		"id": "full_with",
+		"label": "t:sections.global.settings.full_width.label"
+	},
+	{
+		"type": "text",
+		"id": "max_with",
+		"label": "t:sections.global.settings.max_with.label",
+		"info": "t:sections.global.settings.max_with.info"
+	},
+	{
+		"type": "color",
+		"id": "color_bg",
+		"label": "t:sections.global.settings.bg_color.label",
+		"default": "rgba(0,0,0,0)"
+	},
+	{
+		"type": "image_picker",
+		"id": "image_bg",
+		"label": "t:sections.global.settings.bg_image.label"
+	},
+	{
+		"type": "text",
+		"id": "padding_block",
+		"label": "t:sections.global.settings.padding.label",
+		"placeholder": "0px 0px",
+		"info": "t:sections.global.settings.padding.info"
+	},
+	{
+		"type": "text",
+		"id": "padding_block_m",
+		"label": "t:sections.global.settings.padding_mobile.label",
+		"placeholder": "0px 0px",
+		"info": "t:sections.global.settings.padding_mobile.info"
+	},
+	{
+		"type": "color",
+		"id": "color_top_text",
+		"label": "Color",
+		"label": "t:sections.global.settings.color.label",
+		"default": "#1f2021"
+	},
+	{
+		"type": "color",
+		"id": "color_top_link",
+		"label": "t:sections.global.settings.color_link.label",
+		"default": "#1f2021"
+	},
+	{
+		"type": "range",
+		"id": "font-size",
+		"min": 8,
+		"max": 30,
+		"step": 1,
+		"unit":"px",
+		"label": "t:sections.global.settings.font_size.label",
+		"default": 14
+	}, 
+	{
+		"type": "range",
+		"id": "font-size-m",
+		"min": 8,
+		"max": 30,
+		"step": 1,
+		"unit":"px",
+		"label": "t:sections.global.settings.font_size_m.label",
+		"default": 14
+	}, 
+	{
+		"type": "header",
+		"content": "t:sections.announcement-bar.settings.announcement_left.content"
+	},
+	{
+		"type": "checkbox",
+		"id": "enable_country_selector",
+		"label": "t:sections.announcement-bar.settings.language_currency.label",
+		"default": false
+	},
+	{
+		"type": "textarea",
+		"id": "text_left",
+		"label": "Text",
+		"info": "Ex: +391 (0)35 2568 4593 | support@gmail.com"
+	},
+	{
+		"type": "header",
+		"content": "t:sections.announcement-bar.settings.announcement_center.content"
+	},
+    {
+      "type": "textarea",
+      "id": "text_center",
+      "label": "Text",
+      "info": "Free Delivery on orders over £120. Don’t miss discount."
+    },
+	{
+		"type": "header",
+		"content": "t:sections.announcement-bar.settings.announcement_right.content"
+	},
+	{
+		"type": "checkbox",
+		"id": "social_enable",
+		"label": "t:sections.announcement-bar.settings.social.label"
+	},
+	{
+		"type": "link_list",
+		"id": "link_list",
+		"label": "t:sections.announcement-bar.settings.menu.label",
+		"info": "t:sections.announcement-bar.settings.menu.info"
+	}
+  ]   
+}
+{% endschema %}

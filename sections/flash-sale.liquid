@@ -1,0 +1,328 @@
+{%- assign nav = section.settings.navigation -%}
+{%- assign pagination = section.settings.pagination -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- assign proCollection = section.settings.collection_handle -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+{%- assign owlColumn4 = section.settings.column4 | plus: 0 -%}
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign proLimit = 1 -%}
+<div class="vela-section flash-sale overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="vela-section__inner">
+            <div class="heading-group text-center mb-3 mb-md-4 pb-1">
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    {%- if section.settings.heading != blank -%}
+                        <h2 class="heading my-1">
+                            <span>{{ section.settings.heading }}</span>
+                        </h2>
+                    {%- endif -%}
+                    <div class="flash-sale__content d-flex align-items-center flex-wrap">
+                        {%- if section.settings.countdown_title -%}
+                            <h6 class="flash-sale__countdown--title mb-0 me-2 pe-md-1">{{ section.settings.countdown_title }}</h6>
+                        {%- endif -%}
+                        {% assign countdownTime = section.settings.countdown_timeend %}
+                        <div class="flash-sale__countdown d-flex justify-content-center" data-countdown="{{ countdownTime }}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="vela-section__content deal-{{ section.settings.product_style }}_style"> 
+                {%- if section.settings.slide_enable -%}
+                    <div class="js-carousel slick-carousel row {% if section.settings.product_style == "list" %}g-0{% else %}g-3 g-md-4{% endif %}"
+                    data-nav="{{ nav }}"
+                    data-dots="{{ pagination }}"
+                    data-infinite="{{ infinite }}"
+                    data-autoplay="{{ autoplay }}"
+                    data-autoplayspeed="{{ autoplay_speed }}"
+                    data-columnone="{{ owlColumn1 }}" 
+                    data-columntwo="{{ owlColumn2 }}" 
+                    data-columnthree="{{ owlColumn3 }}" 
+                    data-columnfour="{{ owlColumn4 }}">
+                        {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                            {% include 'onboarding-featured-products' %}
+                        {%- else -%}
+                            {%- for product in collections[proCollection].products -%}
+                                {%- if product.metafields.custom.totalinventory != blank -%}
+                                    <div class="slick-carousel__item">
+                                        {%- if section.settings.product_style == "list" -%}
+                                            {% include 'product-list-deal-item' %}
+                                        {%- else -%}
+                                            {% include 'product-grid-deal-item' %}
+                                        {%- endif -%}
+                                        {%- assign proLimit = proLimit | plus: 1 -%}
+                                        {% if proLimit > section.settings.limit %}
+                                            {% break %}
+                                        {%- endif -%}
+                                    </div>
+                                {%- endif -%}
+                            {%- endfor -%}
+                        {%- endif -%}
+                    </div>
+                {%- else -%}
+                    {%- capture strGridItem -%}
+                        col
+                    {%- endcapture -%}
+                    <div class="row {% if section.settings.product_style == "list" %}g-0{% else %}g-3 g-md-4{% endif %} row-cols-{{ owlColumn4 }} row-cols-sm-{{ owlColumn3 }} row-cols-md-{{ owlColumn2 }} row-cols-lg-{{ owlColumn1 }}">
+                        {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                            {% include 'onboarding-featured-products', strGridItem: strGridItem, product_style: section.settings.product_style %}
+                        {%- else -%}
+                            {% for product in collections[proCollection].products %}
+                                {%- if product.metafields.custom.totalinventory != blank -%}
+                                    <div class="{{ strGridItem }}">
+                                        {%- if section.settings.product_style == "list" -%}
+                                            {% include 'product-list-deal-item' %}
+                                        {%- else -%}
+                                            {% include 'product-grid-deal-item' %}
+                                        {%- endif -%}
+                                        {%- assign proLimit = proLimit | plus: 1 -%}
+                                        {% if proLimit > section.settings.limit %}
+                                            {% break %}
+                                        {%- endif -%}
+                                    </div>
+                                {%- endif -%}
+                            {% endfor %}
+                        {%- endif -%}
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
+{%- assign prostyle = nil -%}
+{% schema %}
+    {
+        "name": "Flash sale",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "html",
+                "id": "heading",
+                "label": "t:sections.global.settings.heading_section.label",
+                "default": "Heading"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle",
+                "label": "Collection"
+            },
+			{
+                "type": "range",
+                "id": "limit",
+                "min": 1,
+                "max": 12,
+                "step": 1,
+                "label": "Maximum products to show",
+                "default": 8
+            },
+            {
+                "type": "checkbox",
+                "id": "product_tags",
+                "label": "Enable Tags",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "product_inventory",
+                "label": "Enable Inventory",
+                "default": true
+            },
+            {
+                "type": "select",
+                "id": "product_style",
+                "label": "Product layout",
+                "default": "grid",
+                "options": [
+                    {
+                        "value": "grid",
+                        "label": "Grid"
+                    },
+                    {
+                        "value": "list",
+                        "label": "List"
+                    }
+                ]
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "slide_enable",
+                "label": "Enable Slide",
+                "default": false
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": false
+			},
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "range",
+                "id": "column1",
+                "min": 1,
+                "max": 6,
+                "step": 1,
+                "label": "#Column 1",
+                "default": 4,
+                "info": "Large desktops"
+            },
+            {
+                "type": "range",
+                "id": "column2",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 2",
+                "default": 3,
+                "info": "Desktops & Tablets landscape"
+            },
+            {
+                "type": "range",
+                "id": "column3",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 3",
+                "default": 2,
+                "info": "Mobile phone landscape"
+            },
+            {
+                "type": "range",
+                "id": "column4",
+                "min": 1,
+                "max": 5,
+                "step": 1,
+                "label": "#Column 4",
+                "default": 2,
+                "info": "Mobile phone"
+            },
+            {
+                "type": "header",
+                "content": "Count down"
+            },
+            {
+		        "type": "text",
+		        "id": "countdown_title",
+		        "label": "Countdown title",
+		        "default": "Hurry Up! Offer ends in:"
+		    },
+		    {
+		        "type": "text",
+		        "id": "countdown_timeend",
+		        "label": "Time End",
+		        "placeholder": "YYYY\/MM\/DD"
+		    },
+		    {
+		        "type": "paragraph",
+		        "content": "Format: 'Year\/Month\/Day'"
+		    },
+		    {
+		        "type": "paragraph",
+		        "content": "Example: '2022\/12\/30'"
+		    }
+        ],
+		"presets": [
+            {
+                "name": "Flash sale",
+                "settings": {
+                    "countdown_timeend": "2022/12/30"
+                }
+            }
+        ]
+    }
+{% endschema %}

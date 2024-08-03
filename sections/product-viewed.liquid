@@ -1,0 +1,180 @@
+{{ '//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js' | script_tag }}
+{{ 'jquery.products.min.js' | asset_url | script_tag }}		
+<script>Shopify.Products.recordRecentlyViewed();</script>
+{%- capture section_style -%}
+	{%- if section.settings.max_with != blank -%}
+		--st-mx-w: {{ section.settings.max_with }};
+	{%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign owlColumn1 = section.settings.column1 | plus: 0 -%}
+{%- assign owlColumn2 = section.settings.column2 | plus: 0 -%}
+{%- assign owlColumn3 = section.settings.column3 | plus: 0 -%}
+
+<div  class="product-viewed vela-section overflow-hidden"{% if section_style %} style="{{ section_style }}"{% endif %}>
+	<div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+		<div class="vela-section__inner">
+			{%- if section.settings.heading != blank -%}
+				<div class="heading-group mb-3 mb-md-4 text-center">
+					<h2 class="heading mb-2">
+						<span>{{ section.settings.heading }}</span>
+					</h2>
+					{%- if section.settings.sub_heading != blank -%}
+						<div class="sub-heading mb-2">
+							{{ section.settings.sub_heading }}
+						</div>
+					{%- endif -%}
+				</div>
+			{%- endif -%}
+			<div id="recently-viewed-products" data-limit="{{ section.settings.products_to_show }}" class="row g-2 g-md-3 g-lg-4 gy-4 row-cols-{{ owlColumn3 }} row-cols-md-{{ owlColumn2 }} row-cols-lg-{{ owlColumn1 }}"></div>
+		</div>
+	</div>
+</div>
+
+{% raw %}
+<script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+	<div id="product-${handle}" class="col">
+		<div class="product-card product-grid grid__default">
+			<div class="product-grid__inner">
+				<div class="product-card__image-wrapper">
+					<a class="product-card__image-link" href="${url}">
+						<span {{if images[1]}} class="img-primary"{{/if}}>
+							<img class="img-fluid" src="${Shopify.Products.resizeImage(featured_image, "large")}" />
+						</span>
+						{{if images[1]}}
+							<span class="img-secondary position-absolute">
+								<img class="img-fluid" src="${images[1]}" />
+							</span>
+						{{/if}}
+					</a>
+				</div>
+				<div class="product-card__content mt-lg-1 pt-2 pt-md-3">
+					<div class="product-card__content--inner">
+						<h6 class="product-card__name line-clamp-2 mb-1">
+							<a class="line-title fw-normal" href="${ url }">${ title }</a>
+						</h6>
+						<div class="product-group-price ff-special d-flex align-items-center">
+							<div class="product-price">${Shopify.formatMoney(price)}</div>
+							{{if compare_at_price && compare_at_price > price }}
+								<div class="product-price product-price--regular ms-1">${Shopify.formatMoney(compare_at_price)}</div>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+{% endraw %}
+<script>Shopify.Products.showRecentlyViewed( { howManyToShow: 3 } );</script>
+{% schema %}
+{
+  "name": "Product viewed",
+  "class": "section-product-viewed",
+  "settings": [
+	{
+		"type": "header",
+		"content": "Design Section"
+	},
+	{
+		"type": "checkbox",
+		"id": "full_with",
+		"label": "Enable Full Width?"
+	},
+	{
+		"type": "text",
+		"id": "max_with",
+		"label": "Container max width?(px)",
+		"info": "Ex: 1440px"
+	},
+	{
+		"type": "color",
+		"id": "color_bg",
+		"label": "Background Color",
+		"default": "rgba(0,0,0,0)"
+	},
+	{
+		"type": "text",
+		"id": "padding_block",
+		"label": "Padding",
+		"placeholder": "0px 0px"
+	},
+	{
+		"type": "text",
+		"id": "padding_block_m",
+		"label": "Padding on the mobile",
+		"placeholder": "0px 0px",
+		"info": "Ex: 0px 0px 0px 0px and use mobile only"
+	},
+	{
+		"type": "text",
+		"id": "margin_block",
+		"label": "Margin",
+		"placeholder": "0px 0px"
+	},
+	{
+		"type": "header",
+		"content": "General Settings"
+	},
+	{
+		"type": "html",
+		"id": "heading",
+		"label": "Heading",
+		"default": "Heading"
+	},
+	{
+		"type": "text",
+		"id": "sub_heading",
+		"label": "Sub heading",
+		"default": "sub heading"
+	},
+	{
+		"type": "range",
+		"id": "products_to_show",
+		"min": 2,
+		"max": 12,
+		"step": 1,
+		"default": 5,
+		"label": "Maximum products to show"
+	},
+	{
+		"type": "range",
+		"id": "column1",
+		"min": 1,
+		"max": 6,
+		"step": 1,
+		"label": "Number of columns on desktop",
+		"default": 5
+	},
+	{
+		"type": "range",
+		"id": "column2",
+		"min": 1,
+		"max": 5,
+		"step": 1,
+		"label": "Number of columns on tablet",
+		"default": 3
+	},
+	{
+		"type": "range",
+		"id": "column3",
+		"min": 1,
+		"max": 5,
+		"step": 1,
+		"label": "Number of columns on mobile",
+		"default": 2
+	}
+  ]
+}
+{% endschema %}

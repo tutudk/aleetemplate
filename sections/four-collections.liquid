@@ -1,0 +1,368 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="vela-section four-collections overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+        <div class="vela-section__inner">
+            <div class="vela-section__content">
+                <div class="row {% if section.settings.space_between == "4" or section.settings.space_between == "5" %}g-2 g-sm-3 g-md-{{ section.settings.space_between }}{% else %}g-{{ section.settings.space_between }}{% endif%}">
+                    <div class="col-12 col-md-6">
+                        {%- assign proCollection = section.settings.collection_handle1 -%}
+                        <a  class="position-relative d-block overflow-hidden" href="{{ collections[proCollection].url }}">
+                            {%- if section.settings.collection_image1 != blank -%}
+                                {% render 'img-global', image: section.settings.collection_image1 %}
+                            {%- elsif  collections[proCollection].image != blank -%}
+                                {% render 'img-global', image: collections[proCollection].image %}
+                            {%- else -%}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {%- endif -%}
+                            <div class="four-collections__content position-absolute left-0 top-0 p-3 p-sm-4">
+                                <div class="four-collections__wrapper">
+                                    <h6 class="four-collections__title fs-18 line-clamp-1 mb-2 link"> 
+                                        <span class="position-relative">
+                                            {%- if section.settings.collection_title1 != blank -%}
+                                                {{ section.settings.collection_title1 }}
+                                            {%- else -%}
+                                                {{ collections[proCollection].title }}
+                                            {%- endif -%}
+                                        </span>
+                                    </h6>
+                                    {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                                        {%- if section.settings.collection_count -%}
+                                            <p class="four-collections__count m-0">{{ 'collections.general.product_count.other' | t: product_count: 20 }}</p>
+                                        {%- endif -%}
+                                    {%- else -%}
+                                        {%- assign productCount = collections[proCollection].products_count -%}
+                                        {%- if section.settings.collection_count -%}
+                                            <p class="four-collections__count m-0">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t: product_count: productCount }}{% else %}{{ 'collections.general.product_count.one' | t: product_count: productCount }}{% endif %}</p>
+                                        {%- endif -%}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="row {% if section.settings.space_between == "4" or section.settings.space_between == "5" %}g-2 g-sm-3 g-md-{{ section.settings.space_between }}{% else %}g-{{ section.settings.space_between }}{% endif%}">
+                            <div class="col-6">
+                                <div class="row {% if section.settings.space_between == "4" or section.settings.space_between == "5" %}g-2 g-sm-3 g-md-{{ section.settings.space_between }}{% else %}g-{{ section.settings.space_between }}{% endif%}">
+                                    <div class="col-12" style="--plh-svg-h: 225px;">
+                                        {%- assign proCollection = section.settings.collection_handle2 -%}
+                                        <a  class="position-relative d-block overflow-hidden" href="{{ collections[proCollection].url }}">
+                                            {%- if section.settings.collection_image2 != blank -%}
+                                                {% render 'img-global', image: section.settings.collection_image2 %}
+                                            {%- elsif  collections[proCollection].image != blank -%}
+                                                {% render 'img-global', image: collections[proCollection].image %}
+                                            {%- else -%}
+                                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                            {%- endif -%}
+                                            <div class="four-collections__content position-absolute left-0 top-0 p-3 p-sm-4">
+                                                <div class="four-collections__wrapper">
+                                                    <h6 class="four-collections__title fs-18 line-clamp-1 mb-2 link"> 
+                                                        <span class="position-relative">
+                                                            {%- if section.settings.collection_title2 != blank -%}
+                                                                {{ section.settings.collection_title2 }}
+                                                            {%- else -%}
+                                                                {{ collections[proCollection].title }}
+                                                            {%- endif -%}
+                                                        </span>
+                                                    </h6>
+                                                    {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                                                        {%- if section.settings.collection_count -%}
+                                                            <p class="four-collections__count m-0">{{ 'collections.general.product_count.other' | t: product_count: 20 }}</p>
+                                                        {%- endif -%}
+                                                    {%- else -%}
+                                                        {%- assign productCount = collections[proCollection].products_count -%}
+                                                        {%- if section.settings.collection_count -%}
+                                                            <p class="four-collections__count m-0">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t: product_count: productCount }}{% else %}{{ 'collections.general.product_count.one' | t: product_count: productCount }}{% endif %}</p>
+                                                        {%- endif -%}
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-12" style="--plh-svg-h: 265px;">
+                                        {%- assign proCollection = section.settings.collection_handle3 -%}
+                                        <a  class="position-relative d-block overflow-hidden" href="{{ collections[proCollection].url }}">
+                                            {%- if section.settings.collection_image3 != blank -%}
+                                                {% render 'img-global', image: section.settings.collection_image3 %}
+                                            {%- elsif  collections[proCollection].image != blank -%}
+                                                {% render 'img-global', image: collections[proCollection].image %}
+                                            {%- else -%}
+                                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                            {%- endif -%}
+                                            <div class="four-collections__content position-absolute left-0 top-0 p-3 p-sm-4">
+                                                <div class="four-collections__wrapper">
+                                                    <h6 class="four-collections__title fs-18 line-clamp-1 mb-2 link"> 
+                                                        <span class="position-relative">
+                                                            {%- if section.settings.collection_title3 != blank -%}
+                                                                {{ section.settings.collection_title3 }}
+                                                            {%- else -%}
+                                                                {{ collections[proCollection].title }}
+                                                            {%- endif -%}
+                                                        </span>
+                                                    </h6>
+                                                    {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                                                        {%- if section.settings.collection_count -%}
+                                                            <p class="four-collections__count m-0">{{ 'collections.general.product_count.other' | t: product_count: 20 }}</p>
+                                                        {%- endif -%}
+                                                    {%- else -%}
+                                                        {%- assign productCount = collections[proCollection].products_count -%}
+                                                        {%- if section.settings.collection_count -%}
+                                                            <p class="four-collections__count m-0">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t: product_count: productCount }}{% else %}{{ 'collections.general.product_count.one' | t: product_count: productCount }}{% endif %}</p>
+                                                        {%- endif -%}
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" style="--plh-svg-h: 520px;">
+                                {%- assign proCollection = section.settings.collection_handle4 -%}
+                                <a  class="position-relative d-block overflow-hidden" href="{{ collections[proCollection].url }}">
+                                    {%- if section.settings.collection_image4 != blank -%}
+                                        {% render 'img-global', image: section.settings.collection_image4 %}
+                                    {%- elsif  collections[proCollection].image != blank -%}
+                                        {% render 'img-global', image: collections[proCollection].image %}
+                                    {%- else -%}
+                                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {%- endif -%}
+                                    <div class="four-collections__content position-absolute left-0 top-0 p-3 p-sm-4">
+                                        <div class="four-collections__wrapper">
+                                            <h6 class="four-collections__title fs-18 line-clamp-1 mb-2 link"> 
+                                                <span class="position-relative">
+                                                    {%- if section.settings.collection_title4 != blank -%}
+                                                        {{ section.settings.collection_title4 }}
+                                                    {%- else -%}
+                                                        {{ collections[proCollection].title }}
+                                                    {%- endif -%}
+                                                </span>
+                                            </h6>
+                                            {%- if proCollection == blank or collections[proCollection] == empty or collections[proCollection].products_count == 0 -%}
+                                                {%- if section.settings.collection_count -%}
+                                                    <p class="four-collections__count m-0">{{ 'collections.general.product_count.other' | t: product_count: 20 }}</p>
+                                                {%- endif -%}
+                                            {%- else -%}
+                                                {%- assign productCount = collections[proCollection].products_count -%}
+                                                {%- if section.settings.collection_count -%}
+                                                    <p class="four-collections__count m-0">{% if productCount > 1 %}{{ 'collections.general.product_count.other' | t: product_count: productCount }}{% else %}{{ 'collections.general.product_count.one' | t: product_count: productCount }}{% endif %}</p>
+                                                {%- endif -%}
+                                            {%- endif -%}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Four collections",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings": [
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_settings.content"
+            },
+            {
+                "type": "select",
+                "id": "space_between",
+                "label": "t:sections.global.settings.space_between.label",
+                "default": "4",
+                "options": [
+                    {
+                        "value": "2",
+                        "label": "t:sections.global.settings.space_between.option__2.label"
+                    },
+                    {
+                        "value": "3",
+                        "label": "t:sections.global.settings.space_between.option__3.label"
+                    },
+                    {
+                        "value": "4",
+                        "label": "t:sections.global.settings.space_between.option__4.label"
+                    },
+                    {
+                        "value": "5",
+                        "label": "t:sections.global.settings.space_between.option__5.label"
+                    }
+                ]
+            },
+            {
+                "type": "checkbox",
+                "id": "collection_count",
+                "label": "Show product count?",
+                "default": true
+            },
+            {
+                "type": "header",
+                "content": "1st collection"
+            },
+            {
+                "type": "text",
+                "id": "collection_title1",
+                "label": "Title",
+                "default": "collection Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "collection_image1",
+                "label": "Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle1",
+                "label": "Collection"
+            },
+            {
+                "type": "header",
+                "content": "2st collection"
+            },
+            {
+                "type": "text",
+                "id": "collection_title2",
+                "label": "Title",
+                "default": "collection Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "collection_image2",
+                "label": "Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle2",
+                "label": "Collection"
+            },
+            {
+                "type": "header",
+                "content": "3st collection"
+            },
+            {
+                "type": "text",
+                "id": "collection_title3",
+                "label": "Title",
+                "default": "collection Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "collection_image3",
+                "label": "Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle3",
+                "label": "Collection"
+            },
+            {
+                "type": "header",
+                "content": "4st collection"
+            },
+            {
+                "type": "text",
+                "id": "collection_title4",
+                "label": "Title",
+                "default": "collection Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "collection_image4",
+                "label": "Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle4",
+                "label": "Collection"
+            },
+            {
+                "type": "header",
+                "content": "5st collection"
+            },
+            {
+                "type": "text",
+                "id": "collection_title5",
+                "label": "Title",
+                "default": "collection Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "collection_image5",
+                "label": "Collection Image"
+            },
+            {
+                "type": "collection",
+                "id": "collection_handle5",
+                "label": "Collection"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Four collections",
+                "category": "3. Images"
+            }
+        ]
+    }
+{% endschema %}

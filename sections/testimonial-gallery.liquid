@@ -1,0 +1,362 @@
+{%- assign nav = section.settings.navigation -%}
+{%- assign pagination = section.settings.pagination -%}
+{%- assign infinite = section.settings.infinite -%}
+{%- assign autoplay = section.settings.autoplay -%}
+{%- assign autoplay_speed = section.settings.autoplay_speed | escape -%}
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+{%- if section.settings.size != blank -%}
+    {%- assign wimg = section.settings.size | split: "x" | first -%}
+    {%- assign himg = section.settings.size | split: "x" | last -%}
+{%- else -%}
+    {%- assign wimg = "140" -%}
+    {%- assign himg = "140" -%}
+{%- endif -%}
+<div class="vela-section testimonial-gallery overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{%- if section.settings.full_with -%}-fluid{%- endif -%}">
+        <div class="vela-section__inner">
+            <div class="vela-section__content" >
+                <div class="vela-section__wrapper">
+                    <div class="row g-3 g-md-4">
+                        <div class="col-12 col-md-6 testimonial-gallery__testimonial">
+                            {%- if section.settings.heading != blank -%}
+                                <div class="testimonial-group__title text-center mb-3 mb-md-4 pb-1">
+                                    <h3 class="testimonial-gallery__tile mb-2 pb-1">
+                                        <span>{{ section.settings.heading }}</span>
+                                    </h3>
+                                    {%- if section.settings.sub_heading != blank -%}
+                                        <span class="testimonial-gallery__subTitle">{{ section.settings.sub_heading }}</span>
+                                    {%- endif -%}
+                                </div>
+                            {%- endif -%}
+                            <div class="js-carousel slick-carousel row g-3"
+                            data-nav="{{ nav }}"
+                            data-dots="{{ pagination }}"
+                            data-infinite="{{ infinite }}"
+                            data-autoplay="{{ autoplay }}"
+                            data-autoplayspeed="{{ autoplay_speed }}"
+                            data-columnone="1" 
+                            data-columntwo="1" 
+                            data-columnthree="1" 
+                            data-columnfour="1">
+                                {% for block in section.blocks %}
+                                    {%- if block.type == "testimonial"-%}
+                                        <div class="slick-carousel__item">
+                                            <div class="testimonial-gallery__item text-center mx-auto">
+                                                <div class="testimonial__avatar mb-3">
+                                                    <div class="avata d-flex justify-content-center">
+                                                        <div class="d-block overflow-hidden rounded-circle" style="width: {{ wimg }}px; height: {{ himg }}px;">
+                                                            {%- if block.settings.avatar != blank -%}
+                                                                {% render 'img-global', image: block.settings.avatar, image_size: section.settings.size, image_ratio: 'square', crop: 'center', image_style: true %}
+                                                            {%- else -%}
+                                                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg ' }}
+                                                            {%- endif -%}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="testimonial__content">
+                                                    {%- if block.settings.name != blank -%}
+                                                        <div class="testimonial__name heading-color fw-semibold text-uppercase mb-1">{{ block.settings.name }}</div>
+                                                    {%- endif -%}
+                                                    {%- if block.settings.position != blank -%}
+                                                        <div class="testimonial__position text-primary fw-medium mb-2 pb-1">{{ block.settings.position }}</div>
+                                                    {%- endif -%}
+                                                    {%- if block.settings.review != blank -%}
+                                                        <div class="testimonial__review mx-auto">{{ block.settings.review }}</div>
+                                                    {%- endif -%}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {%- endif -%}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="testimonial-gallery__banner position-relative">
+                                {%- if section.settings.gallery_title != blank or section.settings.gallery_subtitle != blank -%}
+                                    <div class="banner-group__title bg-white position-absolute top-50 start-50 p-3 py-sm-4 translate-middle text-center">
+                                        {%- if section.settings.gallery_title != blank -%}
+                                            <h6 class="mb-1 fs-18">{{ section.settings.gallery_title }}</h6>
+                                        {%- endif -%}
+                                        <span class="text-decoration-underline">{{ section.settings.gallery_subtitle }}</span>
+                                    </div>
+                                {%- endif -%}
+                                <div class="banner__content">
+                                    <div class="row g-2">
+                                        {% for block in section.blocks %}
+                                            {%- if block.type == "image"-%}    
+                                                <div class="col-6 col-sm-4">
+                                                    <div class="{{ section.settings.effect }}">
+                                                        <a class="overflow-hidden{% unless section.settings.popup %} img-link{% endunless %}" target="_blank" href="{% if section.settings.popup %}{{ block.settings.image | img_url: 'master' }}{% else%}{{ block.settings.link }}{% endif %}">
+                                                            {%- if block.settings.image != blank -%}
+                                                                {% render 'img-global', image: block.settings.image, image_ratio: section.settings.image_ratio, crop: image_crop %}
+                                                            {%- else -%}
+                                                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                                            {%- endif -%}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            {%- endif -%}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Testimonial - gallery",
+        "tag": "section",
+        "class": "velaFramework",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings":[
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "color",
+                "id": "color_bg",
+                "label": "t:sections.global.settings.bg_color.label",
+                "default": "rgba(0,0,0,0)"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            },
+            {
+                "type": "text",
+                "id": "margin_block",
+                "label": "t:sections.global.settings.margin.label",
+                "placeholder": "0px 0px"
+            },
+            {
+                "type": "header",
+                "content": "Testimonial"
+            },
+            {
+                "type": "html",
+                "id": "heading",
+                "label": "t:sections.global.settings.heading_section.label",
+                "default": "Heading"
+            },
+            {
+                "type": "text",
+                "id": "sub_heading",
+                "label": "t:sections.global.settings.subheading_section.label",
+                "default": "sub heading"
+            },
+            {
+                "type": "text",
+                "id": "size",
+                "label": "avata size",
+                "default": "100x100",
+                "info": "Default is blank. you can input size banner 100x100"
+            },
+            {
+                "type": "header",
+                "content": "Carousel Settings"
+            },
+            {
+                "type": "checkbox",
+                "id": "navigation",
+                "label": "Show navigation",
+                "default": true
+            },
+            {
+				"type": "checkbox",
+				"id": "pagination",
+				"label": "Show dot indicators",
+				"default": true
+			},
+            {
+                "type": "checkbox",
+                "id": "infinite",
+                "label": "Infinite loop sliding",
+                "default": true
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Enable autoplay",
+                "default": false
+            },
+            {
+                "type": "text",
+                "id": "autoplay_speed",
+                "label": "Autoplay speed",
+                "info": "Autoplay speed in milliseconds. Type: int(ms)",
+                "default": "10000"
+            },
+            {
+                "type": "header",
+                "content": "Gallery"
+            },
+            {
+                "type": "html",
+                "id": "gallery_title",
+                "placeholder": "Title",
+                "label": "Title"
+            },
+            {
+                "type": "text",
+                "id": "gallery_subtitle",
+                "placeholder": "SubTitle for Block",
+                "label": "SubTitle"
+            },
+            {
+                "type": "checkbox",
+                "id": "popup",
+                "label": "Use Popup Gallery?",
+                "default": false
+            },
+            {
+                "type": "select",
+                "id": "effect",
+                "label": "Effect",
+                "default": "effectOne",
+                "options": [
+                   {
+                      "value": "effectOne",
+                      "label": "Effect one"
+                   },
+                   {
+                      "value": "effectTwo",
+                      "label": "Effect two"
+                   },
+                   {
+                      "value": "effectThree",
+                      "label": "Effect Three"
+                   },
+                   {
+                      "value": "effectFour",
+                      "label": "Effect Four"
+                   },
+                   {
+                      "value": "effectFive",
+                      "label": "Effect Five"
+                   }
+                ]
+            }
+        ],
+		"blocks": [
+			{
+                "type": "testimonial",
+                "name": "Testimonial Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "avatar",
+                        "label": "Avatar"
+                    },
+                    {
+                        "type": "text",
+                        "id": "name",
+                        "label": "Customer name",
+                        "default": "Customer name"
+                    },
+                    {
+                        "type": "text",
+                        "id": "position",
+                        "label": "Position",
+                        "default": "Customer position"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "review",
+                        "label": "Customer Review",
+                        "default": "Ipsum dolor sit amet, consectetur adipiscing elit. Fringilla vel tincidunt ipsum ac. Nam at et id leo pulvinar egestas mi lorem. Adipiscing felis, vel faucibus in. Hendrerit viverra elementum venenatis pellentesque pellentesque ornare"
+                    }
+                ]
+            },
+            {
+                "type": "image",
+                "name": "Image Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Banner image",
+                        "info": "Recommended size banner 600x600, 800x800"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Image URL"
+                    }
+                ]
+            }
+		],
+        "presets": [
+            {
+                "name": "Testimonial - gallery",
+                "blocks": [
+                    {
+                        "type": "testimonial"
+                    },
+                    {
+                        "type": "image"
+                    },
+                    {
+                        "type": "image"
+                    },
+                    {
+                        "type": "image"
+                    },
+                    {
+                        "type": "image"
+                    },
+                    {
+                        "type": "image"
+                    },
+                    {
+                        "type": "image"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

@@ -1,0 +1,115 @@
+{% style %}
+	{%- unless settings.type_body_font_select == 'google_body_fonts' -%}
+		{{ settings.type_body_font | font_face: font_display: 'swap' }}
+		{{ body_font_light | font_face: font_display: 'swap' }}
+	{%- endunless-%}
+	{%- unless settings.type_header_font_select == 'google_header_fonts' -%}
+		{{ settings.type_header_font | font_face: font_display: 'swap' }}
+		{%- if settings.type_header_font.weight == 700 -%}
+			{{ header_font_semibold | font_face: font_display: 'swap' }}
+			{{ header_font_medium | font_face: font_display: 'swap' }}
+		{%- elsif settings.type_header_font.weight == 600 -%}
+			{{ header_font_medium | font_face: font_display: 'swap' }}
+		{%- else -%}
+			{{ header_font_semibold | font_face: font_display: 'swap' }}
+		{%- endif -%}
+	{%- endunless-%}
+    :root {
+		{%- if settings.type_body_font_select == 'shopify_body_fonts' -%}
+			--font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+			--font-body-style: {{ settings.type_body_font.style }};
+			--font-body-weight: {{ settings.type_body_font.weight }};
+		{%- else -%}
+			--font-body-family: {{ settings.type_body_google_font_name }};
+			--font-body-style: 'normal';
+			--font-body-weight: '400';
+		{%- endif -%} 
+		{%- if settings.type_header_font_select == 'shopify_header_fonts' -%}
+			--font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+			--font-heading-style: {{ settings.type_header_font.style }};
+			--font-heading-weight: {{ settings.type_header_font.weight }};
+		{%- else -%}
+			--font-heading-family: {{ settings.type_header_google_font_name }};
+			--font-heading-style: 'normal';
+			--font-heading-weight: {{ settings.type_header_font.weight }};
+		{%- endif -%}
+
+        {%- if settings.type_special_font != blank -%}
+          	--font-special-family: {{ settings.type_special_font }};
+		{%- else -%}
+			--font-special-family:  'Source Sans Pro', sans-serif; 
+        {%- endif -%}
+		--font-size-heading: {{ settings.type_header_base_size }}px;
+		--font-size-heading-mobile: {{ settings.type_header_base_size | times: 1 | times: 0.8 | floor }}px;;
+
+		--font-size-base: {{ settings.type_base_size }}px;
+		--primary: {{ settings.color_primary }};
+		--primary-light: {{ settings.color_primary | color_modify: 'alpha', 0.7 }};
+		--secondary: {{ settings.color_secondary }};
+		--body-color: {{ settings.color_body_text }};
+		--body-color-light: {{ settings.color_text_light }};
+		
+		--body-bg: {{ settings.color_body_bg }};
+		--heading-color: {{ settings.color_headings }};
+		--color-link: {{ settings.color_headings }};
+		--color-link-hover: var(--primary);
+		--border-color: {{ settings.color_border }};
+		--border-light-color: #f5f5f5;
+    	--shadow: 0px 6px 15px rgba(0, 0, 0, .12);
+		--button-border-radius: 30px;
+	
+		--menu-font-size: {{ settings.type_menu_size }}px;
+		--menu-dropdown-font-size: {{ settings.type_menu_dropdown_size }}px;
+		--menu-bg: {{ settings.color_menu_bg }};
+		--menu-color: {{ settings.color_menu_text }};
+		--menu-hover-color: {{ settings.color_menu_text_hover }};
+		--menu-dropdown-bg: {{ settings.color_submenu_bg }};
+		--menu-dropdown-color: {{ settings.color_submenu_text }};
+		--menu-dropdown-hover-color: {{ settings.color_submenu_text_hover }};
+
+		--vertical-menu-font-size: {{ settings.type_vertical_menu_size }}px;
+		--vertical-menu-dropdown-font-size: {{ settings.type_vertical_menu_dropdown_size }}px;
+		--vertical-menu-bg: {{ settings.color_vertical_menu_bg }};
+		--vertical-menu-color: {{ settings.color_vertical_menu_text }};
+		--vertical-menu-hover-color: {{ settings.color_vertical_menu_text_hover }};
+		--vertical-menu-dropdown-bg: {{ settings.color_vertical_submenu_bg }};
+		--vertical-menu-dropdown-color: {{ settings.color_vertical_submenu_text }};
+		--vertical-menu-dropdown-hover-color: {{ settings.color_vertical_submenu_text_hover }};
+
+		--breadcrumb-bg: var(--body-bg);
+		--breadcrumb-heading-color: var(--heading-color);
+		--breadcrumb-color: var(--heading-color);
+		--breadcrumb-color-link: var(--heading-color);
+
+		--btn-default-color: {{ settings.color_btn }};
+		--btn-default-border-color: {{ settings.color_btn_border }};
+		--btn-default-bg-color: {{ settings.color_btn_bg }};
+		--btn-default-hover-color: {{ settings.color_btn_hover }};
+		--btn-default-hover-border-color: {{ settings.color_btn_hover_border }};
+		--btn-default-hover-bg-color: {{ settings.color_btn_hover_bg }};
+
+		--new-badge-color: {{ settings.new_badge_color }};
+		--new-badge-bg-color: {{ settings.new_badge_bg_color }};
+		--sale-badge-color: {{ settings.sale_badge_color }};
+		--sale-badge-bg-color: {{ settings.sale_badge_bg_color }};
+		--sold-out-badge-color: {{ settings.sold_out_badge_color }};
+		--sold-out-badge-bg-color: {{ settings.sold_out_badge_bg_color }};
+		--pre-order-badge-color: {{ settings.pre_order_badge_color }};
+		--pre-order-badge-bg-color: {{ settings.pre_order_badge_bg_color }};
+		
+		--product-name-color: #8c8c8c;
+		--product-name-hover-color: var(--primary);
+		
+		--letter-spacing-half: .5px;
+		--letter-spacing-1: 1px;
+
+		{% comment %} override bootstrap {% endcomment %}
+		--bs-body-font-family: var(--font-body-family);
+		--bs-body-font-weight: var(--font-body-weight);
+		--bs-body-font-size: var(--font-size-base);
+		--bs-body-color: {{ settings.color_body_text }};
+		--bs-body-bg: {{ settings.color_body_bg }};
+		--bs-primary: {{ settings.color_primary }};
+		--bs-primary-rgb: {{ settings.color_primary | color_to_rgb | remove: 'rgb(' | remove: ')' }}
+	}
+{% endstyle %}

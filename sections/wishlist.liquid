@@ -1,0 +1,63 @@
+{%- capture section_style -%}
+    {%- if section.settings.max_with != blank -%}
+        --st-mx-w: {{ section.settings.max_with }};
+    {%- endif -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+    --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+    --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    --st-cl: {{ section.settings.color_copyright }};--st-cl-l: {{ section.settings.color_copyright_link }};
+{%- endcapture -%}
+<div class="wishlist-page vela-section overflow-hidden"{% if section_style %} style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-fluid{% endif %}">
+        <div class="wishlist-page__content position-relative loading" style="min-height: 400px;">
+            {% render 'preloading', preload_class: 'position-absolute' %}
+            <div class="wishlist-empty position-absolute translate-middle start-50 top-50 d-none">
+                <span class="alert alert-info d-block">{{ 'products.product.empty_wishlist' | t }}.<a class="h6 d-inline-block ms-1" href="{{ routes.all_products_collection_url }}" title="{{ 'general.continue_shopping' | t }}">{{ 'general.continue_shopping' | t }}</a></span>
+            </div>
+            <div class="wishlist-grid row g-2 g-md-3 g-lg-4 gy-lg-5 row-cols-2 row-cols-md-3 row-cols-lg-4" grid-wishlist=""></div>
+        </div>
+    </div>
+</div>
+{% schema %}
+    {
+        "name": "Wishlist",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "header",
+                "content": "t:sections.global.settings.header_section.content"
+            },
+            {
+                "type": "checkbox",
+                "id": "full_with",
+                "label": "t:sections.global.settings.full_width.label"
+            },
+            {
+                "type": "text",
+                "id": "max_with",
+                "label": "t:sections.global.settings.max_with.label",
+                "info": "t:sections.global.settings.max_with.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block",
+                "label": "t:sections.global.settings.padding.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding.info"
+            },
+            {
+                "type": "text",
+                "id": "padding_block_m",
+                "label": "t:sections.global.settings.padding_mobile.label",
+                "placeholder": "0px 0px",
+                "info": "t:sections.global.settings.padding_mobile.info"
+            }
+        ]
+    }
+{% endschema %}

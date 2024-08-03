@@ -1,0 +1,137 @@
+{%- if product_style == 'list' -%}
+	{%- assign anumber = number | default: 5 -%}
+	{%- for i in (1..anumber) -%}
+		<div class="product-card mb-3 product-list-style d-flex {% if strGridItem %}{{ strGridItem }}{% else %}slick-carousel__item{% endif %}">
+			<div class="product-list__inner">
+				<div class="row g-0 d-flex align-items-center">
+					<div class="col-5">
+						<div class="product-card__image-wrapper pe-2">
+							<a class="product-card__image-link" href="/admin/products">
+								{%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+								{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+							</a>
+							{%- if settings.quickview_enable -%}
+								<a class="js-btn-quickview btn btn--quickview position-absolute" href="#">
+									{% render 'icons', icon: 'search', attr: 'width="18" height="18"' %}
+									<span class="d-none">{{ 'products.product.quickview' | t }}</span>
+								</a>
+							{%- endif -%}
+						</div>
+					</div>
+					<div class="col-7">
+						<div class="product-card__content position-relative">
+							<div class="product-card__tags pb-1">
+								<a href="#">Digital</a>,
+								<a href="/#">Electronics</a>
+							</div>
+							<h6 class="product-card__name line-clamp-2 mb-0 pb-2">
+								<a href="/admin/products">Soft Side Table</a>
+							</h6>
+							<div class="product-card__price pb-1">
+								<div class="product-group-price">
+									<div class="product-price">$29.99</div>
+								</div>
+							</div>
+							{%- if settings.product_reviews_enable and settings.product_card_review -%}
+								<div class="product-card__review product-review">
+									<div class="d-flex py-1">
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+									</div>
+								</div>
+							{%- endif -%}
+							<div class="product-card__buttons mt-md-1 pt-2">
+								<div class="product-card__form">
+									<a class="btn btn--add-to-cart" href="/admin/products" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'products.product.add_to_cart' | t }}">
+										{% render 'icons', icon: 'plus', class: 'icon-cart d-none', attr: 'width="18" height="18"' %}
+										<span class="text">{{ 'products.product.add_to_cart' | t }}</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{%- endfor -%}
+{%- else -%}
+	{%- assign anumber = number | default: 8 -%}
+	{%- for i in (1..anumber) -%}
+		<div class="{% if strGridItem %}{{ strGridItem }}{% else %}slick-carousel__item{% endif %}">
+			<div class="product-card product-grid">
+				<div class="product-grid__inner">
+					<div class="product-card__image-wrapper">
+						<a class="product-card__image-link" href="/admin/products">
+							{%- capture current -%}{% cycle 1, 2, 3, 4, 5, 6 %}{%- endcapture -%}
+							{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+						</a>
+						<div class="product-card__label position-absolute">
+							{%- if settings.product_card_new -%}
+								<span class="label-new position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_new' | t }}</span></span>
+							{%- endif -%}
+							{%- if forloop.index == 2 -%}
+								<span class="label-on-sale position-relative"><span class="d-block overflow-hidden position-relative">-10%</span></span>		
+							{%- endif -%}
+							{%- if forloop.index == 4 -%}
+								<span class="label-sold-out position-relative bg-warning heading-color"><span class="d-block overflow-hidden position-relative">{{ 'products.general.out_stock' | t }}</span></span>		
+							{%- endif -%}
+						</div>
+						{%- if settings.quickview_enable -%}
+							<a class="js-btn-quickview btn btn--quickview position-absolute" href="/admin/products" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="{{ 'products.product.quickview' | t }}"  title="{{ 'products.product.quickview' | t }}">
+								{% render 'icons', icon: 'eye', attr: 'width="20" height="20"' %}
+                    			<span class="d-none">{{ 'products.product.quickview' | t }}</span>
+							</a>
+						{%- endif -%}
+						<div class="product-card__buttons">
+							{%- if settings.product_card_addtocart -%}
+								<div class="product-card__form">
+									{%- unless forloop.index == 4 -%}
+										<a class="btn btn--add-to-cart" href="/admin/products">
+											<span class="text">{{ 'products.product.add_to_cart' | t }}</span>
+										</a>
+									{%- endunless -%}
+								</div>
+							{%- endif -%}
+						</div>
+					</div>
+					<div class="product-card__content mt-lg-1 pt-2 pt-md-3">
+						<div class="product-card__content--inner">
+							<div class="d-flex justify-content-between">
+								<h6 class="product-card__name line-clamp-2 mb-1">
+									<a class="line-title" href="/admin/products">Soft Side Table</a>
+								</h6>
+								<div class="product-group-price d-flex align-items-center ps-1">
+									<div class="product-price">$90.00</div>
+									{%- if forloop.index == 2 -%}
+										<div class="product-price product-price--regular ms-1"><span class="money">$100.00</span></div>
+									{%- endif -%}
+								</div>
+							</div>
+							<div class="product-card__tags">
+								<a href="#">Orange Laminate</a>/<a href="/#">Orange</a>
+							</div>
+							{%- if settings.product_reviews_enable and settings.product_card_review -%}
+								<div class="product-card__review product-review mb-1">
+									<div class="d-flex py-1">
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+										{% render 'icons', icon: 'star', class: 'icon-star text-color-light', attr: 'width="14" height="14"' %}
+									</div>
+								</div>
+							{%- endif -%}
+							{%- if settings.product_vendor_enable -%}
+								<div class="product-card__vendor mb-1 pb-md-1"><label>{{'products.general.label_vendor' | t }}</label>{{ 'AyoMart' | link_to_vendor }}</div>
+							{%- endif -%}
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{%- endfor -%}`
+{%- endif -%}

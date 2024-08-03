@@ -1,0 +1,56 @@
+{%- assign class = class | default: '' -%}
+{%- unless product.has_only_default_variant -%}
+    {%- assign color_label = settings.product_cart_swatch_label | split: ',' -%}
+    <div class="product-card__swatch {{ class }}">
+        {% for option in product.options_with_values %}
+            {%- assign option_downcased = option.name | downcase -%}  
+            {%- if color_label contains option_downcased -%}
+                {%- assign variant_option = 'option' | append: forloop.index -%}
+                {%- assign optionIndex = 0 -%}
+                {%- assign more_option = 0 -%}
+                {%- if product.variants.size > 1 -%}
+                    <ul class="product-card__swatch--list d-flex flex-wrap justify-content-center list-unstyled mb-0">
+                        {% for value in option.values %}
+                            {%- assign downcased_value = value | downcase -%}
+                            {% for variant in product.variants %}
+                                {%- assign value = variant.options[optionIndex] -%}
+                                {%- if variant[variant_option] == value -%}
+                                    {%- assign optionIndex = optionIndex | plus: 1 -%}
+                                    <li class="rounded-circle position-relative show-tooltip {% if optionIndex == 1 %} is-active{% endif %}{% if optionIndex > 4 %} extendlink more_option_item{% endif %}">
+                                        {%- assign color_swatch_name = value | handleize | append: '.png' -%}
+                                        {%- assign color_swatch_image = images[color_swatch_name] -%}
+                                        {%- capture pro-item-imgbg -%}
+                                            {%- if variant.image.src != blank and settings.product_card_image_variant -%}
+                                                background-image: url({{ variant.image.src | product_img_url:'small', crop: 'center' }});
+                                            {%- elsif color_swatch_image != blank -%} 
+                                                background-image: url({{ color_swatch_name | file_url }});
+                                            {%- endif -%}
+                                        {%- endcapture -%}
+                                        <label class="d-block rounded-circle overflow-hidden" style="background-color: {{ value | handleize | replace: "-", "" }};{{- pro-item-imgbg -}}">
+                                        </label> 
+                                        <div class="tooltip bs-tooltip-top" role="tooltip">
+                                            <div class="tooltip-arrow"></div>
+                                            <div class="tooltip-inner">
+                                                {{ value | escape }}
+                                            </div>
+                                        </div>
+                                        <div class="d-none">
+                                            {% if variant.image.src != blank %}
+                                                {% render 'img-global', image: variant.image.src, image_ratio: settings.image_ratio, crop: image_crop, image_style: true %}
+                                            {%- endif -%}
+                                        </div>                           
+                                    </li>
+                                    {%- if optionIndex > 4 -%} {%- assign more_option = more_option | plus: 1 -%} {%- endif -%}
+                                    {%- break -%}
+                                {%- endif  -%}
+                            {% endfor %}
+                        {% endfor %}
+                        {%- if more_option > 0 -%}
+                            <li class="more_option more_option_active bg-transparent position-relative">{{ more_option }}</li>
+                        {%- endif -%}
+                    </ul>
+                {%- endif -%}
+            {%- endif -%}
+        {% endfor %}
+    </div>
+{%- endunless -%}

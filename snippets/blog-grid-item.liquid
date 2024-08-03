@@ -1,0 +1,41 @@
+<article class="article blog__{{ section.settings.blog_style }}">
+    {% unless article.image == blank %}
+        <div class="article__image mb-3">
+            <a class="article__featured-image-link d-block overflow-hidden" href="{{ article.url }}">
+                {% render 'img-global', image: article.image, image_ratio: section.settings.image_ratio, crop: image_crop %}
+            </a>
+        </div>
+    {% endunless %}
+    <div class="article__content">
+        <h5 class="article__title mb-2 line-clamp-2">
+            <a class="line-title" href="{{ article.url }}" title="{{ article.title | strip_html }}"><span>{{ article.title }}</span></a>
+        </h5>
+        <div class="article__meta d-flex flex-wrap align-items-center pb-2">
+            {%- if section.settings.blog_categories -%}
+                <div class="article__meta-categories d-flex align-items-center mb-1">
+                    {{ blog.title }}
+                </div>
+            {%- endif -%}
+            {%- if section.settings.blog_author -%}
+                {%- capture author -%}{{ article.author }}{%- endcapture -%}
+                <div class="article__meta-author d-flex align-items-center mb-1">
+                    {{ 'blogs.article.author_html' | t: author: author }}
+                </div>
+            {%- endif -%}
+            {%- if section.settings.blog_date -%}
+                {%- capture post_date -%}{{ article.published_at | date: format: 'month_date_year' }}{%- endcapture -%}
+                    <div class="article__meta-date mb-1"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}" class="date">{{ post_date }}</time></div>
+            {%- endif -%}
+        </div>
+        {%- if section.settings.blog_excerp -%}
+            <div class="rte article__excerpt mb-3 line-clamp-3">
+                {{ article_content | strip_html }}
+            </div>
+        {%- endif -%}
+        {%- if section.settings.blog_readmore -%}
+            <div class="d-flex pt-1">
+                <a class="article__btn" href="{{ article.url }}"><span class="d-inline-block">{{ 'blogs.article.read_more' | t }}</span></a>
+            </div>
+        {%- endif -%}
+    </div>
+</article>

@@ -1,0 +1,343 @@
+{%- capture section_style -%}
+    {%- if section.settings.color_bg != 'rgba(0,0,0,0)' -%}
+        --st-bg-cl: {{ section.settings.color_bg }};
+    {%- endif -%}
+    {%- if section.settings.padding_block != blank -%}
+       --st-pd-dt: {{ section.settings.padding_block }};
+    {%- endif -%}
+    {%- if section.settings.padding_block_m != blank -%}
+       --st-pd-mb: {{ section.settings.padding_block_m }};
+    {%- endif -%}
+    {%- if section.settings.margin_block != blank -%}
+        --st-mg: {{ section.settings.margin_block }};
+    {%- endif -%}
+{%- endcapture -%}
+<div class="video-background overflow-hidden" {% if section_style %}style="{{ section_style }}"{% endif %}>
+    <div class="container{% if section.settings.full_with %}-full{% endif %}">
+		<div class="vela-section__inner">
+            <div class="vela-section__content position-relative">
+                {% assign opacity = section.settings.opacity | times: 0.01 %}
+                {% assign overlay = section.settings.overlay_color | color_modify: 'alpha', opacity %}
+                {%- capture bg_color -%}
+                    style="background-color: {{ overlay }}; max-width: {{ section.settings.box_width }}px;"
+                {%- endcapture -%}
+                <div class="media-content position-absolute bottom-0 end-0 p-3 p-sm-4 m-3 m-sm-5" {{ bg_color }}>           
+                    {%- for block in section.blocks -%}
+                        {%- case block.type -%}
+                            {%- when 'text' -%}
+                                {%- capture text_style -%}
+                                    {%- if block.settings.text_margin != blank -%}
+                                        --vbg-text-mg: {{ block.settings.text_margin }};
+                                    {%- else -%}
+                                        --vbg-text-mg: 0;
+                                    {%- endif -%}
+                                    {%- if block.settings.text_margin_m != blank -%}
+                                        --vbg-text-mg-m: {{ block.settings.text_margin_m }};
+                                    {%- else -%}
+                                        --vbg-text-mg-m: 0;
+                                    {%- endif -%}
+                                    --vbg-text-fs: {{ block.settings.text_size }}px;--vbg-text-fs-m: {{ block.settings.text_size_m }}px;--vbg-text-cl: {{ block.settings.text_color }};
+                                {%- endcapture -%}
+                                <div class="video-background__text {{ block.settings.text_style }}" style="{{ text_style }}">
+                                    {{ block.settings.text }}
+                                </div>
+                            {%- when 'button' -%}
+                                {%- capture button_style -%}
+                                    {%- if block.settings.button_padding != blank -%}
+                                        --vbg-button-pd: {{ block.settings.button_padding }};
+                                    {%- endif -%}
+                                    {%- if block.settings.button_padding_m != blank -%}
+                                        --vbg-button-pd-m: {{ block.settings.button_padding_m }};
+                                    {%- endif -%}
+                                    --vbg-button-fs: {{- block.settings.button_font_size -}}px;--vbg-button-fs-m: {{- block.settings.button_font_size_m -}}px;--vbg-button-cl: {{- block.settings.button_color -}};--vbg-button-bd-cl: {{- block.settings.button_color_border -}};--vbg-button-bg-cl: {{- block.settings.button_color_bg -}};
+                                {%- endcapture -%}
+                                <a class="video-background__btn btn" href="{{ block.settings.link }}" style="{{ button_style }}">{{ block.settings.button_text }}</a>
+                        {%- endcase -%}
+                    {%- endfor -%}
+                </div>
+                <div class="position-relative ratio overflow-hidden d-block w-100 {{ section.settings.aspect_ratios}}">
+                    {%- if section.settings.video_url != blank -%}
+                        <video class="video-background__media" loop autoplay playsinline  {% if section.settings.muted %}muted {% else %} muted {% endif %}>
+                            <source src="{{ section.settings.video_url }}" type="video/mp4" />
+                            <source src="movie.ogg" type="video/ogg">
+                        </video> 
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "t:sections.video-background.name",
+    "tag": "section",
+    "class": "velaFramework",
+    "disabled_on": {
+        "groups": ["header", "footer"]
+    },
+    "settings": [
+        {
+            "type": "header",
+            "content": "t:sections.global.settings.header_section.content"
+        },
+        {
+            "type": "checkbox",
+            "id": "full_with",
+            "label": "t:sections.global.settings.full_width.label"
+        },
+        {
+            "type": "color",
+            "id": "color_bg",
+            "label": "t:sections.global.settings.bg_color.label",
+            "default": "rgba(0,0,0,0)"
+        },
+        {
+            "type": "text",
+            "id": "padding_block",
+            "label": "t:sections.global.settings.padding.label",
+            "placeholder": "t:sections.global.settings.padding.placeholder",
+            "info": "t:sections.global.settings.padding.info"
+        },
+        {
+            "type": "text",
+            "id": "padding_block_m",
+            "label": "Padding on the mobile",
+            "placeholder": "0px 0px",
+            "info": "Ex: 0px 0px 0px 0px and use mobile only"
+        },
+        {
+            "type": "text",
+            "id": "margin_block",
+            "label": "t:sections.global.settings.margin.label",
+            "placeholder": "t:sections.global.settings.margin.placeholder",
+            "default": "0 0 60px",
+            "info": "t:sections.global.settings.margin.info"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.global.settings.header_settings.content"
+        },
+        {
+            "type": "url",
+            "id": "video_url",
+            "label": "t:sections.video-background.settings.video_url.label",
+            "info": "t:sections.video-background.settings.video_url.info"
+        },
+        {
+            "type": "checkbox",
+            "id": "muted",
+            "label": "t:sections.video-background.settings.muted.label"
+        },
+        {
+            "type": "select",
+            "id": "aspect_ratios",
+            "label": "t:sections.video-background.settings.aspect_ratios.label",
+            "default": "ratio-16x9",
+            "options": [
+                {
+                    "value": "ratio-1x1",
+                    "label": "t:sections.video-background.settings.aspect_ratios.options__1.label"
+                },
+                {
+                    "value": "ratio-4x3",
+                    "label": "t:sections.video-background.settings.aspect_ratios.options__2.label"
+                },
+                {
+                    "value": "ratio-16x9",
+                    "label": "t:sections.video-background.settings.aspect_ratios.options__3.label"
+                },
+                {
+                    "value": "ratio-21x9",
+                    "label": "t:sections.video-background.settings.aspect_ratios.options__4.label"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "t:sections.video-background.settings.header.content"
+        },
+        {
+            "type": "color",
+            "id": "overlay_color",
+            "label": "t:sections.video-background.settings.overlay_color.label",
+            "default": "#000000"
+        },
+        {
+            "type": "range",
+            "id": "opacity",
+            "label": "t:sections.video-background.settings.opacity.label",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "default": 50
+        },
+        {
+			"type": "text",
+			"id": "box_width",
+			"label": "t:sections.video-background.settings.box_width.label",
+			"default": "420",
+            "info": "ex: 400"
+		}
+    ],
+    "blocks": [
+		{
+			"type": "text",
+			"name": "t:sections.video-background.blocks.text.name",
+			"settings": [
+				{
+                    "type": "select",
+                    "id": "text_style",
+                    "label": "t:sections.video-background.blocks.text.settings.text_style.label",
+                    "default": "text",
+                    "options": [
+                        {
+                            "value": "text",
+                            "label": "t:sections.video-background.blocks.text.settings.text_style.option__1.label"
+                        },
+                        {
+                            "value": "h3",
+                            "label": "t:sections.video-background.blocks.text.settings.text_style.option__2.label"
+                        },
+                        {
+                            "value": "ff-special",
+                            "label": "t:sections.video-background.blocks.text.settings.text_style.option__3.label"
+                        }
+                    ]
+                },
+				{
+					"type": "textarea",
+					"id": "text",
+					"label": "t:sections.video-background.blocks.text.settings.text.label",
+					"default": "Claritas est etiam processus dynamicus, qui sequitur."
+				},
+				{
+					"type": "color",
+					"id": "text_color",
+					"label": "t:sections.video-background.blocks.text.settings.text_color.label",
+					"default": "#060606"
+				},
+				{
+					"type": "range",
+					"id": "text_size",
+					"min": 8,
+					"max": 100,
+					"step": 1,
+					"unit": "px",
+					"label": "t:sections.video-background.blocks.text.settings.text_size.label",
+					"default": 14
+				},
+				{
+					"type": "range",
+					"id": "text_size_m",
+					"min": 8,
+					"max": 100,
+					"step": 1,
+					"unit": "px",
+					"label": "t:sections.video-background.blocks.text.settings.text_size_m.label",
+					"default": 10
+				},
+				{
+					"type": "text",
+					"id": "text_margin",
+					"label": "t:sections.video-background.blocks.text.settings.text_margin.label",
+					"placeholder": "t:sections.video-background.blocks.text.settings.text_margin.placeholder",
+					"default": "0 0 30px",
+					"info": "t:sections.video-background.blocks.text.settings.text_margin.info"
+				},
+				{
+					"type": "text",
+					"id": "text_margin_m",
+					"label": "t:sections.video-background.blocks.text.settings.text_margin_m.label",
+					"placeholder": "t:sections.video-background.blocks.text.settings.text_margin_m.placeholder",
+					"default": "0 0 30px",
+					"info": "t:sections.video-background.blocks.text.settings.text_margin_m.info"
+				}
+			]
+		},
+		{
+            "type": "button",
+            "name": "t:sections.video-background.blocks.button.name",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "button_text",
+                    "label": "t:sections.video-background.blocks.button.settings.button_text.label",
+                    "default": "Read More"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "t:sections.video-background.blocks.button.settings.link.label"
+                },
+                {
+                    "type": "range",
+                    "id": "button_font_size",
+                    "min": 10,
+                    "max": 30,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "t:sections.video-background.blocks.button.settings.button_font_size.label",
+                    "default": 14
+                },
+                {
+                    "type": "range",
+                    "id": "button_font_size_m",
+                    "min": 10,
+                    "max": 30,
+                    "step": 1,
+                    "unit": "px",
+                    "label": "t:sections.video-background.blocks.button.settings.button_font_size_m.label",
+                    "default": 12
+                },
+                {
+                    "type": "text",
+                    "id": "button_padding",
+                    "label": "t:sections.video-background.blocks.button.settings.button_padding.label",
+                    "placeholder": "t:sections.video-background.blocks.button.settings.button_padding.placeholder",
+                    "info": "t:sections.video-background.blocks.button.settings.button_padding.info"
+                }, 
+                {
+                    "type": "text",
+                    "id": "button_padding_m",
+                    "label": "t:sections.video-background.blocks.button.settings.button_padding_m.label",
+                    "placeholder": "t:sections.video-background.blocks.button.settings.button_padding_m.placeholder",
+                    "info": "t:sections.video-background.blocks.button.settings.button_padding_m.info"
+                }, 
+                {
+                    "type": "color",
+                    "id": "button_color",
+                    "label": "t:sections.video-background.blocks.button.settings.button_color.label",
+                    "default": "#ffffff"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_border",
+                    "label": "t:sections.video-background.blocks.button.settings.button_color_border.label",
+                    "default": "#000000"
+                },
+                {
+                    "type": "color",
+                    "id": "button_color_bg",
+                    "label": "t:sections.video-background.blocks.button.settings.button_color_bg.label",
+                    "default": "#000000"
+                }
+            ]
+        }
+  	],
+    "presets": [
+        {
+            "name": "t:sections.video-background.name",
+            "blocks": [
+                {
+                    "type": "text"
+                },
+                {
+                    "type": "text"
+                }
+            ]
+        }
+    ]
+}
+  {% endschema %}

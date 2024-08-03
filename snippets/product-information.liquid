@@ -1,0 +1,411 @@
+{%- if product.metafields.custom.pre_order and settings.pre-order  and current_variant.available -%}
+    {%- assign preOrder = true -%}
+{%- else -%}
+    {%- assign preOrder = false -%}
+{%- endif -%}
+<div class="product-single__meta {% if section.settings.product_sticky %}sticky-top{% endif %}">  
+    {%- assign collapsible_first = false-%}
+    {%- for block in section.blocks -%}
+        {% if block.type == 'collapsible_tab' %}
+            {%- assign collapsible_first = true -%}
+            {%- assign collapsible_last = forloop.index -%}
+        {% endif %}
+    {%- endfor-%}
+    {%- for block in section.blocks -%}
+        {%- case block.type -%}
+            {%- when '@app' -%}
+                {% render block %}
+            {%- when 'text' -%}
+                <div class="product-single__text {{ block.settings.block_margin }}"  style="color: {{ block.settings.text_color }}; font-size: {{ block.settings.text_size }}px" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+            {%- when 'countdown' -%}
+                {%- if product.metafields.custom.countdown != blank -%}
+                    {% assign final_time = product.metafields.custom.countdown %} 
+                    <div class="product-single__countdown {{ block.settings.block_margin }}" {{ block.shopify_attributes }}>
+                        <p class="countdown-title mb-2">{{ block.settings.heading }}</p>
+                        <div class="product-single__countdown--list d-flex text-center" data-countdown="{{ final_time }}"></div>
+                    </div>
+                {%- endif -%}
+            {%- when 'product_sold' -%}
+                {%- if product.metafields.custom.totalinventory -%}
+                    {%- assign total_inventory = product.metafields.custom.totalinventory -%}
+                    {% assign product_qty = product.selected_or_first_available_variant.inventory_quantity %}
+                    {%- if total_inventory > 0 and total_inventory > product_qty -%}
+                        {% assign progress = total_inventory | minus: product_qty | times: 100 | divided_by: total_inventory | ceil  %}
+                        <div class="product-single__inventory {{ block.settings.block_margin }}">
+                            <div class="d-flex flex-wrap mb-1">
+                                <span class="text-after">{{ block.settings.text_before }}</span><span class="product_number px-1">{{ total_inventory | minus: product_qty }}/{{ total_inventory }}</span><span class="text-before">{{ block.settings.text_after }}</span>
+                            </div>
+                            <div class="progress mb-1">
+                                <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{ progress }}%" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    {%- endif -%}
+                {%- endif -%}
+            {%- when 'reivew' -%}
+                {%- if settings.product_reviews_enable -%}
+                    <div class="product-single__reviews d-flex align-items-end product-review {{ block.settings.block_margin }}" {{ block.shopify_attributes }}>
+                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                        <a href="#" id="vela-add-review">{{'products.product.add_your_review' | t }}</a>
+                        <script>
+                            var myElement = document.getElementById("vela-add-review");
+                            myElement.addEventListener('click', function(e){
+                                e.preventDefault();
+                                var tabinfo = document.getElementById("product-more-info");
+                                tabinfo.scrollIntoView({behavior: 'smooth'}, false);
+                                var triggerEl = document.querySelector('#product-more-info a[href="#js-more-info-tabs-review"]');
+                                var firstTab = new bootstrap.Tab(triggerEl);
+                                firstTab.show();
+                            });
+                        </script>
+                    </div>
+                {%- endif -%}
+            {%- when 'title' -%}
+                <h1 class="product-single__title h4 {{ block.settings.block_margin }}" {{ block.shopify_attributes }}>
+                {{ product.title | escape }}
+                </h1>
+            {%- when 'product_organization' -%}
+                <div class="product__organization--wrap {{ block.settings.block_margin }}">
+                    {%- if block.settings.product_available_enable -%}
+                        <div class="js-product-avaiable product-avaiable position-relative product__organization">
+                            {%- if preOrder and current_variant.available -%}
+                                <div class="product-avaiable__label product__organization__label">{{ 'products.product.availability' | t }}:</div>
+                                <div class="js-product-avaiable-text product-avaiable__text product-avaiable__pre--order text-info">{{'products.general.label_pre_order' | t }}</div>
+                            {% elsif current_variant.available %}
+                                <div class="product-avaiable__label product__organization__label">{{ 'products.product.availability' | t }}:</div>
+                                <div class="js-product-avaiable-text product-avaiable__text product-avaiable__text--instock">{{'products.product.in_stock' | t }}</div>
+                            {%- else -%}
+                                <div class="product-avaiable__label product__organization__label">{{ 'products.product.availability' | t }}:</div>
+                                <div class="js-product-avaiable-text product-avaiable__text product-avaiable__text--outstock">{{'products.product.out_stock' | t }}</div>
+                            {%- endif -%}
+                        </div>
+                    {%- endif -%}
+                    {%- if block.settings.product_sku_enable -%}
+                        <div class="product__organization">
+                            <div class="product__organization__label label_sku">{{ 'products.product.sku' | t }}</div>
+                            <div class="js-variant-sku product__organization__text">{{ product.selected_or_first_available_variant.sku | default: "N/A" }}</div>
+                        </div>
+                    {%- endif -%}
+                    {%- if block.settings.product_type_enable -%}
+                        <div class="product__organization">
+                            <div class="product__organization__label">{{ 'products.product.type' | t }}</div>
+                            <div class="product__organization__text">{{ product.type | link_to_type }}</div>
+                        </div>
+                    {%- endif -%}
+                    {%- if block.settings.product_vendor_enable -%}
+                        <div class="product__organization">
+                            <div class="product__organization__label">{{ 'products.product.vendor' | t }}</div>
+                            <div class="product__organization__text">{{ product.vendor | link_to_vendor }}</div>
+                        </div>
+                    {%- endif -%}
+                    {%- if block.settings.product_tag_enable and product.tags.size > 0 -%}
+                        <div class="product__organization">
+                            <div class="product__organization__label">{{ 'products.product.tags' | t }}</div>
+                            <div class="product__organization__text">
+                                {% for tag in product.tags %}
+                                    <a href="{{ routes.all_products_collection_url }}/{{ tag }}" title="{{ tag }}">{{ tag }}</a>{% unless forloop.last %},{% endunless%}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {%- endif -%}
+                    {% comment %}Product collections{% endcomment %}
+                    {%- if block.settings.product_collection_enable -%}
+                        {%- assign limit = block.settings.product_coll_limit | plus: 0 -%}
+                        <div class="product__organization product-details-categories d-flex flex-wrap">
+                            {%- if block.settings.product_collection_title != blank -%}
+                                <div class="product__organization__label">{{ block.settings.product_collection_title }}</div>
+                            {%- endif -%}
+                            <div class="product__organization__text">
+                                {% for collection in product.collections limit: limit %}
+                                    {%- if forloop.last -%}
+                                    <a href="{{ collection.url }}" title="{{ collection.title | strip_html }}">{{ collection.title }}</a>
+                                    {%- else -%}
+                                    <a href="{{ collection.url }}" title="{{ collection.title | strip_html }}">{{ collection.title }},</a> 
+                                    {%- endif -%}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {%- endif -%}
+                </div>
+            {%- when 'price' -%}
+                <div class="{{ block.settings.block_margin }}">
+                    {% include 'product-price', variant: current_variant %}
+                </div>
+            {%- when 'description' -%}
+                {%- if product.description != blank -%}
+                    <div class="product__description rte {{ block.settings.block_margin }}">
+                        {{ product.description }}
+                    </div>
+                {%- endif -%}
+            {%- when 'custom_liquid' -%}
+                <div class="custom_liquid--wrap {{ block.settings.block_margin }}">
+                    {{ block.settings.custom_liquid }}
+                </div>
+            {%- when 'product_banner' -%}
+                <div class="product_banner {{ block.settings.block_margin }}">
+                    {% render 'img-global', image: block.settings.product_banner, image_style: true %}
+                </div>
+            {%- when 'collapsible_tab' -%}
+                {%- if collapsible_first -%}
+                    <div class="accordion mb-4 mb-md-5" id="productAccordion" {{ block.shopify_attributes }}>
+                {%- endif -%}
+                    <div class="accordion-item">
+                        <h4 class="accordion-header accordion__title" id="heading{{ forloop.index }}">
+                            <button class="accordion-button fw-medium{% unless block.settings.collapsible_active %} collapsed{% endunless%}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.index }}" aria-expanded="true" aria-controls="collapse{{ forloop.index }}">
+                                {{ block.settings.heading | default: block.settings.page.title }}
+                            </button>
+                        </h4>
+                        <div id="collapse{{ forloop.index }}" class="accordion-collapse collapse{% if block.settings.collapsible_active %} show{% endif %}" aria-labelledby="heading{{ forloop.index }}" data-bs-parent="#productAccordion">
+                            <div class="accordion-body">
+                                {%- if block.settings.description -%}
+                                    <div class="rte">{{ product.description }}</div>
+                                {%- else -%}
+                                    {{ block.settings.content }}
+                                    {{ block.settings.html }}
+                                    {{ block.settings.page.content }}
+                                    {%- if block.settings.image != blank -%}
+                                        <div class="collpsible__image mb-2">
+                                            <img class="img-fluid lazyload" data-src="{{ block.settings.image | img_url: 'master'}}" data-size="auto" />
+                                        </div>
+                                    {%- endif -%}
+                                {%- endif -%}
+                            </div>
+                        </div>
+                    </div>
+                    {%- assign collapsible_first = false -%}
+                {%- if collapsible_last == forloop.index -%}
+                    </div>
+                {%- endif -%}
+            {%- when 'buy_buttons' -%}
+                <div class="buy_buttons--wrap {{ block.settings.block_margin }}">
+                    {%- capture "form_classes" -%}
+                        js-addtocart-form product-single__form{% if product.has_only_default_variant %} product-single__form--no-variants{% endif %}
+                    {%- endcapture %}
+                    {% form 'product', product, class:form_classes, data-product-form: '' %}
+                        {% unless product.has_only_default_variant %}
+                            <div class="variants-box{% if block.settings.product_selector == 'select' %}__dropdown{% endif %} mb-3">
+                                {%- for option in product.options_with_values -%}
+                                    <div class="variants-wrapper product-form__item">
+                                        <label class="variants__label">{{ option.name | escape }}: <span class="js-swatch-display--{{ forloop.index }} text">&nbsp;</span></label>
+                                        <div class="js-product-select-option--{{ forloop.index }} variants__options">
+                                            {%- if block.settings.product_selector == 'radio' -%}
+                                                {%- assign option_index = forloop.index -%}
+                                                {%- for value in option.values -%}
+                                                    {%- comment -%}DUCHV: To disable unavailable variants{%- endcomment -%}
+                                                    {%- assign option_disabled = true -%}
+                                                    {%- assign color_attr = '' -%}
+                                                    {%- assign option_name = option.name | strip | downcase -%}
+                                                    {%- assign variant_url = '' -%}
+                                                    {%- for variant in product.variants -%}
+                                                        {%- if variant.available -%}
+                                                            {%- if option_index == 1 and variant.option1 == value -%}
+                                                                {%- assign option_disabled = false -%}
+                                                                {%- break -%}
+                                                            {%- elsif option_index == 2 and variant.option2 == value and variant.option1 == current_variant.option1 -%}
+                                                                {%- assign option_disabled = false -%}
+                                                                {%- break -%}
+                                                            {%- elsif option_index == 3 and variant.option3 == value and variant.option2 == current_variant.option2 and variant.option1 == current_variant.option1 -%}
+                                                                {%- assign option_disabled = false -%}
+                                                                {%- break -%}
+                                                            {%- endif -%}
+                                                        {%- endif -%}
+                                                    {%- endfor -%}
+                                                    
+                                                    {%- if pro_color_label contains option_name -%}
+                                                        {%- assign option_name = option.name | strip | downcase -%}
+                                                        {%- assign variant_url = '' -%}
+                                                        {%- assign color_name =  value | handleize -%}
+                                                        {%- assign bgcolor_name =  value | handleize | replace: "-", "" -%}
+                                                        {%- for variant in product.variants -%}
+                                                                {% for option in variant.options %}
+                                                                    {%- assign image_color = false -%}
+                                                                    {%- assign option_name =  option | escape | downcase | replace: " ", "" -%}
+                                                                    {%- if option_name == bgcolor_name -%}
+                                                                        {%- assign color_swatch_name = color_name | append: '.png' -%}
+                                                                        {%- assign color_swatch_image = images[color_swatch_name] -%}
+                                                                        {%- capture bgImgColor -%}
+                                                                            {% if variant.image.src != blank and block.settings.product_color_variant_enable %}
+                                                                                background-image: url({{ variant.image.src | product_img_url:'small', crop: 'center' }});
+                                                                            {%- elsif color_swatch_image != blank -%} 
+                                                                                background-image: url({{ color_swatch_name | file_url }});
+                                                                            {%- endif -%}
+                                                                        {%- endcapture -%}
+                                                                            {%- assign image_color = true -%}
+                                                                        {%- break -%}
+                                                                    {%- endif -%}
+                                                                {% endfor %}
+                                                                {%- if  image_color -%}{%- break -%}{%- endif -%}
+                                                        {%- endfor -%}
+                                                        {%- capture color_attr -%}
+                                                            data-color="{{ color_name }}"
+                                                            style="background-color: {{ bgcolor_name }}; {{ bgImgColor }}"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="top"
+                                                            title="{{ value | escape }}"
+                                                        {%- endcapture -%}
+                                                        {%- capture _ -%}
+                                                            {% assign bgImgColor = nil %}
+                                                        {%- endcapture -%}
+                                                    {%- endif -%}
+                                                    <div class="single-option-selector variant_{{ block.settings.product_unavailable_variants }}" data-single-option-button>
+                                                        <input type="radio"
+                                                            {% if option.selected_value == value %} checked="checked"{% endif %}
+                                                            {% if option_disabled %} disabled="disabled"{% endif %}
+                                                            value="{{ value | escape }}"
+                                                            data-index="option{{ option_index }}"
+                                                            name="option{{ option.position }}"
+                                                            class="js-single-option-selector{% if option_disabled %} disabled{% endif %}"
+                                                            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | handleize }}">
+                                                        <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | handleize }}"
+                                                            {{ color_attr }}
+                                                            {% if option_disabled %} class="disabled"{% endif %}>
+                                                            {{ value | escape }}
+                                                            <span class="d-none"></span>
+                                                        </label>
+                                                    </div>
+                                                {%- endfor -%}
+                                            {%- else -%}
+                                                <select class="js-single-option-selector single-option-selector-{{ section.id }} product-form__input form-select"
+                                                    data-id="SingleOptionSelector-{{ forloop.index0 }}"
+                                                    data-index="option{{ forloop.index }}"
+                                                    data-single-option-select>
+                                                    {% for value in option.values %}
+                                                    <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value | escape }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            {%- endif -%}
+                                        </div>
+                                    </div>
+                                {%- endfor -%}
+                            </div>
+                        {% endunless %}
+                        <select name="id" class="js-product-select--{{ section.id }} product-single__variants d-none">
+                            {%- for variant in product.variants -%}
+                                {%- if variant.available -%}
+                                <option {% if variant == product.selected_or_first_available_variant %}
+                                    selected="selected" {% endif %}
+                                    data-sku="{{ variant.sku }}"
+                                    value="{{ variant.id }}">
+                                    {{ variant.title }} - {{ variant.price | money_with_currency }}
+                                </option>
+                                {%- else -%}
+                                <option disabled="disabled">
+                                    {{ variant.title }} - {{ 'products.product.sold_out' | t }}
+                                </option>
+                                {%- endif -%}
+                            {%- endfor -%}
+                        </select>
+                        {%- if block.settings.product_question or block.settings.product_wishlist -%}
+                            <div class="group-wishlits-question text-end pb-2">
+                                {%- if settings.product_wishlist and block.settings.product_wishlist -%}
+                                        <a href="javascript:void(0)" class="product-single__wishlist btn--wishlist fw-medium position-relative" data-product-handle="{{ product.handle }}" title="{{ 'products.product.add_to_wishlist' | t }}">
+                                            <span class="wishlist-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 512 512"><path fill="currentColor" d="M458.4 64.3C400.6 15.7 311.3 23 256 79.3 200.7 23 111.4 15.6 53.6 64.3-21.6 127.6-10.6 230.8 43 285.5l175.4 178.7c10 10.2 23.4 15.9 37.6 15.9 14.3 0 27.6-5.6 37.6-15.8L469 285.6c53.5-54.7 64.7-157.9-10.6-221.3zm-23.6 187.5L259.4 430.5c-2.4 2.4-4.4 2.4-6.8 0L77.2 251.8c-36.5-37.2-43.9-107.6 7.3-150.7 38.9-32.7 98.9-27.8 136.5 10.5l35 35.7 35-35.7c37.8-38.5 97.8-43.2 136.5-10.6 51.1 43.1 43.5 113.9 7.3 150.8z"/></svg>
+                                            </span>
+                                            <span class="text">{{ 'products.product.add_to_wishlist' | t }}</span>
+                                        </a>
+                                {%- endif -%}
+                                {%- if block.settings.product_question -%}
+                                        {%- assign question_title = 'products.product.ask_a_question' | t  -%}
+                                        {%- assign button_text = 'templates.contact.form.send' | t  -%}
+                                        <a href="javascript:void(0)" class="product-single__btn--question fw-medium position-relative ms-5" data-bs-toggle="modal" data-bs-target="#ask-question" data-bs-backdrop="static" title="{{ 'products.product.ask_a_question' | t }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 448c-110.532 0-200-89.431-200-200 0-110.495 89.472-200 200-200 110.491 0 200 89.471 200 200 0 110.53-89.431 200-200 200zm107.244-255.2c0 67.052-72.421 68.084-72.421 92.863V300c0 6.627-5.373 12-12 12h-45.647c-6.627 0-12-5.373-12-12v-8.659c0-35.745 27.1-50.034 47.579-61.516 17.561-9.845 28.324-16.541 28.324-29.579 0-17.246-21.999-28.693-39.784-28.693-23.189 0-33.894 10.977-48.942 29.969-4.057 5.12-11.46 6.071-16.666 2.124l-27.824-21.098c-5.107-3.872-6.251-11.066-2.644-16.363C184.846 131.491 214.94 112 261.794 112c49.071 0 101.45 38.304 101.45 88.8zM298 368c0 23.159-18.841 42-42 42s-42-18.841-42-42 18.841-42 42-42 42 18.841 42 42z"/></svg>
+                                            {{ 'products.product.ask_a_question' | t }}
+                                        </a>
+                                {%- endif -%}
+                            </div>
+                        {% endif %}
+                        <div class="product-single__buttons row align-items-start g-2">
+                            {% comment %}Product quantity{% endcomment %}
+                            {%- if block.settings.quantity_enabled and current_variant.available -%}
+                                <div class="js-quantity-selector product-quantity align-items-center col-auto{% if settings.pre-order-style == 'popup' and preOrder %} d-none {% else %} d-flex{% endif %}">
+                                    <label for="Quantity" class="product-quantity__label d-none">{{ 'products.product.quantity' | t }}:</label>
+                                    <div class="product-quantity__selector">
+                                        {%- if block.settings.quantity_selector == 'text' -%}
+                                            <div class="vela-qty">
+                                                <button type="button" class="js-qty-adjust vela-qty__adjust vela-qty__adjust--minus" aria-label="{{ 'sections.cart.reduce_quantity' | t }}">                                            
+                                                    {% render 'icons', icon: 'minus' %}
+                                                </button>
+                                                <input type="text" name="quantity" class="js-qty-number vela-qty__number" value="1" min="1" aria-label="quantity" pattern="[1-9]*">
+                                                <button type="button" class="js-qty-adjust vela-qty__adjust vela-qty__adjust--plus" aria-label="{{ 'sections.cart.increase_quantity' | t }}">
+                                                    {% render 'icons', icon: 'plus' %}
+                                                </button>
+                                            </div>
+                                        {%- else -%}
+                                            <select name="quantity" id="Quantity" class="product-quantity__select form-select">
+                                                {%- for i in (1..10) -%}
+                                                    <option {% if forloop.first %}selected="selected"{% endif %} value="{{ i }}">{{ i }}</option>
+                                                {%- endfor -%}
+                                            </select>
+                                        {%- endif -%}
+                                    </div>
+                                </div>
+                            {%- endif -%}
+                            {% comment %}Add to cart button{% endcomment %}
+                            <div class="col">
+                                {%- if preOrder and settings.pre-order-style == 'popup' -%}
+                                    <button type="button" class="btn btn-primary btn--pre-order" data-bs-toggle="modal" data-bs-target="#preOrderModal">
+                                        {{ 'products.product.pre_order' | t }}
+                                    </button>
+                                {%- else -%}
+                                    <button
+                                    class="btn btn--add-to-cart"{% unless current_variant.available %} disabled="disabled"{% endunless %}
+                                    type="submit"
+                                    name="add" data-preorder="{{ preOrder }}">
+                                        {% render 'icons', icon: 'plus', attr: 'width="10" height="10"' %}
+                                        <span class="btn__text">
+                                            {% if preOrder %}
+                                                {{ 'products.product.pre_order' | t }}
+                                            {% elsif current_variant.available %}
+                                                {{ 'products.product.add_to_cart' | t }}
+                                            {% else %}
+                                                {{ 'products.product.sold_out' | t }}
+                                            {% endif %}
+                                        </span>
+                                    </button>
+                                {%- endif -%}
+                            </div>
+                            {% if block.settings.enable_payment_button and current_variant.available %}
+                                <div class="col col-lg-4{% if preOrder %} d-none{% endif %}">
+                                    {{ form | payment_button }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endform %} 
+                    {%- if block.settings.product_question -%}
+                        {%- render 'contact-form-popup', formId: 'ask-question', formTitle: question_title, product: '', buttonTitle: button_text  -%}
+                    {%- endif -%}
+                    {%- if settings.pre-order and preOrder and current_variant.available and settings.pre-order-style == 'popup' -%}
+                        {% include 'pre-order-popup' %}
+                    {%- endif -%}
+                </div>  
+        
+            {%- when 'popup' -%}
+                <div class="popup--wrap {{ block.settings.block_margin }}">
+                    <button type="button" class="btn btn-link p-0 text-decoration-underline fw-medium" data-bs-toggle="modal" data-bs-target="#PopupModal-{{ block.id }}">
+                        {{ block.settings.text | default: block.settings.page.title }}
+                    </button>
+                    <div class="modal fade" id="PopupModal-{{ block.id }}" data-bs-backdrop="false" tabindex="-1"  aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header py-2">
+                                    <h5 class="modal-title">{{ block.settings.text | default: block.settings.page.title }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ block.settings.page.content }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%- when 'share' -%}
+                <div class="product-single__meta {{ block.settings.block_margin }}">
+                    {% comment %}Social sharing{% endcomment %}
+                    {% include 'social-sharing', share_label: block.settings.share_label, share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}
+                   
+                </div>
+            {%- when 'border' -%}
+                <div class="product-single__border {{ block.settings.block_margin }}" style="border-top: {{ block.settings.border_style }} {{ block.settings.border_width }}px {{ block.settings.border_color }}; line-height: 0;">&nbsp;</div>
+        {%- endcase -%}
+    {%- endfor -%}
+</div>

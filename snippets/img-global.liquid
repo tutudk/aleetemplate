@@ -1,0 +1,135 @@
+{%- capture _ -%}
+
+    {% assign image_style = image_style | default: false %}
+    {% assign size_default = image.width | append: 'x' | append: image.height %}
+    {% assign images_size = image_size | default: size_default %}
+    {% assign image_ratio = image_ratio | default: 'adapt' %}
+    {% assign image_crops = crop | default: '' %}
+    {% assign image_class = image_class | default: '' %}
+    {% assign max_width_image = images_size | split: 'x' | first | plus: 0 %}
+    {% assign max_height_image = images_size | split: 'x' | last | plus: 0 %}
+    {% assign ratio_default = image.aspect_ratio | default: 1.0 %}
+
+    {%- if image_ratio == 'portrait' -%}
+        {% assign ratio = 0.75 %}
+    {%- elsif image_ratio == 'square' -%}
+        {% assign ratio = 1.0 %}
+    {%- else -%}
+        {% assign ratio = max_width_image | times: 1.0 | divided_by: max_height_image %}
+    {%- endif -%}
+    
+    {% if max_width_image == blank and max_height_image != blank %}
+        {% assign max_width_image = max_height_image | times: ratio_default %}
+        {% if max_width_image > image.width %}
+            {% assign max_width_image = image.width %}
+            {% assign max_height_image = max_width_image | divided_by: ratio_default %}
+        {% endif %}
+    {%- endif -%}
+    {% if  max_height_image == blank and max_width_image != blank%}
+        {% assign max_height_image = max_height_image | divided_by: ratio_default %}
+        {% if max_height_image > image.height %}
+            {% assign max_height_image = image.height %}
+            {% assign max_width_image = max_height_image | times: ratio_default %}
+        {% endif %}
+    {%- endif -%}
+
+    {%- if image_ratio == 'square' -%} 
+        {% if ratio_default > ratio %}
+            {%- if image_crops != '' -%}
+                {% assign max_height_image = max_width_image | times: ratio %}
+                {% if max_width_image > image.width or max_height_image > image.height %}
+                    {% assign max_height_image = image.height %}
+                    {% assign max_width_image = max_height_image | times: ratio %}
+                {% endif %}
+            {%- else -%}       
+                {% if max_width_image > image.width or max_height_image > image.height  %}
+                    {% assign max_height_image = image.height %}
+                    {% assign max_width_image = max_height_image | times: ratio %}
+                {%- else -%}
+                    {% assign max_height_image = max_width_image | divided_by: ratio %}
+                {% endif %}
+            {%- endif -%}
+        {% else %}
+            {%- if image_crops != '' -%}
+                {% assign max_width_image = max_height_image | times: ratio %}
+                {% if max_width_image > image.width or max_height_image > image.height %}
+                    {% assign max_width_image = image.width %}
+                    {% assign max_height_image = max_width_image | divided_by: ratio %}
+                {% endif %}
+            {%- else -%}       
+                {% if max_width_image > image.width or max_height_image > image.height  %}
+                    {% assign max_width_image = image.width %}
+                    {% assign max_height_image = max_width_image | divided_by: ratio %}
+                {%- else -%}
+                    {% assign max_width_image = max_height_image | times: ratio %}
+                {% endif %}
+            {%- endif -%}
+        {% endif %}
+    {%- elsif image_ratio == 'portrait' -%} 
+        {% if ratio_default > ratio %}
+            {% assign max_height_image = max_width_image | divided_by: ratio %}
+            {%- if image_crops != '' -%}
+                {% assign max_height_image = image.height %}
+                {% assign max_width_image = max_height_image | times: ratio %}
+            {% endif %}
+        {% else %}
+            {% assign max_width_image = max_height_image | times: ratio %}
+            {%- if image_crops != '' -%}
+                {% assign max_width_image = image.width %}
+                {% assign max_height_image = max_width_image | divided_by: ratio %}
+            {% endif %}
+        {% endif %}
+    {%- else -%}
+        {% if ratio_default > ratio %}
+            {% assign max_height_image = max_width_image | divided_by: ratio_default %}
+            {% if max_height_image > image.height %}
+                {% assign max_height_image = image.height %}
+                {% assign max_width_image = max_height_image | times: ratio_default %}
+            {% endif %}
+        {% else %}
+            {% assign max_width_image = max_height_image | times: ratio_default %}
+            {% if max_width_image > image.width %}
+                {% assign max_width_image = image.width %}
+                {% assign max_height_image = max_width_image | divided_by: ratio_default %}
+            {% endif %}
+        {% endif %}
+    {%- endif -%}
+    {% assign padding_top = max_height_image | divided_by: max_width_image | times: 100 %}
+    {% assign max_width_image = max_width_image | ceil %}
+    {% assign max_height_image = max_height_image | ceil %}
+    {% assign images_size = '' | append: max_width_image | append: 'x' | append: max_height_image %}
+{%- endcapture -%}
+    <div class="card_wrap{% if image_class != '' %} {{ image_class }}{% endif %} w-100" {% if image_style %}style="max-width: {{ max_width_image }}px;"{% endif %}>
+        {%- if image_style -%}
+            <div class="card__image position-relative lazyload js" style="padding-top:{{ padding_top }}%;" >
+                <img
+                    class="position-absolute top-50 translate-middle-y start-0 w-100 h-auto"
+                    srcset="{% render 'bgset', image: image, crop: image_crops,image_ratio: image_ratio, images_size: images_size, max_width_image: max_width_image %}"
+                    data-sizes="auto"
+                    src="{{ image | img_url: images_size, crop: image_crops }}"
+                    alt="{{ image.alt | escape }}"
+                    loading="lazy"
+                    width="{{ max_width_image }}"
+                    height="{{ max_height_image }}"
+                >
+                {%- render 'preloading', preload_class: 'position-absolute' -%}
+            </div>
+        {% else %}
+            <div class="card__image position-relative lazyload js" style="padding-top:{{ padding_top }}%;" role="img"
+            aria-label="{{ image.alt | escape }}"
+            data-alt="{{ image.alt | escape }}"
+            data-bgset="{% render 'bgset', image: image, crop: image_crops, image_ratio: image_ratio, images_size: images_size, max_width_image: max_width_image %}"
+            data-sizes="auto"
+            >
+                {%- render 'preloading', preload_class: 'position-absolute' -%}
+            </div>
+        {% endif %}
+    </div> 
+
+{%- capture _ -%}
+    {% assign images_size = nil %}
+    {% assign max_width_image = nil %}
+    {% assign max_height_image = nil %}
+    {% assign image_ratio = nil %}
+    {% assign image_crops = nil %}
+{%- endcapture -%}
