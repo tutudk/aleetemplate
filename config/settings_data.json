@@ -70,7 +70,7 @@
     "social_instagram_link": "http:\/\/instagram.com",
     "social_tiktok_link": "https:\/\/www.tiktok.com\/",
     "social_youtube_link": "",
-    "product_style": "style3",
+    "product_style": "default",
     "image_ratio": "square",
     "crop": true,
     "show_secondary_image": false,
@@ -90,7 +90,7 @@
     "new_badge_bg_color": "#66cc33",
     "sale_badge_bg_color": "#ce0000",
     "sale_style": "text",
-    "cookie_consent_enable": true,
+    "cookie_consent_enable": false,
     "newsletter_popup_enable": false,
     "newsletter_popup_color_bg": "#f8f8f8",
     "newsletter_popup_image": "shopify:\/\/shop_images\/newslettermodal.png",
@@ -136,14 +136,23 @@
     "currency_format": "money_format",
     "content_for_index": [
 
-    ]
+    ],
+    "blocks": {
+      "opinew-global-code": {
+        "type": "shopify:\/\/apps\/opinew-product-reviews-app\/blocks\/global\/e1d8e0dc-17ff-4e4a-8a8a-1e73c8ef8676",
+        "disabled": false,
+        "settings": {
+        }
+      }
+    }
   },
   "platform_customizations": {
     "custom_css": [
       ".product-card__name a {font-size: var(--font-size-base); color: #222 !important; font-weight: 500;}",
       ".product-price {font-size: 22px !important; font-weight: 600 !important; color: red;}",
       ".product-price.product-price--regular {position: relative; padding: 0 3px; font-size: 16px !important; font-weight: 400 !important;}",
-      ".label_sku,.js-variant-sku {display: none !important;}"
+      ".label_sku,.js-variant-sku {display: none !important;}",
+      "#opinew-reviews-product-page-code {width: 80% !important; margin: 0 auto !important;}"
     ]
   }
 }
