@@ -207,6 +207,23 @@
         "enable_multi_variant": true
       }
     },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "0 0 100px",
+        "padding_block_m": "0 0 60px",
+        "margin_block": "",
+        "heading": "More Like This",
+        "sub_heading": "",
+        "products_to_show": 5,
+        "column1": 5,
+        "column2": 3,
+        "column3": 2
+      }
+    },
     "producttab-information": {
       "type": "vela-product-tab-information",
       "blocks": {
@@ -258,23 +275,6 @@
         "product_review": "tab"
       }
     },
-    "product-recommendations": {
-      "type": "product-recommendations",
-      "settings": {
-        "full_with": false,
-        "max_with": "",
-        "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "0 0 100px",
-        "padding_block_m": "0 0 60px",
-        "margin_block": "",
-        "heading": "More Like This",
-        "sub_heading": "",
-        "products_to_show": 5,
-        "column1": 5,
-        "column2": 3,
-        "column3": 2
-      }
-    },
     "product-viewed": {
       "type": "product-viewed",
       "settings": {
@@ -296,8 +296,8 @@
   "order": [
     "breadcrumb",
     "main",
-    "producttab-information",
     "product-recommendations",
+    "producttab-information",
     "product-viewed"
   ]
 }
