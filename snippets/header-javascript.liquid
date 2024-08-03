@@ -54,9 +54,12 @@
       shippingCalcMessError: {{ 'sections.cart.estimate_shipping_mess_error' | t | json }}
     {%- endif -%}
   };
-  vela.loading = '<div class="vela-loading"><div class="vela-loading__icon"><span></span><span></span><span></span><span></span></div></div>';
+  
 </script>
 {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
-{{ 'vendor.min.js' | asset_url | script_tag }}
+<!-- {{ 'vendor.min.js' | asset_url | script_tag }} -->
+{% if template == 'product' %}
+  <script src="{{ 'vendor.min.js' | asset_url }}"></script>
+{% endif %}
 {%- if settings.cart_shipping_enable -%}{{ 'estimate-shipping.min.js' | asset_url | script_tag }}{%- endif -%}
 <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
