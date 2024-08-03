@@ -61,6 +61,35 @@
             "block_margin": "mb-3"
           }
         },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "block_margin": "mb-3",
+            "product_selector": "radio",
+            "product_color_enable": true,
+            "product_color_variant_enable": true,
+            "product_unavailable_variants": "disable",
+            "quantity_enabled": true,
+            "quantity_selector": "text",
+            "enable_payment_button": true,
+            "product_wishlist": true,
+            "product_question": true
+          }
+        },
+        "cc6513a2-5262-43d7-b018-6cbea19b910e": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{%- assign date = 'now' | date: '%s' -%}\n{%- assign seconds = 9 | times: 86400 -%}\n<div class=\"vela-estimate-delivery-label d-flex flex-wrap\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'truck-fast', attr: 'width=\"20\"' %}<\/span>\n    <span class=\"label me-1\">Estimated Delivery: <\/span><span class=\"text-primary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-title=\"{{ 'now' | date: '%d %B, %Y' }} - {{ date | date: '%s' | plus: seconds | date: '%d %B, %Y' }}\">\n    {{ 'now' | date: '%d' }} - {{ date | date: \"%s\" | plus: seconds | date: \"%d %B,%Y\" }}<\/span>\n<\/div>",
+            "block_margin": "mb-2"
+          }
+        },
+        "d2556500-9561-429c-a87a-8081f074e2cb": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"vela-free-shipping-label\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'box', attr: 'width=\"16\"' %}<\/span>\n    <span class=\"label\">Free Shipping &amp; Returns In US.<\/span>\n<\/div>",
+            "block_margin": "mb-4"
+          }
+        },
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4": {
           "type": "text",
           "settings": {
@@ -92,69 +121,9 @@
             "block_margin": "mb-3"
           }
         },
-        "f7b25d8c-0547-4336-a393-17d7b0a41e9f": {
-          "type": "border",
-          "settings": {
-            "border_style": "solid",
-            "border_width": 1,
-            "border_color": "#cccccc",
-            "block_margin": "mb-3"
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "block_margin": "mb-3",
-            "product_selector": "radio",
-            "product_color_enable": true,
-            "product_color_variant_enable": true,
-            "product_unavailable_variants": "disable",
-            "quantity_enabled": true,
-            "quantity_selector": "text",
-            "enable_payment_button": true,
-            "product_wishlist": true,
-            "product_question": true
-          }
-        },
-        "product_organization": {
-          "type": "product_organization",
-          "settings": {
-            "product_sku_enable": false,
-            "product_available_enable": false,
-            "product_vendor_enable": false,
-            "product_type_enable": false,
-            "product_tag_enable": false,
-            "product_collection_enable": false,
-            "product_collection_title": "Collections:",
-            "product_coll_limit": 1,
-            "block_margin": "mb-2"
-          }
-        },
-        "bb35d3c0-fa32-4b86-9e81-44ce53f148cd": {
-          "type": "border",
-          "settings": {
-            "border_style": "solid",
-            "border_width": 4,
-            "border_color": "#e6e2e0",
-            "block_margin": "mb-3"
-          }
-        },
-        "cc6513a2-5262-43d7-b018-6cbea19b910e": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{%- assign date = 'now' | date: '%s' -%}\n{%- assign seconds = 9 | times: 86400 -%}\n<div class=\"vela-estimate-delivery-label d-flex flex-wrap\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'truck-fast', attr: 'width=\"20\"' %}<\/span>\n    <span class=\"label me-1\">Estimated Delivery: <\/span><span class=\"text-primary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-title=\"{{ 'now' | date: '%d %B, %Y' }} - {{ date | date: '%s' | plus: seconds | date: '%d %B, %Y' }}\">\n    {{ 'now' | date: '%d' }} - {{ date | date: \"%s\" | plus: seconds | date: \"%d %B,%Y\" }}<\/span>\n<\/div>",
-            "block_margin": "mb-2"
-          }
-        },
-        "d2556500-9561-429c-a87a-8081f074e2cb": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<div class=\"vela-free-shipping-label\">\n    <span class=\"icon me-2\">{% render 'icons', icon: 'box', attr: 'width=\"16\"' %}<\/span>\n    <span class=\"label\">Free Shipping &amp; Returns In US.<\/span>\n<\/div>",
-            "block_margin": "mb-4"
-          }
-        },
         "91c084e3-67d1-463e-b5bd-5a47d8837949": {
           "type": "share",
+          "disabled": true,
           "settings": {
             "share_label": "Share",
             "block_margin": "mb-3"
@@ -169,21 +138,6 @@
             "border_color": "#e6e2e0",
             "block_margin": "mb-3"
           }
-        },
-        "366f2f0f-b45a-4941-8433-f03ff688c8bc": {
-          "type": "product_banner",
-          "settings": {
-            "block_margin": "mb-0"
-          }
-        },
-        "d369c06a-60cd-4a8f-bf6a-c30b622c9a65": {
-          "type": "gift_box",
-          "settings": {
-            "product_gift": "palaio-chair-black-set-of-2",
-            "product_gift_heading": "CONGRATULATIONS!",
-            "product_gift_text": "Simply copy the code below and use it when you checkout to enjoy an additional 50% OFF on this product",
-            "product_gift_code": "S47P40BTH3JV"
-          }
         }
       },
       "block_order": [
@@ -192,20 +146,15 @@
         "491c3678-a254-4566-821b-051ef3bc6c42",
         "price",
         "c04d58d1-7e33-4924-875c-87b293144f76",
+        "buy_buttons",
+        "cc6513a2-5262-43d7-b018-6cbea19b910e",
+        "d2556500-9561-429c-a87a-8081f074e2cb",
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4",
         "custom_liquid_gzPWAq",
         "fb8bae5f-a47f-44ca-a4f4-caea832ea54d",
         "11dfdc72-3642-46dc-9c56-c6ed3777d74d",
-        "f7b25d8c-0547-4336-a393-17d7b0a41e9f",
-        "buy_buttons",
-        "product_organization",
-        "bb35d3c0-fa32-4b86-9e81-44ce53f148cd",
-        "cc6513a2-5262-43d7-b018-6cbea19b910e",
-        "d2556500-9561-429c-a87a-8081f074e2cb",
         "91c084e3-67d1-463e-b5bd-5a47d8837949",
-        "68fcf4dc-7ab8-4182-a90e-e7f2a7e324dc",
-        "366f2f0f-b45a-4941-8433-f03ff688c8bc",
-        "d369c06a-60cd-4a8f-bf6a-c30b622c9a65"
+        "68fcf4dc-7ab8-4182-a90e-e7f2a7e324dc"
       ],
       "settings": {
         "full_with": true,
