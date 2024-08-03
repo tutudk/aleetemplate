@@ -1,0 +1,11 @@
+<div {% unless preload_class %}id="pre-loading"{% endunless %} class="pre-loading {{ preload_class }}">
+    {%- if settings.preloading_image != blank -%}
+        <div class="pre-loading__image">
+            {% render 'image-global', image: settings.preloading_image %}
+        </div>
+    {%- else -%}
+        <span class="pre-loading__bar"></span>
+        <div class="vela-loading__icon"><span></span><span></span><span></span><span></span></div>
+    {%- endif -%}
+</div>
+{%- assign preload_class = nil -%}

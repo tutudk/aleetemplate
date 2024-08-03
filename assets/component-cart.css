@@ -147,7 +147,7 @@ cart-items {
     border: 0;
     height: 36px;
     vertical-align: middle;
-    font-family:  'Source Sans Pro', sans-serif; 
+    font-family: var(--font-heading-family);
     background-color: transparent; }
 
 .cart-item_vendor {
