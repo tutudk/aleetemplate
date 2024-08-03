@@ -37,7 +37,7 @@
         {%- if settings.type_special_font != blank -%}
           	--font-special-family: {{ settings.type_special_font }};
 		{%- else -%}
-			--font-special-family:Source Sans Pro,sans-serif;
+			--font-special-family:'Source Sans Pro',sans-serif;
         {%- endif -%}
 		--font-size-heading: {{ settings.type_header_base_size }}px;
 		--font-size-heading-mobile: {{ settings.type_header_base_size | times: 1 | times: 0.8 | floor }}px;;
@@ -104,7 +104,7 @@
 		--letter-spacing-1: 1px;
 
 		{% comment %} override bootstrap {% endcomment %}
-		--bs-body-font-family: var(--font-body-family);
+		--bs-body-font-family: 'Source Sans Pro',sans-serif;
 		--bs-body-font-weight: var(--font-body-weight);
 		--bs-body-font-size: var(--font-size-base);
 		--bs-body-color: {{ settings.color_body_text }};

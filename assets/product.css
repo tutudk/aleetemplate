@@ -23,7 +23,7 @@
   min-height: 48px;
   overflow: hidden;
   font-weight: 500;
-  font-family:Source Sans Pro,sans-serif; }
+  font-family:'Source Sans Pro',sans-serif; }
   .shopify-payment-button__button--unbranded {
     color: #fff;
     line-height: 48px;
@@ -383,7 +383,7 @@
 
 .more-info-tabs__nav-link {
   font-size: var(--font-size-base);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight);
   color: var(--body-color-light);
   text-transform: uppercase;

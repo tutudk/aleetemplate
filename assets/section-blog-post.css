@@ -50,7 +50,7 @@
 
 .tags__title {
   color: var(--heading-color);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight); }
   .tags__title svg {
     width: 16px;

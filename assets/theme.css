@@ -334,7 +334,7 @@ body {
   color: var(--body-color-light) !important; }
 
 .ff-heading {
-  font-family: Source Sans Pro,sans-serif; }
+  font-family: 'Source Sans Pro',sans-serif; }
 
 .fw-medium {
   font-weight: 500 !important; }
@@ -404,7 +404,7 @@ input[type=number]::-webkit-outer-spin-button {
   border: 0; }
 
 .ff-special {
-  font-family: var(--font-special-family), Source Sans Pro,sans-serif; }
+  font-family: var(--font-special-family), 'Source Sans Pro',sans-serif; }
 
 @media (min-width: 992px) {
   .col-lg-2-4 {
@@ -425,7 +425,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 .page-title {
   color: var(--heading-color);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight);
   font-size: 30px; }
   @media (max-width: 767.98px) {
@@ -895,14 +895,14 @@ svg.placeholder-svg {
 
 h1, .h1 {
   line-height: calc(1.4125rem + 1.95vw);
-  font-family:Source Sans Pro,sans-serif; }
+  font-family:'Source Sans Pro',sans-serif; }
   @media (min-width: 1200px) {
     h1, .h1 {
       line-height: 2.875rem; } }
 
 h2, .h2 {
   line-height: calc(1.3625rem + 1.35vw);
-  font-family:Source Sans Pro,sans-serif; }
+  font-family:'Source Sans Pro',sans-serif; }
   @media (min-width: 1200px) {
     h2, .h2 {
       line-height: 2.375rem; } }
@@ -910,7 +910,7 @@ h2, .h2 {
 h4, .h4,
 h3, .h3 {
   line-height: calc(1.3125rem + 0.75vw);
-  font-family:Source Sans Pro,sans-serif; }
+  font-family:'Source Sans Pro',sans-serif; }
   @media (min-width: 1200px) {
     h4, .h4,
     h3, .h3 {
@@ -918,14 +918,14 @@ h3, .h3 {
 
 h5, .h5 {
   line-height: calc(1.29rem + 0.48vw);
-  font-family:Source Sans Pro,sans-serif; }
+  font-family:'Source Sans Pro',sans-serif; }
   @media (min-width: 1200px) {
     h5, .h5 {
       line-height: 1.65rem; } }
 
 h6, .h6 {
   line-height: calc(1.2625rem + 0.15vw);
-  font-family:Source Sans Pro,sans-serif; }
+  font-family:'Source Sans Pro',sans-serif; }
   @media (min-width: 1200px) {
     h6, .h6 {
       line-height: 1.375rem; } }
@@ -1107,7 +1107,7 @@ h6, .h6 {
 .cart-modal__name {
   margin: 0 0 15px;
   color: var(--heading-color);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight);
   font-size: calc(var(--font-size-base) + 3px);
   color: var(--heading-color);
@@ -1133,7 +1133,7 @@ h6, .h6 {
   padding: 10px 15px;
   color: #fff;
   background-color: var(--primary);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-size: 13px;
   font-weight: var(--font-heading-weight);
   line-height: 20px;
@@ -1257,7 +1257,7 @@ h6, .h6 {
 .ajaxcart__product-name {
   display: block;
   color: var(--product-name-color);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   transition: color .3s ease;
   font-size: var(--font-size-base);
   line-height: 18px;
@@ -1358,7 +1358,7 @@ h6, .h6 {
 
 .vela-qty__number {
   font-size: calc(var(--font-size-base) + 4px);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   text-align: center;
   background-color: transparent;
   border: 0;
@@ -1394,7 +1394,7 @@ h6, .h6 {
   border: 2px solid var(--border-color);
   cursor: pointer;
   text-align: center;
-  font-family:Source Sans Pro,sans-serif; }
+  font-family:'Source Sans Pro',sans-serif; }
 
 .ajaxcart__remove {
   position: absolute;
@@ -2711,7 +2711,7 @@ h6, .h6 {
 .variants__label {
   display: block;
   margin: 0 0 10px;
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight); }
   .variants__label > span {
     color: var(--heading-color);
@@ -2826,7 +2826,7 @@ h6, .h6 {
 
 .product__organization__label {
   margin-right: 20px;
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-size: var(--font-size-base); }
 
 .product__organization__text,
@@ -3575,7 +3575,7 @@ h6, .h6 {
   display: block;
   padding: 20px 0;
   color: var(--menu-color);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-size: var(--menu-font-size);
   font-weight: 600;
   line-height: 26px;
@@ -3741,7 +3741,7 @@ h6, .h6 {
 
 .megamenu-heading {
   color: var(--heading-color);
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: 600;
   font-size: calc(var(--menu-dropdown-font-size) + 2px);
   margin-bottom: 10px; }
@@ -4373,7 +4373,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .product-tabs__default .product-tabs__nav-link {
   display: block;
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight);
   color: var(--body-color-light);
   transition: color .35s ease;
@@ -4387,7 +4387,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .product-tabs__style1 .product-tabs__nav-link {
   display: block;
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight);
   color: var(--body-color-light);
   transition: color .35s ease;
@@ -4397,7 +4397,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .product-tabs__style2 .product-tabs__nav-link {
   display: block;
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-weight: var(--font-heading-weight);
   color: var(--body-color);
   transition: color .35s ease;
@@ -4452,7 +4452,7 @@ details[open].menu-opening > .menu-drawer__submenu {
       width: 50px;
       color: var(--heading-color);
       font-weight: var(--font-heading-weight);
-      font-family:Source Sans Pro,sans-serif;
+      font-family:'Source Sans Pro',sans-serif;
       font-size: 18px;
       line-height: 30px;
       margin-bottom: 5px;
@@ -5360,7 +5360,7 @@ details[open].menu-opening > .menu-drawer__submenu {
 .lookbook-product__title {
   margin: 0;
   display: block;
-  font-family:Source Sans Pro,sans-serif;
+  font-family:'Source Sans Pro',sans-serif;
   font-size: var(--font-size-base);
   transition: all .3s ease; }
   .lookbook-product__title :hover {
