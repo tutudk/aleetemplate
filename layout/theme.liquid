@@ -169,10 +169,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </noscript>
 
 <!-- End Google Tag Manager (noscript) -->
-      
-      {%- if settings.preloading -%}
-			{% render 'preloading' %}
-		{%- endif -%}
+
 		{% sections 'header-group' %}
 		{%- render 'header-search' -%}
 		<main id="MainContent" class="main-content content-for-layout" tabindex="-1">
