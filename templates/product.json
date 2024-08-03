@@ -207,7 +207,7 @@
         "padding_block_m": "20px 0",
         "product_sticky": true,
         "media_layout": "thumbnails-left",
-        "enable_image_zoom": false,
+        "enable_image_zoom": true,
         "enable_image_popup": true,
         "enable_video_looping": true,
         "enable_multi_variant": true
