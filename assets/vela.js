@@ -1497,15 +1497,14 @@ vela.init = function() {
     vela.cartInit();
   }
   vela.slideshow();
-  vela.slickCarousel();
+  // vela.slickCarousel();
   vela.countdown();
   vela.cookieConsent();
   vela.newsletter();
   vela.customNumberInput();
   vela.accordion();
   vela.gallery();
-  vela.productLoadMore();
-  vela.velaBannerTop();
+  vela.productLoadMore(); 
   vela.swatchProduct();
   //vela.flytocart();
   if (vela.settings.enableQuickView) {
