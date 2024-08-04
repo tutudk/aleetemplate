@@ -41,7 +41,7 @@
 			{% if first_3d_model %}data-has-model="true"{% endif %}>
 			<div class="product-single product__primary">
 				<div class="row g-4 product__row{% if settings.cart_type == 'fly' %} proFlyBlock{% endif %}">
-					<div class="col-12 {{ col_style }} product__media-wrapper">
+					<div class="col-12 {{ col_style }} product__media-wrapper sticky-top">
 						{% include 'product-media' %}
 					</div>
 					<div class="col-12 {{cols_style}} product__info-wrapper">
