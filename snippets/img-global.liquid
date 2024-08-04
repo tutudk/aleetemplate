@@ -112,7 +112,6 @@
                     width="{{ max_width_image }}"
                     height="{{ max_height_image }}"
                 >
-                {%- render 'preloading', preload_class: 'position-absolute' -%}
             </div>
         {% else %}
             <div class="card__image position-relative lazyload js" style="padding-top:{{ padding_top }}%;" role="img"
@@ -121,7 +120,6 @@
             data-bgset="{% render 'bgset', image: image, crop: image_crops, image_ratio: image_ratio, images_size: images_size, max_width_image: max_width_image %}"
             data-sizes="auto"
             >
-                {%- render 'preloading', preload_class: 'position-absolute' -%}
             </div>
         {% endif %}
     </div> 
