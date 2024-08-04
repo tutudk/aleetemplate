@@ -84,8 +84,8 @@
                 {%- if settings.product_vendor_enable -%}
                     <div class="product-card__vendor mb-1"><label>{{'products.general.label_vendor' | t }}</label>{{ product.vendor | link_to_vendor }}</div>
                 {%- endif -%}
-                <div class="group-cart-price overflow-hidden">
-                    <div class="group-cart-price__inner d-flex{% unless settings.pre-order-style == 'popup' and preOrder %}{% unless sold_out %} group-cart-price__effect{% endunless %}{% endunless %}">
+                <div class="group-cart-price">
+                    <div class="group-cart-price__inner d-flex{% unless settings.pre-order-style == 'popup' and preOrder %}{% unless sold_out %}">
                         <div class="product-group-price d-flex align-items-center ff-special w-100">
                             <div class="product-price">{{ product.price | money }}</div>
                             {%- if on_sale -%}
