@@ -102,7 +102,7 @@
         "custom_liquid_gzPWAq": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"table-responsive-sm\">\n<table class=\"table table-striped table-borderless lh-1 mx-auto\" style=\"max-width: 900px;\">\n  <tbody>\n<tr>\n  <th class=\"p-3 fw-medium\">Weight (w\/o wheels)<\/th>\n  <td class=\"p-3\">20 LBS<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Weight Capacity<\/th>\n  <td class=\"p-3\">60 LBS<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Folded (w\/o wheels)<\/th>\n  <td class=\"p-3\">32.5\"L x 18.5\"W x 16.5\"H<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Folded (w\/ wheels)<\/th>\n  <td class=\"p-3\">32.5\"L x 24\"W x 18.5\"H<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Door Pass Through<\/th>\n  <td class=\"p-3\">24<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Frame<\/th>\n  <td class=\"p-3\">Aluminum<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Stand Up<\/th>\n  <td class=\"p-3\">35\"L x 24\"W x 37-45\"H(front to back wheel)<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Size<\/th>\n  <td class=\"p-3\">S, XL, XS<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Color<\/th>\n  <td class=\"p-3\">Gray 2, Green 2, Orange 1, Orange 2, Violet<\/td>\n  <\/tr>\n  <\/tbody>\n<\/table>\n<\/div>",
+            "custom_liquid": "<div class=\"table-responsive-sm\">\n<table class=\"table table-striped table-borderless lh-1 mx-auto\" style=\"max-width: 900px;\">\n  <tbody>\n<tr>\n  <th class=\"p-3 fw-medium\">Weight (w\/o wheels)<\/th>\n  <td class=\"p-3\">20 LBS<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Weight Capacity<\/th>\n  <td class=\"p-3\">60 LBS<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Folded (w\/o wheels)<\/th>\n  <td class=\"p-3\">32.5\"L x 18.5\"W x 16.5\"H<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Folded (w\/ wheels)<\/th>\n  <td class=\"p-3\">32.5\"L x 24\"W x 18.5\"H<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Door Pass Through<\/th>\n  <td class=\"p-3\">24<\/td>\n  <\/tr>\n  <tr>\n  <th class=\"p-3 fw-medium\">Frame<\/th>\n  <td class=\"p-3\">Aluminum<\/td>\n  <\/tr>\n  <\/tbody>\n<\/table>\n<\/div>",
             "block_margin": "mb-0"
           }
         },
@@ -157,7 +157,7 @@
         "68fcf4dc-7ab8-4182-a90e-e7f2a7e324dc"
       ],
       "settings": {
-        "full_with": true,
+        "full_with": false,
         "max_with": "1440px",
         "color_bg": "#ffffff",
         "padding_block": "20px 10px 20px",
