@@ -13,16 +13,16 @@
             </a>
             <div class="product-card__label position-absolute {{ settings.badge_position }}-0">
                 {%- if difference < 2592000 and settings.product_card_new -%}
-                    <span class="label-new position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_new' | t }}</span></span>
+                    <span class="label-new position-relative"><span class="d-block  position-relative">{{ 'products.general.label_new' | t }}</span></span>
                 {%- endif -%}
                 {%- if sold_out and settings.product_card_available -%}
-                    <span class="label-sold-out position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.out_stock' | t }}</span></span>
+                    <span class="label-sold-out position-relative"><span class="d-block  position-relative">{{ 'products.general.out_stock' | t }}</span></span>
                 {%- elsif on_sale and settings.product_card_sale -%}
                     {%- capture saved_amount -%}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by : product.compare_at_price }}{%- endcapture -%}
-                    <span class="label-on-sale position-relative"><span class="d-block overflow-hidden position-relative">{% if settings.sale_style == 'percent' %}-{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%{% else %}{{ 'products.general.sale_price' | t }}{% endif %}</span></span>        
+                    <span class="label-on-sale position-relative"><span class="d-block  position-relative">{% if settings.sale_style == 'percent' %}-{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%{% else %}{{ 'products.general.sale_price' | t }}{% endif %}</span></span>        
                 {%- endif -%}
                 {%- if preOrder -%}
-                    <span class="label-pre-order position-relative"><span class="d-block overflow-hidden position-relative">{{ 'products.general.label_pre_order' | t }}</span></span>
+                    <span class="label-pre-order position-relative"><span class="d-block  position-relative">{{ 'products.general.label_pre_order' | t }}</span></span>
                 {%- endif -%}
             </div>
             {%- if page_wishlist -%}
