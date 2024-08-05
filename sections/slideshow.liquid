@@ -77,13 +77,7 @@
 								<div class="captionWrap container{% if section.settings.caption_full_with %}-fluid{% endif %} gx-3">
 									<div class="slideshow-caption__inner {{ block.settings.alignment }}">
 										<div class="slideshow-caption__content text-{{ block.settings.text-alignment }} ">
-											{%- unless block.settings.subheading == blank -%}
-												<div class="slideshow-caption__subheading {{ block.settings.subheading_font_family }}  animate__{{ block.settings.slides_effect }}" style="--st-cl:{{ block.settings.subheading_color }}; --st-fs: {{ block.settings.subheading_font_size }}px; --st-fs-l: {{ block.settings.subheading_font_size_l }}px; --st-fs-m: {{ block.settings.subheading_font_size_m }}px;{% if block.settings.subheading_margin != blank %}--st-m: {{ block.settings.subheading_margin }};{% endif %}{% if block.settings.subheading_margin_m != blank %} --st-m-m: {{ block.settings.subheading_margin_m }}{% endif %}">
-													{{ block.settings.subheading }}
-												</div>
-												{%- assign time = time | plus: 0.3 -%}
-											{%- endunless -%}
-											{%- unless block.settings.title == blank -%}
+										{%- unless block.settings.title == blank -%}
 												<div class="slideshow-caption__heading {{ block.settings.title_font_family }}  animate__{{ block.settings.slides_effect }}" style="--animate-duration: {{ time }}s; --h-cl:{{ block.settings.title_color }}; --h-fs: {{ block.settings.title_font_size }}px; --h-fs-l: {{ block.settings.title_font_size_l }}px; --h-fs-m: {{ block.settings.title_font_size_m }}px;{% if block.settings.title_margin != blank %}--h-m: {{ block.settings.title_margin }};{% endif %}{% if block.settings.title_margin_m != blank %} --h-m-m: {{ block.settings.title_margin_m }}{% endif %}">
 													{{ block.settings.title }}
 												</div>
@@ -95,6 +89,13 @@
 												</div>
 												{%- assign time = time | plus: 0.3 -%}
 											{%- endunless -%}
+											{%- unless block.settings.subheading == blank -%}
+												<div class="slideshow-caption__subheading {{ block.settings.subheading_font_family }}  animate__{{ block.settings.slides_effect }}" style="--st-cl:{{ block.settings.subheading_color }}; --st-fs: {{ block.settings.subheading_font_size }}px; --st-fs-l: {{ block.settings.subheading_font_size_l }}px; --st-fs-m: {{ block.settings.subheading_font_size_m }}px;{% if block.settings.subheading_margin != blank %}--st-m: {{ block.settings.subheading_margin }};{% endif %}{% if block.settings.subheading_margin_m != blank %} --st-m-m: {{ block.settings.subheading_margin_m }}{% endif %}">
+													{{ block.settings.subheading }}
+												</div>
+												{%- assign time = time | plus: 0.3 -%}
+											{%- endunless -%}
+											
 											{%- unless block.settings.desc == blank -%}
 												<div class="slideshow-caption__desc {{ block.settings.desc_font_family }}  animate__{{ block.settings.slides_effect }}" style="--animate-duration: {{ time }}s; --desc-cl:{{ block.settings.desc_color }}; --desc-fs: {{ block.settings.desc_font_size }}px; --desc-fs-l: {{ block.settings.desc_font_size_l }}px; --desc-fs-m: {{ block.settings.desc_font_size_m }}px;{% if block.settings.desc_margin != blank %}--desc-m: {{ block.settings.desc_margin }};{% endif %}{% if block.settings.desc_margin_m != blank %} --desc-m-m: {{ block.settings.desc_margin_m }}{% endif %}">
 													{{ block.settings.desc }}
