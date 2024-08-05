@@ -29,7 +29,6 @@
 				<div class="heading-group mb-3 mb-md-4 text-center">
 					<h2 class="heading mb-2">
 						<span>{{ section.settings.heading }}</span>
-						 <h1>{{ product.title }}</h1>
 					</h2>
 					{%- if section.settings.sub_heading != blank -%}
 						<div class="sub-heading mb-2">
@@ -46,17 +45,16 @@
 {% raw %}
 <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
 	<div id="product-${handle}" class="col">
-	 <h1>{{ product.title }}</h1>
 		<div class="product-card product-grid grid__default">
 			<div class="product-grid__inner">
 				<div class="product-card__image-wrapper">
 					<a class="product-card__image-link" href="${url}">
 						<span {{if images[1]}} class="img-primary"{{/if}}>
-							<img class="img-fluid" alt="{{ product.title }}" src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+							<img class="img-fluid" alt="${title}" src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
 						</span>
 						{{if images[1]}}
 							<span class="img-secondary position-absolute">
-								<img class="img-fluid" alt="{{ product.title }}" src="${images[1]}" />
+								<img class="img-fluid" alt="${title}" src="${images[1]}" />
 							</span>
 						{{/if}}
 					</a>
