@@ -400,7 +400,7 @@ input[type=number]::-webkit-outer-spin-button {
   border: 0; }
 
 .ff-special {
-  font-family: var(--font-special-family), 'Source Sans Pro',sans-serif; }
+  font-family: var(--font-special-family); }
 
 @media (min-width: 992px) {
   .col-lg-2-4 {
@@ -5465,9 +5465,8 @@ details[open].menu-opening > .menu-drawer__submenu {
   .product-group-price.d-flex.align-items-center {
     justify-content: center;
 }
-.product-price-sale {
+.product-price-sales{
   font-size: 22px !important;
   font-weight: 600 !important;
-  color: #b9160e;
-  text-align: center;
+  color: #b9160e !important;
 }

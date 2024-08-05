@@ -21,7 +21,7 @@
             {%- if section.blocks.size > 0 -%}
                 <div class="product-more-info__inner">
                     <div class="more-info-tabs__heading mb-2 mb-lg-3 tab-sm-scroll">
-                        <ul class="more-info-tabs__nav nav d-flex justify-content-center list-unstyled mb-1">
+                        <ul class="more-info-tabs__nav nav d-flex justify-content-left list-unstyled mb-1">
                             {%- for block in section.blocks -%}
                                 {%- if block.type == "description" or block.settings.content != blank or block.settings.content_1 != blank -%}
                                     <li class="more-info-tabs__nav-item">
