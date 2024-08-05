@@ -81,7 +81,7 @@
                     <!-- <a class="line-title fw-normal" href="{{ product.url }}">{{ product.title }}</a> -->
                 <!-- </h6> -->
                 <div class="product-group-price d-flex align-items-center ff-special w-100">
-                    <div class="product-price  {%- if on_sale -%}   class-price-sales {%- endif -%} product-price ">{{ product.price | money }}</div>
+                    <div class="product-price  {%- if on_sale -%}  -sales {%- endif -%}">{{ product.price | money }}</div>
                     <div>
                       <span class="compare-at-price">{{ product.discount.amount  | money }}</span>
                     </div>
