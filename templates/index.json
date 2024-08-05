@@ -236,14 +236,14 @@
         "image_jfy86t"
       ],
       "settings": {
-        "full_with": false,
+        "full_with": true,
         "max_with": "",
-        "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "",
+        "color_bg": "#ffffff",
+        "padding_block": "20px 0",
         "padding_block_m": "",
         "margin_block": "",
         "logo_size": "150x150",
-        "image_ratio": "square",
+        "image_ratio": "adapt",
         "crop": false,
         "brand-effect": true,
         "slide_enable": false,
