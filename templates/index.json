@@ -11,36 +11,6 @@
   "sections": {
     "video_background_kLTCkR": {
       "type": "video-background",
-      "blocks": {
-        "text_bUNWfC": {
-          "type": "text",
-          "settings": {
-            "text_style": "text",
-            "text": "Claritas est etiam processus dynamicus, qui sequitur.",
-            "text_color": "#060606",
-            "text_size": 14,
-            "text_size_m": 10,
-            "text_margin": "0 0 30px",
-            "text_margin_m": "0 0 30px"
-          }
-        },
-        "text_PwRDV4": {
-          "type": "text",
-          "settings": {
-            "text_style": "text",
-            "text": "Claritas est etiam processus dynamicus, qui sequitur.",
-            "text_color": "#060606",
-            "text_size": 14,
-            "text_size_m": 10,
-            "text_margin": "0 0 30px",
-            "text_margin_m": "0 0 30px"
-          }
-        }
-      },
-      "block_order": [
-        "text_bUNWfC",
-        "text_PwRDV4"
-      ],
       "settings": {
         "full_with": true,
         "color_bg": "rgba(0,0,0,0)",
