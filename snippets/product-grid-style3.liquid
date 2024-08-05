@@ -81,12 +81,12 @@
                     <!-- <a class="line-title fw-normal" href="{{ product.url }}">{{ product.title }}</a> -->
                 <!-- </h6> -->
                 <div class="product-group-price d-flex align-items-center ff-special w-100">
-                    <div class="product-price {%- if on_sale -%} class-price-sales {%- endif -%} ">{{ product.price | money }}</div>
+                    <div class="product-price  {%- if on_sale -%}   class-price-sales {%- endif -%} ">{{ product.price | money }}</div>
                     <div>
                       <span class="compare-at-price">{{ product.discount.amount  | money }}</span>
                     </div>
                     {%- if on_sale -%}
-                        <div class="product-price product-price--regular {%- if on_sale -%} class-price-sales {%- endif -%} ms-1">{{ product.compare_at_price | money }}</div>
+                        <div class="product-price product-price--regular  ms-1">{{ product.compare_at_price | money }}</div>
                     {%- endif -%}
                     {%- if product.price_varies == false and variant.unit_price_measurement -%}
                         {%- capture unit_price_separator -%}
