@@ -3079,6 +3079,7 @@ h6, .h6 {
     display: inline-block; 
     background-color: #ffffffb5;
     padding: 15px 25px;
+    text-align: left !important;
 }
   .slideshow-caption__subheading {
     line-height: 1;
