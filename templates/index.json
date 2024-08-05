@@ -236,7 +236,7 @@
         "image_jfy86t"
       ],
       "settings": {
-        "full_with": true,
+        "full_with": false,
         "max_with": "",
         "color_bg": "#ffffff",
         "padding_block": "20px 0",
