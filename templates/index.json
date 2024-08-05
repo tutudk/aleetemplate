@@ -119,8 +119,8 @@
         "infinite": false,
         "autoplay": false,
         "autoplay_speed": "3000",
-        "column1": 5,
-        "column2": 4,
+        "column1": 4,
+        "column2": 3,
         "column3": 3,
         "column4": 2
       }
