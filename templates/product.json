@@ -93,7 +93,7 @@
         "text_CJWAD4": {
           "type": "text",
           "settings": {
-            "text": "<h4><strong>Description<\/strong><\/h4>",
+            "text": "<h5><strong>Description<\/strong><\/h5>",
             "text_color": "",
             "text_size": 15,
             "block_margin": "mb-0"
@@ -111,7 +111,7 @@
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4": {
           "type": "text",
           "settings": {
-            "text": "<h4><strong>Product Details<\/strong><\/h4>",
+            "text": "<h5><strong>Product Details<\/strong><\/h5>",
             "text_color": "#222222",
             "text_size": 16,
             "block_margin": "mb-3"
