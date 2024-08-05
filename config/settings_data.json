@@ -57,7 +57,7 @@
     "quickview_variant_selector": "radio",
     "quickview_variant_image_enable": false,
     "quickview_text": "",
-    "cart_type": "drawer",
+    "cart_type": "modal",
     "cart_notes_enable": true,
     "cart_shipping_enable": true,
     "cart_coupon_enable": true,
