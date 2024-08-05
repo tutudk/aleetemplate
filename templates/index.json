@@ -9,6 +9,52 @@
 */
 {
   "sections": {
+    "video_background_kLTCkR": {
+      "type": "video-background",
+      "blocks": {
+        "text_bUNWfC": {
+          "type": "text",
+          "settings": {
+            "text_style": "text",
+            "text": "Claritas est etiam processus dynamicus, qui sequitur.",
+            "text_color": "#060606",
+            "text_size": 14,
+            "text_size_m": 10,
+            "text_margin": "0 0 30px",
+            "text_margin_m": "0 0 30px"
+          }
+        },
+        "text_PwRDV4": {
+          "type": "text",
+          "settings": {
+            "text_style": "text",
+            "text": "Claritas est etiam processus dynamicus, qui sequitur.",
+            "text_color": "#060606",
+            "text_size": 14,
+            "text_size_m": 10,
+            "text_margin": "0 0 30px",
+            "text_margin_m": "0 0 30px"
+          }
+        }
+      },
+      "block_order": [
+        "text_bUNWfC",
+        "text_PwRDV4"
+      ],
+      "settings": {
+        "full_with": true,
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "padding_block_m": "",
+        "margin_block": "0 0 60px",
+        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
+        "muted": true,
+        "aspect_ratios": "ratio-16x9",
+        "overlay_color": "#000000",
+        "opacity": 50,
+        "box_width": "420"
+      }
+    },
     "slideshow_YJERzW": {
       "type": "slideshow",
       "blocks": {
@@ -259,6 +305,7 @@
     }
   },
   "order": [
+    "video_background_kLTCkR",
     "slideshow_YJERzW",
     "e4fe7913-0e63-4ee3-95f8-624e8a6f8724",
     "product_list_9786mD",
