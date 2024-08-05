@@ -3076,7 +3076,10 @@ h6, .h6 {
       .slideshow-caption__inner {
         padding: 10px 0; } }
   .slideshow-caption__content {
-    display: inline-block; }
+    display: inline-block; 
+    background-color: #ffffffb5;
+    padding: 15px 25px;
+}
   .slideshow-caption__subheading {
     line-height: 1;
     color: var(--st-cl);
