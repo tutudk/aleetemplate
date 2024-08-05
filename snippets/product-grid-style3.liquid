@@ -60,32 +60,7 @@
                     {%- endif -%}
                 </div>
             {%- endif -%}
-            {%- if settings.product_card_addtocart -%}
-                <div class="product-card__buttons{% if settings.pre-order-style == 'popup' and preOrder%} d-none{% endif %} w-100">
-                    <div class="product-card__form">
-                        {%- assign variant_count = product.variants | size -%}
-                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="form-addtocart" data-product-form>
-                        <input type="hidden" name="id" value="{{ variant.id }}" />
-                        {%- unless sold_out -%}
-                            {%- if variant_count > 1 -%}
-                                <a class="js-btn-quickview btn btn--add-to-cart" href="javascript:void(0);" data-preorder="{{ preOrder }}" data-handle="{{ product.handle }}" title="{%- if preOrder -%}{{ 'products.product.pre_order' | t }}{%- else -%}{{ 'products.product.add_to_cart' | t }}{%- endif -%}">
-                                    {% render 'icons', icon: 'cart', class: 'icon-cart d-none', attr: 'width="18" height="18"' %}
-                                    <span class="text">{%- if preOrder -%}{{ 'products.product.pre_order' | t }}{%- else -%}{{ 'products.product.add_to_cart' | t }}{%- endif -%}</span>
-                                    <div class="d-none proShortDesc">
-                                        {{ shortDescription }}
-                                    </div>
-                                </a>
-                            {%- else -%}
-                                <button class="js-btn-addtocart btn btn--add-to-cart" type="submit" value="Submit" title="{% if preOrder %}{{ 'products.product.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}">
-                                    {% render 'icons', icon: 'cart', class: 'icon-cart d-none', attr: 'width="18" height="18"' %}
-                                    <span class="text">{% if preOrder %}{{ 'products.product.pre_order' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}</span>
-                                </button>
-                            {%- endif -%}
-                        {%- endunless -%}
-                        </form>
-                    </div>
-                </div>
-            {%- endif -%}
+           
         </div>
         <div class="product-card__content pt-2 pt-md-3">
             {%- if settings.product_card_swatch -%}
@@ -102,9 +77,9 @@
                 {%- if settings.product_vendor_enable -%}
                     <div class="product-card__vendor mb-1"><label>{{'products.general.label_vendor' | t }}</label>{{ product.vendor | link_to_vendor }}</div>
                 {%- endif -%}
-                <h6 class="product-card__name line-clamp-2 mb-1">
-                    <a class="line-title fw-normal" href="{{ product.url }}">{{ product.title }}</a>
-                </h6>
+               <!-- <h6 class="product-card__name line-clamp-2 mb-1"> -->
+                    <!-- <a class="line-title fw-normal" href="{{ product.url }}">{{ product.title }}</a> -->
+                <!-- </h6> -->
                 <div class="product-group-price d-flex align-items-center ff-special w-100">
                     <div class="product-price">{{ product.price | money }}</div>
                     <div>
