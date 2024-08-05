@@ -62,10 +62,10 @@
             "desk_width": 31,
             "contactinfo_heading": "LOOKING FOR ALEEFURNISHING?",
             "logo_footer_width": 100,
-            "contactinfo_desc": "<div style=\"line-height:30px;\">Have a question? You may find an answer in our FAQs.\nBut you can also contact us:<br>\nCall Us: 6901 CORPORATE DR STE 107, HOUSTON, TX 77036 USA.<br>\nPhone: <a style=\"color:#D4A533\" href=\"tel:+18329830049\">(+1) 832 983 0049<\/a><br>\nEmail: <a style=\"color:#D4A533\" href=\"mailto:support@aleefurnishing.com\">support@aleefurnishing.com<\/a>\n\n\n<\/div>",
-            "contactinfo_add": "",
-            "contactinfo_phone": "",
-            "contactinfo_email": "",
+            "contactinfo_desc": "<div style=\"line-height:30px;\">Have a question? You may find an answer in our FAQs.\nBut you can also contact us:\n\n<\/div>",
+            "contactinfo_add": "6901 CORPORATE DR STE 107, HOUSTON, TX 77036 USA.",
+            "contactinfo_phone": "(+1) 832 983 0049",
+            "contactinfo_email": "support@aleefurnishing.com",
             "contactinfo_time": ""
           }
         }
