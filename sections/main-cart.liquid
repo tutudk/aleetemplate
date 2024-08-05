@@ -332,11 +332,11 @@
                                     {%- endif -%}
                                 </div>
                             </div>
-                          <!--  <div class="cart__ctas"> -->
-                               <!--  <button type="submit" class="cart__checkout-button btn" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart"> -->
-                                  <!--   <span>{{ 'sections.cart.checkout' | t }}</span> -->
-                               <!--  </button> -->
-                           <!--  </div> -->
+                            <div class="cart__ctas">
+                                <button type="submit" class="cart__checkout-button btn" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+                                    <span>{{ 'sections.cart.checkout' | t }}</span>
+                                </button>
+                            </div>
                              {%- if settings.product_wishlist and block.settings.product_wishlist -%}
                                         <a href="javascript:void(0)" class="product-single__wishlist btn--wishlist fw-medium position-relative" data-product-handle="{{ product.handle }}" title="{{ 'products.product.add_to_wishlist' | t }}">
                                             <span class="wishlist-icon">
