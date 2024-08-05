@@ -1,1 +1,112 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"6673fe71-fbb3-406b-bb34-a1de9b3a3636":{"type":"newsletter","settings":{"full_with":false,"max_with":"","color_bg":"#222222","padding_block":"90px 0 0","padding_block_m":"60px 0 0","margin_block":"","margin_block_m":"","heading":"join our newsletter","sub_heading":"OUR NEWSLETTER","description":"Subscribe to the Aleefurnishing mailing list to receive updates on new arrivals, special offers and other discount information.","mailchimp":false,"newsletter_form_action":""}},"footer":{"type":"footer","blocks":{"46544573-45d4-4099-84bb-86bba35912e3":{"type":"link_list","settings":{"desk_width":23,"title":"Support","menu":"support"}},"70983933-17cd-45a0-bcc5-d614521caf18":{"type":"link_list","disabled":true,"settings":{"desk_width":23,"title":"Information","menu":"footer"}},"7506b398-cf1e-411f-aa45-99a5e3506c96":{"type":"link_list","settings":{"desk_width":23,"title":"Our Services","menu":"main-menu"}},"acdb7fd2-4c63-409b-bd6a-fa9ede43cd75":{"type":"contact_info","settings":{"desk_width":31,"contactinfo_heading":"LOOKING FOR ALEEFURNISHING?","logo_footer_width":100,"contactinfo_desc":"<div style=\"line-height:30px;\">Have a question? You may find an answer in our FAQs.\nBut you can also contact us:<br>\nCall Us: 6901 CORPORATE DR STE 107, HOUSTON, TX 77036 USA.<br>\nPhone: <a style=\"color:#888888\" href=\"tel:+18329830049\">(+1) 832 983 0049<\/a><br>\nEmail: <a style=\"color:#888888\" href=\"mailto:support@aleefurnishing.com\">support@aleefurnishing.com<\/a>\n\n\n<\/div>","contactinfo_add":"","contactinfo_phone":"","contactinfo_email":"","contactinfo_time":""}}},"block_order":["46544573-45d4-4099-84bb-86bba35912e3","70983933-17cd-45a0-bcc5-d614521caf18","7506b398-cf1e-411f-aa45-99a5e3506c96","acdb7fd2-4c63-409b-bd6a-fa9ede43cd75"],"settings":{"full_with":false,"max_with":"","padding_block":"90px 0","padding_block_m":"60px 0","color_bg":"#222222","color_footer_heading":"#ffffff","color_footer_text":"#888888","color_footer_link":"#888888","color_footer_link_hover":"#ffffff"}},"copy-right":{"type":"copy-right","settings":{"full_with":false,"max_with":"","padding_block":"0 0 60px","padding_block_m":"0 0 60px","copyright":"Copyright ©  <span class=\"text-primary\">aleefurnishing<\/span>. All rights reserved.","color_bg":"#222222","color_copyright":"#6c6c6c","color_copyright_link":"#6c6c6c","payment_enable":true,"social_enable":false}}},"order":["6673fe71-fbb3-406b-bb34-a1de9b3a3636","footer","copy-right"]}
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "6673fe71-fbb3-406b-bb34-a1de9b3a3636": {
+      "type": "newsletter",
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "color_bg": "#222222",
+        "padding_block": "90px 0 0",
+        "padding_block_m": "60px 0 0",
+        "margin_block": "",
+        "margin_block_m": "",
+        "heading": "join our newsletter",
+        "sub_heading": "OUR NEWSLETTER",
+        "description": "Subscribe to the Aleefurnishing mailing list to receive updates on new arrivals, special offers and other discount information.",
+        "mailchimp": false,
+        "newsletter_form_action": ""
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "46544573-45d4-4099-84bb-86bba35912e3": {
+          "type": "link_list",
+          "settings": {
+            "desk_width": 23,
+            "title": "Support",
+            "menu": ""
+          }
+        },
+        "70983933-17cd-45a0-bcc5-d614521caf18": {
+          "type": "link_list",
+          "disabled": true,
+          "settings": {
+            "desk_width": 23,
+            "title": "Information",
+            "menu": "footer"
+          }
+        },
+        "7506b398-cf1e-411f-aa45-99a5e3506c96": {
+          "type": "link_list",
+          "settings": {
+            "desk_width": 23,
+            "title": "Our Services",
+            "menu": "main-menu"
+          }
+        },
+        "acdb7fd2-4c63-409b-bd6a-fa9ede43cd75": {
+          "type": "contact_info",
+          "settings": {
+            "desk_width": 31,
+            "contactinfo_heading": "LOOKING FOR ALEEFURNISHING?",
+            "logo_footer_width": 100,
+            "contactinfo_desc": "<div style=\"line-height:30px;\">Have a question? You may find an answer in our FAQs.\nBut you can also contact us:<br>\nCall Us: 6901 CORPORATE DR STE 107, HOUSTON, TX 77036 USA.<br>\nPhone: <a style=\"color:#888888\" href=\"tel:+18329830049\">(+1) 832 983 0049<\/a><br>\nEmail: <a style=\"color:#888888\" href=\"mailto:support@aleefurnishing.com\">support@aleefurnishing.com<\/a>\n\n\n<\/div>",
+            "contactinfo_add": "",
+            "contactinfo_phone": "",
+            "contactinfo_email": "",
+            "contactinfo_time": ""
+          }
+        }
+      },
+      "block_order": [
+        "46544573-45d4-4099-84bb-86bba35912e3",
+        "70983933-17cd-45a0-bcc5-d614521caf18",
+        "7506b398-cf1e-411f-aa45-99a5e3506c96",
+        "acdb7fd2-4c63-409b-bd6a-fa9ede43cd75"
+      ],
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "padding_block": "90px 0",
+        "padding_block_m": "60px 0",
+        "color_bg": "#222222",
+        "color_footer_heading": "#ffffff",
+        "color_footer_text": "#ffffff",
+        "color_footer_link": "#ffc107",
+        "color_footer_link_hover": "#ffffff"
+      }
+    },
+    "copy-right": {
+      "type": "copy-right",
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "padding_block": "0 0 60px",
+        "padding_block_m": "0 0 60px",
+        "copyright": "Copyright ©  <span class=\"text-primary\">aleefurnishing<\/span>. All rights reserved.",
+        "color_bg": "#222222",
+        "color_copyright": "#6c6c6c",
+        "color_copyright_link": "#6c6c6c",
+        "payment_enable": true,
+        "social_enable": false
+      }
+    }
+  },
+  "order": [
+    "6673fe71-fbb3-406b-bb34-a1de9b3a3636",
+    "footer",
+    "copy-right"
+  ]
+}
