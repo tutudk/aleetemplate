@@ -27,11 +27,9 @@
     add_to_wishlist: '{{ 'products.product.add_to_wishlist' | t }}',
     remove_wishlist: '{{ 'products.product.remove_wishlist' | t }}'
   };
-  vela.settings = {
-    currencies: {{ settings.show_multiple_currencies | json }},
+  vela.settings = { 
     cartType: {{ settings.cart_type | json }},
-    enableReview: {{ settings.product_reviews_enable | json }},
-    enablePreLoading: {{ settings.preloading | json }},
+    enableReview: {{ settings.product_reviews_enable | json }}, 
     enableQuickView: {{ settings.quickview_enable | json }},
     quickViewVariantType: {{ settings.quickview_variant_selector | json }},
     quickViewColorSwatch: {{ settings.quickview_variant_color_enable | json }},

@@ -3,7 +3,7 @@
   position: relative;
   overflow: hidden;
   line-height: 60px;
-  transition: all .3s ease-in-out 0s; }
+  height: 300px;}
   #bannerTop .btn-bannerTop {
     position: absolute;
     padding: 5px 15px;
@@ -24,10 +24,7 @@
       #bannerTop .btn-bannerTop {
         top: 0;
         font-size: 0;
-        padding: 0 2px; } }
-  #bannerTop:hover .btn-bannerTop {
-    top: 0; }
-
+        padding: 0 2px; } } 
 #shopify-section-announcement-bar {
   position: relative; }
 

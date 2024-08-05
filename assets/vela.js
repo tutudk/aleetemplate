@@ -1348,9 +1348,9 @@ vela.preLoading = function() {
     function preLoadingImage(url) {
       var imgPreLoading = new Image();
       $(imgPreLoading).on('load', function() {
-        runPreLoading();
+        // runPreLoading();
       }).on('error', function() {
-        runPreLoading();
+        // runPreLoading();
       }).attr('src', url);
     }
 
@@ -1490,7 +1490,7 @@ vela.flytocart = function(){
   }
 };
 vela.init = function() {
-  vela.preLoading();
+  // vela.preLoading();
   vela.initializeEvents();
   vela.setBreakpoints();
   if(!$('body').hasClass('template-cart')) {
