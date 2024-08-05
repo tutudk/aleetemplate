@@ -149,6 +149,7 @@
   "platform_customizations": {
     "custom_css": [
       ".product-price {font-size: 22px !important; font-weight: 600 !important; color: black; text-align: center;}",
+      ".product-price-sale {font-size: 22px !important; font-weight: 600 !important; color: #b9160e !important;}",
       ".product-price.product-price--regular {position: relative; padding: 0 3px; font-size: 16px !important; font-weight: 400 !important;}",
       "#opinew-reviews-product-page-code {width: 80% !important; margin: 0 auto !important;}"
     ]
