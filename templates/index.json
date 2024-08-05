@@ -153,6 +153,34 @@
         "column4": 2
       }
     },
+    "product_list_6rRWeV": {
+      "type": "product-list",
+      "settings": {
+        "full_with": false,
+        "max_with": "",
+        "color_bg": "rgba(0,0,0,0)",
+        "padding_block": "",
+        "padding_block_m": "",
+        "margin_block": "",
+        "heading": "BEDROOM",
+        "sub_heading": "sub heading",
+        "collection_handle": "frontpage",
+        "limit": 8,
+        "product_style": "default",
+        "space_between": "4",
+        "button_text": "",
+        "slide_enable": false,
+        "navigation": true,
+        "pagination": false,
+        "infinite": true,
+        "autoplay": false,
+        "autoplay_speed": "10000",
+        "column1": 4,
+        "column2": 3,
+        "column3": 2,
+        "column4": 2
+      }
+    },
     "logo_list_CYRJBb": {
       "type": "logo-list",
       "blocks": {
@@ -234,6 +262,7 @@
     "slideshow_YJERzW",
     "e4fe7913-0e63-4ee3-95f8-624e8a6f8724",
     "product_list_9786mD",
+    "product_list_6rRWeV",
     "logo_list_CYRJBb"
   ]
 }
