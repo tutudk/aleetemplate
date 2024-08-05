@@ -1544,7 +1544,7 @@ h6, .h6 {
   font-family: var(--font-special-family); }
   .product-price.product-price--regular {
     position: relative;
-    color: var(--body-color-light);
+    color: #404040;
     padding: 0 3px;
     font-weight: 400; }
     .product-price.product-price--regular:before {
