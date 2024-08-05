@@ -2,8 +2,7 @@
 #bannerTop {
   position: relative;
   overflow: hidden;
-  line-height: 60px;
-  height: 300px;}
+  line-height: 60px; }
   #bannerTop .btn-bannerTop {
     position: absolute;
     padding: 5px 15px;
@@ -5463,3 +5462,6 @@ details[open].menu-opening > .menu-drawer__submenu {
 
 .template-captcha .shopify-challenge__container {
   padding: 80px 0; }
+  .product-group-price.d-flex.align-items-center {
+    justify-content: center;
+}
