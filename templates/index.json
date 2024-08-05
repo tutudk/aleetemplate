@@ -9,22 +9,6 @@
 */
 {
   "sections": {
-    "video_6rqnyY": {
-      "type": "video",
-      "settings": {
-        "full_with": false,
-        "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "",
-        "padding_block_m": "",
-        "margin_block": "0 0 60px",
-        "video_url": "https:\/\/www.youtube.com\/watch?v=_9VUPq3SxOc",
-        "description": "âsas",
-        "aspect_ratios": "ratio-16x9",
-        "show_overlay": false,
-        "overlay_color": "#000000",
-        "opacity": 50
-      }
-    },
     "slideshow_YJERzW": {
       "type": "slideshow",
       "blocks": {
@@ -32,7 +16,7 @@
           "type": "image",
           "settings": {
             "content_color": "rgba(0,0,0,0)",
-            "position_content": true,
+            "position_content": false,
             "image": "shopify:\/\/shop_images\/banner_2_90d7a367-f7ab-4cd8-8b83-1fcc9a3a528f.jpg",
             "bg_align": "center",
             "link": "",
@@ -275,7 +259,6 @@
     }
   },
   "order": [
-    "video_6rqnyY",
     "slideshow_YJERzW",
     "e4fe7913-0e63-4ee3-95f8-624e8a6f8724",
     "product_list_9786mD",
