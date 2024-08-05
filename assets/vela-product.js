@@ -1086,23 +1086,23 @@ vela.Product = (function() {
         return;
       }
 
-      $(this.selectors.productImageZoom, this.$container).magnificPopup({
-        type: 'image',
-        mainClass: 'mfp-fade',
-        closeOnBgClick: true,
-        closeBtnInside: false,
-        closeOnContentClick: true,
-        tClose: vela.strings.zoomClose,
-        removalDelay: 500,
-        gallery: {
-          enabled: true,
-          navigateByImgClick: false,
-          arrowMarkup:
-            '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"><span class="mfp-chevron mfp-chevron-%dir%"></span></button>',
-          tPrev: vela.strings.zoomPrev,
-          tNext: vela.strings.zoomNext
-        }
-      });
+      // $(this.selectors.productImageZoom, this.$container).magnificPopup({
+      //   type: 'image',
+      //   mainClass: 'mfp-fade',
+      //   closeOnBgClick: true,
+      //   closeBtnInside: false,
+      //   closeOnContentClick: true,
+      //   tClose: vela.strings.zoomClose,
+      //   removalDelay: 500,
+      //   gallery: {
+      //     enabled: true,
+      //     navigateByImgClick: false,
+      //     arrowMarkup:
+      //       '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"><span class="mfp-chevron mfp-chevron-%dir%"></span></button>',
+      //     tPrev: vela.strings.zoomPrev,
+      //     tNext: vela.strings.zoomNext
+      //   }
+      // });
     },
 
     getBaseUnit: function(variant) {

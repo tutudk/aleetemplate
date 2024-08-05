@@ -1441,15 +1441,15 @@ vela.accordion = function(){
   accordionFooter();
   $(window).resize(accordionFooter);
 };
-vela.gallery = function(){
-  $('.gallery-image').magnificPopup({
-    delegate: 'a',
-    type: 'image',
-    gallery: {
-      enabled: true
-    }
-  });
-};
+// vela.gallery = function(){
+//   $('.gallery-image').magnificPopup({
+//     delegate: 'a',
+//     type: 'image',
+//     gallery: {
+//       enabled: true
+//     }
+//   });
+// };
 vela.flytocart = function(){
   function flyToElement(flyer, flyingTo) {
       var divider = 3;

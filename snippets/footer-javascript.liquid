@@ -13,7 +13,7 @@
     {{ 'vela-product.js' | asset_url | script_tag }}
   {%- endif -%}
 
-  {{ 'magnific-popup.min.js' | asset_url | script_tag }}
+ <!-- {{ 'magnific-popup.min.js' | asset_url | script_tag }} -->
 {%- if settings.predictive_search_enabled -%}
   <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
