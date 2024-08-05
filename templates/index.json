@@ -110,7 +110,7 @@
         "sub_heading": "",
         "collection_handle": "newarrivals",
         "limit": 10,
-        "product_style": "style3",
+        "product_style": "default",
         "space_between": "3",
         "button_text": "",
         "slide_enable": false,
