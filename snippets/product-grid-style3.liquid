@@ -81,11 +81,8 @@
                     <!-- <a class="line-title fw-normal" href="{{ product.url }}">{{ product.title }}</a> -->
                 <!-- </h6> -->
                 <div class="product-group-price d-flex align-items-center ff-special w-100">
-                    <div class="product-price">{{ product.price | money }}</div>
+                    <div class="product-price {%- capture unit_price_separator -%} class-price-sales {%- endcapture -%} ">{{ product.price | money }}</div>
                     <div>
-                      <script>
-                        //console.log('id'+{{ variant.id }});
-                      </script>
                       <span class="compare-at-price">{{ product.discount.amount  | money }}</span>
                     </div>
                     {%- if on_sale -%}
