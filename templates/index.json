@@ -79,7 +79,7 @@
         "full_with": true,
         "max_with": "",
         "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "",
+        "padding_block": "60px 0",
         "padding_block_m": "",
         "margin_block": "",
         "slideshow-height": "450px",
