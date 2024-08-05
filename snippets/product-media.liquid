@@ -37,7 +37,7 @@
 	{%- endif -%}
 {%- endif -%}
 {% if section.settings.enable_multi_variant and variant_alt_color %}
-	<div class="js-product-single-media product-single__media position-relative me-lg-2 me-xl-4{% if stacked %} product-single__media--stacked{% endif %}{% if thumb_vertical %} product-single__media--{{ section.settings.media_layout }}{% endif %} {{ thumb_style }}{% unless product.media.size > 1 %} no-thumbnail{% endunless%}">
+	<div class="sticky-top js-product-single-media product-single__media position-relative me-lg-2 me-xl-4{% if stacked %} product-single__media--stacked{% endif %}{% if thumb_vertical %} product-single__media--{{ section.settings.media_layout }}{% endif %} {{ thumb_style }}{% unless product.media.size > 1 %} no-thumbnail{% endunless%}">
 		{%- assign color_lists = color_list | split: ',' -%}
 		{% for color_label1 in color_lists %}
 			<div class="js-product-single-media__wrapp{% if forloop.first %} active{% endif %}" data-variant-color = "{{ color_label1 }}">
@@ -129,7 +129,7 @@
 		{% endfor %}
 	</div>
 {%- else -%}
-	<div class="js-product-single-media product-single__media pe-lg-2 pe-xl-3{% if stacked %} product-single__media--stacked{% endif %}{% if thumb_vertical %} product-single__media--{{ section.settings.media_layout }}{% endif %} {{ thumb_style }}{% unless product.media.size > 1 %} no-thumbnail{% endunless%}">
+	<div class="sticky-top js-product-single-media product-single__media pe-lg-2 pe-xl-3{% if stacked %} product-single__media--stacked{% endif %}{% if thumb_vertical %} product-single__media--{{ section.settings.media_layout }}{% endif %} {{ thumb_style }}{% unless product.media.size > 1 %} no-thumbnail{% endunless%}">
 		<div class="product-single__main-media">
 			<div class="js-product-media-group js-product-media-group-{{ section.id }} product-single__media-group">
 			{%- assign enable_image_zoom = section.settings.enable_image_zoom -%}
