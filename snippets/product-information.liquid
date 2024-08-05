@@ -185,8 +185,9 @@
                             <div class="variants-box{% if block.settings.product_selector == 'select' %}__dropdown{% endif %} mb-3">
                                 {%- for option in product.options_with_values -%}
                                     <div class="variants-wrapper product-form__item">
-                                        <label class="variants__label">{{ option.name | escape }}: <span class="js-swatch-display--{{ forloop.index }} text">&nbsp;</span></label>
                                         <div class="js-product-select-option--{{ forloop.index }} variants__options">
+                                        
+                                        <label class="variants__label">{{ option.name | escape }}: </label>
                                             {%- if block.settings.product_selector == 'radio' -%}
                                                 {%- assign option_index = forloop.index -%}
                                                 {%- for value in option.values -%}
