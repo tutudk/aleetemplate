@@ -6,7 +6,7 @@
   {{ 'wishlist.min.js' | asset_url | script_tag }}
 {%- endif -%}
   {%- if template contains 'collection' -%}
-    <script defer src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'ion.rangeSlider.min.js' | asset_url }}"></script>
   {%- endif -%}
   {%- if template contains 'product' -%}
@@ -15,6 +15,6 @@
 
  {{ 'magnific-popup.min.js' | asset_url | script_tag }} 
 {%- if settings.predictive_search_enabled -%}
-  <script defer src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+  <script defer="defer" src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
-<script defer src="{{ 'quickview.js' | asset_url }}" defer="defer"></script>
+<script defer="defer" src="{{ 'quickview.js' | asset_url }}" defer="defer"></script>
