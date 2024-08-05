@@ -64,7 +64,7 @@
                             <div class="background-parallax__image" {% if block.settings.margin != blank %}style="margin: {{ block.settings.margin }};"{% endif %}>
                                 <span class="d-inline-block">
                                     {%- assign bgp_img_h = block.settings.width | divided_by: block.settings.image.aspect_ratio -%}
-                                    <img class="img-fluid" src="{{ block.settings.image | image_url: width: block.settings.width }}" loading="lazy" width="{{ block.settings.width }}" height="{{ bgp_img_h }}" alt="{{ block.settings.image.alt | escape }}" />
+                                    <img class="img-fluid lazyloaded"  src="{{ block.settings.image | image_url: width: block.settings.width }}" loading="lazy" width="{{ block.settings.width }}" height="{{ bgp_img_h }}" alt="{{ block.settings.image.alt | escape }}" />
                                 </span>
                             </div>                 
                         {%- endif -%}

@@ -50,11 +50,11 @@
 				<div class="product-card__image-wrapper">
 					<a class="product-card__image-link" href="${url}">
 						<span {{if images[1]}} class="img-primary"{{/if}}>
-							<img class="img-fluid" alt="${title}" src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
+							<img class="img-fluid lazyloaded" alt="${title}" src="${Shopify.Products.resizeImage(featured_image, "medium")}" />
 						</span>
 						{{if images[1]}}
 							<span class="img-secondary position-absolute">
-								<img class="img-fluid" alt="${title}" src="${images[1]}" />
+								<img class="img-fluid lazyloaded" alt="${title}" src="${images[1]}" />
 							</span>
 						{{/if}}
 					</a>
