@@ -148,10 +148,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      ".product-card__name a {font-size: var(--font-size-base); color: #222 !important; font-weight: 500;}",
-      ".product-price {font-size: 22px !important; font-weight: 600 !important; color: red;}",
+      ".product-price {font-size: 22px !important; font-weight: 600 !important; color: black; text-align: center;}",
       ".product-price.product-price--regular {position: relative; padding: 0 3px; font-size: 16px !important; font-weight: 400 !important;}",
-      ".label_sku,.js-variant-sku {display: none !important;}",
       "#opinew-reviews-product-page-code {width: 80% !important; margin: 0 auto !important;}"
     ]
   }
