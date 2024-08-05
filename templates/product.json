@@ -106,6 +106,13 @@
             "block_margin": "mb-0"
           }
         },
+        "custom_liquid_6fwmUa": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class =\"justify-content-center\" style =\"text-align: center;\">\n<a href=\"#product-more-info\" style =\"color: var(--primary); font-weight=600;\">View All<\/a>\n<\/div>",
+            "block_margin": "mb-0"
+          }
+        },
         "fb8bae5f-a47f-44ca-a4f4-caea832ea54d": {
           "type": "countdown",
           "settings": {
@@ -151,6 +158,7 @@
         "d2556500-9561-429c-a87a-8081f074e2cb",
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4",
         "custom_liquid_gzPWAq",
+        "custom_liquid_6fwmUa",
         "fb8bae5f-a47f-44ca-a4f4-caea832ea54d",
         "11dfdc72-3642-46dc-9c56-c6ed3777d74d",
         "91c084e3-67d1-463e-b5bd-5a47d8837949",
