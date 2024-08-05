@@ -83,7 +83,7 @@
     "product_card_shortdesc": false,
     "product_card_tax": false,
     "product_cart_swatch_label": "color,colour,couleur,kleur,cor,colore,culoare,farbe,색,色,カラー,färg,farve,szín,barva",
-    "product_card_swatch": true,
+    "product_card_swatch": false,
     "product_card_image_variant": false,
     "product_card_wishlist": true,
     "badge_position": "start",
