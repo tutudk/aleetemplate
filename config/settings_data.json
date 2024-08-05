@@ -70,7 +70,7 @@
     "social_instagram_link": "http:\/\/instagram.com",
     "social_tiktok_link": "https:\/\/www.tiktok.com\/",
     "social_youtube_link": "",
-    "product_style": "style3",
+    "product_style": "default",
     "image_ratio": "square",
     "crop": true,
     "show_secondary_image": false,
