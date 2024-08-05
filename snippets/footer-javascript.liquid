@@ -6,15 +6,15 @@
   {{ 'wishlist.min.js' | asset_url | script_tag }}
 {%- endif -%}
   {%- if template contains 'collection' -%}
-    <script src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
+    <script defer src="{{ 'collection-filters-form.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'ion.rangeSlider.min.js' | asset_url }}"></script>
   {%- endif -%}
   {%- if template contains 'product' -%}
     {{ 'vela-product.js' | asset_url | script_tag }}
   {%- endif -%}
 
- <!-- {{ 'magnific-popup.min.js' | asset_url | script_tag }} -->
+ {{ 'magnific-popup.min.js' | asset_url | script_tag }} 
 {%- if settings.predictive_search_enabled -%}
-  <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+  <script defer src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
-<script src="{{ 'quickview.js' | asset_url }}" defer="defer"></script>
+<script defer src="{{ 'quickview.js' | asset_url }}" defer="defer"></script>
