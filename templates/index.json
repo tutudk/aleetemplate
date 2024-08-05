@@ -81,7 +81,7 @@
             "link": "",
             "alignment": "text-start align-top",
             "text-alignment": "center",
-            "slides_effect": "fadeIn",
+            "slides_effect": "default",
             "subheading": "",
             "subheading_color": "#000000",
             "subheading_font_family": "text",
