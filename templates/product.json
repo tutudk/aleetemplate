@@ -109,7 +109,7 @@
         "custom_liquid_6fwmUa": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class =\"justify-content-center\" style =>\n<a href=\"#product-more-info\">View All<\/a>\n<\/div>",
+            "custom_liquid": "<div class =\"justify-content-center\" style =\"text-align: center;\">\n<a href=\"#product-more-info\" style =\"color: var(--primary);\">View All<\/a>\n<\/div>",
             "block_margin": "mb-0"
           }
         },
