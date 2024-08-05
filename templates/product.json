@@ -90,11 +90,29 @@
             "block_margin": "mb-4"
           }
         },
+        "text_CJWAD4": {
+          "type": "text",
+          "settings": {
+            "text": "<h4><strong>Description<\/strong><\/h4>",
+            "text_color": "",
+            "text_size": 15,
+            "block_margin": "mb-0"
+          }
+        },
+        "text_q9GYHb": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ product.metafields.custom.short_description | metafield_tag }}<\/p>",
+            "text_color": "",
+            "text_size": 15,
+            "block_margin": "mb-0"
+          }
+        },
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>PRODUCT DETAILS<\/strong><\/p>",
-            "text_color": "#606060",
+            "text": "<h4><strong>PRODUCT DETAILS<\/strong><\/h4>",
+            "text_color": "#222222",
             "text_size": 16,
             "block_margin": "mb-3"
           }
@@ -109,7 +127,7 @@
         "custom_liquid_6fwmUa": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class =\"justify-content-center\" style =\"text-align: center;\">\n<a href=\"#product-more-info\" style =\"color: var(--primary); font-weight=600;\">View All<\/a>\n<\/div>",
+            "custom_liquid": "<div class =\"justify-content-center\" style =\"text-align: center;\">\n<a href=\"#product-more-info\" style =\"color: var(--primary); font-weight:600;\">View All<\/a>\n<\/div>",
             "block_margin": "mb-0"
           }
         },
@@ -156,6 +174,8 @@
         "buy_buttons",
         "cc6513a2-5262-43d7-b018-6cbea19b910e",
         "d2556500-9561-429c-a87a-8081f074e2cb",
+        "text_CJWAD4",
+        "text_q9GYHb",
         "e12e8cbb-4fac-4586-a0ff-c439c75271d4",
         "custom_liquid_gzPWAq",
         "custom_liquid_6fwmUa",
