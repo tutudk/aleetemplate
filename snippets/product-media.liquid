@@ -158,10 +158,10 @@
 			{%- endfor -%}
 			</div>
 			<div class="main-media__slick-controls">
-				<button class="slick__arrow slick__arrow--previous" data-slick-previous>
+				<button class="slick__arrow slick__arrow--previous" aria-label="slick__arrow--previous"  data-slick-previous>
 					{% render 'icons', icon: 'angle-left' %}
 				</button>
-				<button class="slick__arrow slick__arrow--next"  data-slick-next>
+				<button class="slick__arrow slick__arrow--next" aria-label="slick__arrow--next"  data-slick-next>
 					{% render 'icons', icon: 'angle-right' %}
 				</button>
 			</div>
