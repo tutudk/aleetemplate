@@ -159,7 +159,7 @@
         "full_with": false,
         "max_with": "",
         "color_bg": "rgba(0,0,0,0)",
-        "padding_block": "",
+        "padding_block": "40px 0",
         "padding_block_m": "",
         "margin_block": "",
         "heading": "BEDROOM",
