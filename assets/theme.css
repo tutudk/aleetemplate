@@ -5470,3 +5470,9 @@ details[open].menu-opening > .menu-drawer__submenu {
   font-weight: 600 !important;
   color: #b9160e !important;
 }
+.product-single__buttons.row.align-items-start.g-2 {
+  text-align: center;
+}
+.col.col-lg-2.product-single__wishlist.btn--wishlist.fw-medium.position-relative {
+  padding-top: 10px;
+}
