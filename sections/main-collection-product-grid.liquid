@@ -74,7 +74,7 @@
 							{%- include 'collection-header' -%}
 						{% endunless %}
 						<div class="collection position-relative ">
-							{% render 'preloading', preload_class: 'position-absolute' %}
+							<!-- {% render 'preloading', preload_class: 'position-absolute' %} -->
 							{%- if collection.products.size == 0 -%}
 								<div class="collection collection--empty" id="main-collection-product-grid" data-id="{{ section.id }}">
 									<div class="title-wrapper center">
